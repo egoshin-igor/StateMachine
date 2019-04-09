@@ -1,0 +1,50 @@
+﻿namespace Lekser.Enums
+{
+    public enum TermType
+    {
+        Read = 0,
+        Write = 1,
+        Modificator = 2,
+        If = 3,
+        OpeningRoundBracket = 4,
+        ClosingRoundBracket = 5,
+        OpeningBrace = 6,
+        ClosingBrace = 7,
+        While = 8,
+        Do = 9,
+        For = 10,
+        InstructionEnd = 11,
+        Int = 12,
+        Char = 13,
+        Bool = 14,
+        Double = 15,
+        OneDimensionalArray = 16,
+        TwoDimensionalArray = 16,
+        ThreeDimensionalArray = 16,
+        Identifier = 17,
+        Void = 18,
+        Point = 19,
+        Error = 20,
+        Undefined = 21,
+
+        BinaryWholeNumber = 22,
+        OctalWholeNumber = 23,
+        HexadecimalWholeNumber = 24,
+        BinaryFixedPointNumber = 25,
+        OctalFixedPointNumber = 26,
+        HexadecimalFixedPointNumber = 27,
+        BinaryFloatingPointNumber = 28,
+        OctalFloatingPointNumber = 29,
+        HexadecimalFloatingPointNumber = 30,
+        DecimalWholeNumber = 31,
+        DecimalFixedPointNumber = 32,
+        DecimalFloatingPointNumber = 33,
+
+        Plus = 34,
+        Minis = 35,
+        Colon = 36,
+        Var = 37,
+        Float = 38,
+        Comma = 39
+    }
+}

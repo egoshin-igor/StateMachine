@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Lekser": {
+      "commandName": "Project",
+      "commandLineArgs": "../../../../in.txt"
+    }
+  }
+}
