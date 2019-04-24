@@ -45,6 +45,16 @@
         Colon = 36,
         Var = 37,
         Float = 38,
-        Comma = 39
+        Comma = 39,
+
+        Ay = 40,
+        Ky = 41,
+        YxTi = 42,
+        Xo = 43,
+        Ny = 44,
+        INy = 45,
+        Oj = 46,
+        Kakoj = 47,
+        End = 48
     }
 }

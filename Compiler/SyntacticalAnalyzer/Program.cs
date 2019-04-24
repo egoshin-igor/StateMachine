@@ -19,8 +19,8 @@ namespace SyntacticalAnalyzer
             }
             using ( TextReader tw = new StreamReader( args[ 0 ] ) )
             {
-                var syntactialAnalyzer = new SyntactialAnalyzer( tw );
-                Console.WriteLine( syntactialAnalyzer.IsVar() );
+                var syntactialAnalyzer = new MonkeyLanguageAnalyzer( tw );
+                Console.WriteLine( syntactialAnalyzer.IsMonkeyLanguage() );
             }
         }
     }

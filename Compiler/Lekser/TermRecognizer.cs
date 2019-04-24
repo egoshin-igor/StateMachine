@@ -51,7 +51,15 @@ namespace Lekser
              { "void", TermType.Void },
              { "var", TermType.Var },
              { "int", TermType.Int },
-             { "float", TermType.Float }
+             { "float", TermType.Float },
+             { "ay", TermType.Ay },
+             { "ky", TermType.Ky },
+             { "yx_ti", TermType.YxTi },
+             { "xo", TermType.Xo },
+             { "ny", TermType.Ny },
+             { "i_ny", TermType.INy },
+             { "oj", TermType.Oj },
+             { "kakoj", TermType.Kakoj },
         };
 
         public static readonly Dictionary<string, TermType> DelimeterTypeByString = new Dictionary<string, TermType>
@@ -61,7 +69,7 @@ namespace Lekser
              { "(", TermType.OpeningRoundBracket },
              { ")", TermType.ClosingRoundBracket },
              { ";", TermType.InstructionEnd },
-             { "+", TermType.Plus },
+             // { "+", TermType.Plus },
              { "-", TermType.Minis },
              { ":", TermType.Colon },
              { ",", TermType.Comma }
@@ -130,7 +138,7 @@ namespace Lekser
             return true;
         }
 
-        public static HashSet<char> Delimeters = new HashSet<char> { '(', ')', '{', '}', ';', ' ', '\t', '+', '-', ':', ',' };
+        public static HashSet<char> Delimeters = new HashSet<char> { '(', ')', '{', '}', ';', ' ', '\t', '+', /*'-',*/ ':', ',' };
 
 
 
