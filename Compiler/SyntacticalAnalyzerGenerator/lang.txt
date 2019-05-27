@@ -1,0 +1,11 @@
+﻿<R1> -> <R2> <A>
+<A> -> e
+<A> -> ay <R2> <A>
+<R2> -> <R3> <B>
+<B> -> ky <R3> <B>
+<B> -> e
+<R3> -> yxti
+<R3> -> ho <R3>
+<R3> -> ny <R4> iny
+<R4> -> e
+<R4> -> oi <R1> kakoj

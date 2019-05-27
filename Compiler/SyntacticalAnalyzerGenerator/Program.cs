@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using GuideSetsDeterminant.Creator;
+using GuideSetsDeterminant.Utils;
 using SyntacticalAnalyzerGenerator.Words;
 
 namespace SyntacticalAnalyzerGenerator
 {
     class Program
     {
+        private const string LangFileName = "../../../testLang.txt";
+
         static void Main( string[] args )
         {
             try
@@ -25,13 +30,16 @@ namespace SyntacticalAnalyzerGenerator
             List<Expression> expressions = GetReadiedExpressions();
             var generator = new SyntacticalAnalyzerGenerator( expressions, expressions.First().NoTerm.Name );
             List<ResultTableRow> rows = generator.Generate();
-            using ( var sw = new StreamWriter( "../../../out.txt" ) )
+
+            var words = new List<Word>();
+            using ( var sw = new StreamReader( "../../../in.txt" ) )
             {
-                foreach ( ResultTableRow row in rows )
-                {
-                    sw.WriteLine( row.ToString() );
-                }
+                words = sw.ReadLine().Split( " " ).Select( s => new Word { Name = s } ).ToList();
             }
+
+            var runner = new Runner();
+            var result = runner.IsCorrectSentence( rows, words );
+            Console.WriteLine( result );
         }
 
         private static List<Expression> GetReadiedExpressions()
@@ -72,7 +80,7 @@ namespace SyntacticalAnalyzerGenerator
                     new Word
                     {
                         DirectingSet = new HashSet<string>(),
-                        Name = "[end]",
+                        Name = "[END]",
                         Type = WordType.EndOfLang
                     }
                 }
@@ -84,8 +92,38 @@ namespace SyntacticalAnalyzerGenerator
 
         private static List<Expression> GetNotReadiedExpressions()
         {
+            string tempFileName = Path.GetTempFileName();
+            string tempFileNameTwo = Path.GetTempFileName();
+
             var result = new List<Expression>();
-            using ( StreamReader sr = new StreamReader( "in.txt" ) )
+            List<Expression> expressions = new List<Expression>();
+            using ( StreamReader streamReader = new StreamReader( LangFileName, Encoding.Default ) )
+            {
+                while ( !streamReader.EndOfStream )
+                {
+                    string line = streamReader.ReadLine();
+                    if ( line != "" )
+                    {
+                        expressions.Add( ParseToPartExpression( line ) );
+                    }
+                }
+            }
+            using ( var sw = new StreamWriter( tempFileName ) )
+            {
+                List<Expression> llOneExpressions = LLOneConverter.Convert( expressions );
+                foreach ( var llOneExpression in llOneExpressions )
+                {
+                    sw.WriteLine( llOneExpression.ToStringWithoutSet() );
+                }
+            }
+
+            using ( StreamReader streamReader = new StreamReader( tempFileName, Encoding.Default ) )
+            {
+                var reader = new SentencesReader( streamReader );
+                GuideSetCreator creator = new GuideSetCreator( reader.Sentences );
+                using ( var sw = new StreamWriter( tempFileNameTwo ) ) { creator.WriteResultToStream( sw ); }
+            }
+            using ( StreamReader sr = new StreamReader( tempFileNameTwo ) )
             {
                 while ( !sr.EndOfStream )
                 {
@@ -126,6 +164,44 @@ namespace SyntacticalAnalyzerGenerator
                 else if ( trimmedOther.Length < 2 || ( trimmedOther[ 0 ] != '<' || trimmedOther[ trimmedOther.Length - 1 ] != '>' ) )
                 {
                     word.DirectingSet = new HashSet<string> { trimmedOther };
+                    word.Type = WordType.Term;
+                }
+                else
+                {
+                    word.Type = WordType.RightNoTerm;
+                }
+
+                words.Add( word );
+            }
+
+            return new Expression
+            {
+                NoTerm = mainWord,
+                Words = words
+            };
+        }
+
+        private static Expression ParseToPartExpression( string str )
+        {
+            string[] mainAndOthers = str.Split( "->" );
+
+            var mainWord = new Word
+            {
+                Name = mainAndOthers[ 0 ].Trim(),
+                Type = WordType.LeftNoTerm
+            };
+            List<string> others = mainAndOthers[ 1 ].Split( " " ).Where( o => o != "" && o != " " ).ToList();
+            var words = new List<Word>();
+            foreach ( string other in others )
+            {
+                var trimmedOther = other.Trim();
+                var word = new Word { Name = trimmedOther };
+                if ( trimmedOther == "e" )
+                {
+                    word.Type = WordType.Epsilant;
+                }
+                else if ( trimmedOther.Length < 2 || ( trimmedOther[ 0 ] != '<' || trimmedOther[ trimmedOther.Length - 1 ] != '>' ) )
+                {
                     word.Type = WordType.Term;
                 }
                 else

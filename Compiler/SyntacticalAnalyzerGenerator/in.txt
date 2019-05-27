@@ -1,11 +1,1 @@
-﻿<R1> -> <R2> <A> / yxti,ho,ny
-<A> -> e / kakoj,[END]
-<A> -> ay <R2> <A> / ay
-<R2> -> <R3> <B> / yxti,ho,ny
-<B> -> ky <R3> <B> / ky
-<B> -> e / ay,kakoj,[END]
-<R3> -> yxti / yxti
-<R3> -> ho <R3> / ho
-<R3> -> ny <R4> iny / ny
-<R4> -> e / iny
-<R4> -> oi <R1> kakoj / oi
+﻿b b a a

@@ -6,8 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GuideSetsDeterminant\GuideSetsDeterminant.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="in.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="lang.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

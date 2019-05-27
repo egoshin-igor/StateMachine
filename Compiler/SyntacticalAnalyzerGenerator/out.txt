@@ -1,5 +1,5 @@
 N: 0;	Name:<R1>;	Set:yxti, ho, ny;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:2;	IsEnd:False
-N: 1;	Name:[end];	Set:;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:True
+N: 1;	Name:[END];	Set:;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:True
 N: 2;	Name:<R2>;	Set:yxti, ho, ny;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:8;	IsEnd:False
 N: 3;	Name:<A>;	Set:kakoj, [END], ay;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:4;	IsEnd:False
 N: 4;	Name:e;	Set:kakoj, [END];	Shift:False;	OnErr:5;	Stack:False;	GoTo:-1;	IsEnd:False
@@ -7,11 +7,11 @@ N: 5;	Name:ay;	Set:ay;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:6;	IsEnd:False
 N: 6;	Name:<R2>;	Set:yxti, ho, ny;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:8;	IsEnd:False
 N: 7;	Name:<A>;	Set:kakoj, [END], ay;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:4;	IsEnd:False
 N: 8;	Name:<R3>;	Set:yxti, ho, ny;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:14;	IsEnd:False
-N: 9;	Name:<B>;	Set:ky, ay, kakoj, [END];	Shift:False;	OnErr:-1;	Stack:False;	GoTo:10;	IsEnd:False
+N: 9;	Name:<B>;	Set:ky, kakoj, [END], ay;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:10;	IsEnd:False
 N: 10;	Name:ky;	Set:ky;	Shift:True;	OnErr:13;	Stack:False;	GoTo:11;	IsEnd:False
 N: 11;	Name:<R3>;	Set:yxti, ho, ny;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:14;	IsEnd:False
-N: 12;	Name:<B>;	Set:ky, ay, kakoj, [END];	Shift:False;	OnErr:-1;	Stack:False;	GoTo:10;	IsEnd:False
-N: 13;	Name:e;	Set:ay, kakoj, [END];	Shift:False;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 12;	Name:<B>;	Set:ky, kakoj, [END], ay;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:10;	IsEnd:False
+N: 13;	Name:e;	Set:kakoj, [END], ay;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
 N: 14;	Name:yxti;	Set:yxti;	Shift:True;	OnErr:15;	Stack:False;	GoTo:-1;	IsEnd:False
 N: 15;	Name:ho;	Set:ho;	Shift:True;	OnErr:17;	Stack:False;	GoTo:16;	IsEnd:False
 N: 16;	Name:<R3>;	Set:yxti, ho, ny;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:14;	IsEnd:False

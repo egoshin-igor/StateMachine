@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace SyntacticalAnalyzerGenerator.Words
 {
@@ -6,5 +7,15 @@ namespace SyntacticalAnalyzerGenerator.Words
     {
         public Word NoTerm { get; set; }
         public List<Word> Words { get; set; }
+
+        public string ToStringWithoutSet()
+        {
+            return $"{NoTerm.Name} -> {WordsToString()}";
+        }
+
+        private string WordsToString()
+        {
+            return string.Join( " ", Words.Select( w => w.Name ) );
+        }
     }
 }
