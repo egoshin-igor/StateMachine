@@ -9,7 +9,16 @@ namespace SyntacticalAnalyzerGenerator
     {
         public static List<Expression> Convert( List<Expression> from )
         {
-            var factorizedExpressions = GetFactorized( from );
+            var factorizedExpressions = new List<Expression>( from );
+            int lengthBefore = 0;
+            int lengthAfter = 0;
+            do
+            {
+                lengthBefore = factorizedExpressions.Count;
+                factorizedExpressions = GetFactorized( factorizedExpressions );
+                lengthAfter = factorizedExpressions.Count;
+            }
+            while ( lengthBefore != lengthAfter );
 
             return GetLLOne( factorizedExpressions );
         }
@@ -25,7 +34,7 @@ namespace SyntacticalAnalyzerGenerator
                 var nonFactorizedGroupByFirstWords = expressions.GroupBy( e => e.Words.First().Name );
                 foreach ( var nonFactorizedGroup in nonFactorizedGroupByFirstWords )
                 {
-                    int i = 0;
+                    int i = 10000;
                     var nonFactorizedExpressions = nonFactorizedGroup.ToList();
                     if ( nonFactorizedExpressions.Count == 1 )
                     {
