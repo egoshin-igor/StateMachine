@@ -57,7 +57,9 @@ namespace SyntacticalAnalyzerGenerator
         private bool CanProcessRow( List<ResultTableRow> table, List<Word> words )
         {
             var currentWord = _currentWordIndex == words.Count ? END_WORD_NAME : words[ _currentWordIndex ].Name;
-            return table[ _currentTableIndex ].DirectingSet.Contains( currentWord ) || ( currentWord == END_WORD_NAME && table[ _currentTableIndex ].DirectingSet.Count == 0 );
+            // ToDo: Приделать лексер
+            // return table[ _currentTableIndex ].DirectingSet.Contains( currentWord ) || ( currentWord == END_WORD_NAME && table[ _currentTableIndex ].DirectingSet.Count == 0 );
+            return false;
         }
 
         private void ShiftIfEnabled( List<ResultTableRow> table )

@@ -6,6 +6,7 @@ namespace SyntacticalAnalyzerGenerator.Words
     public partial class Word
     {
         public const string Epsilant = "[EPS]";
+        public const string Identifier = "[IDENTIFIER]";
         public const string End = "[END]";
     }
 
@@ -14,6 +15,6 @@ namespace SyntacticalAnalyzerGenerator.Words
         public string Name { get; set; }
         public TermType? TermType { get; set; } = null;
         public WordType Type { get; set; }
-        public HashSet<string> DirectingSet { get; set; }
+        public HashSet<TermType> DirectingSet { get; set; }
     }
 }

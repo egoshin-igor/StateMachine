@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Lekser.Enums;
 using SyntacticalAnalyzerGenerator.Words;
 
 namespace SyntacticalAnalyzerGenerator
@@ -88,9 +89,9 @@ namespace SyntacticalAnalyzerGenerator
             } );
         }
 
-        private HashSet<string> GetDirectingSetToEpsilant( int tableIndex )
+        private HashSet<TermType> GetDirectingSetToEpsilant( int tableIndex )
         {
-            var result = new HashSet<string>();
+            var result = new HashSet<TermType>();
             for ( int i = 0; i < _result.Count; i++ )
             {
                 TableRow row = _result[ i ];
@@ -111,11 +112,11 @@ namespace SyntacticalAnalyzerGenerator
             return result;
         }
 
-        private void AddRangeToSet( HashSet<string> from, HashSet<string> to )
+        private void AddRangeToSet( HashSet<TermType> from, HashSet<TermType> to )
         {
-            foreach ( string str in from )
+            foreach ( TermType termType in from )
             {
-                to.Add( str );
+                to.Add( termType );
             }
         }
 

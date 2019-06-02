@@ -17,7 +17,7 @@ namespace SyntacticalAnalyzerGenerator
         public static List<Expression> Parse( string langFileName )
         {
             List<Expression> result = GetNotReadMadeExpressions( langFileName );
-            Dictionary<string, HashSet<string>> directingSetByName = result
+            Dictionary<string, HashSet<TermType>> directingSetByName = result
                 .GroupBy( r => r.NoTerm.Name )
                 .ToDictionary( g => g.Key, g => g.ToList().SelectMany( l => l.NoTerm.DirectingSet ).ToHashSet() );
             foreach ( Expression expression in result )
@@ -51,7 +51,7 @@ namespace SyntacticalAnalyzerGenerator
                     },
                     new Word
                     {
-                        DirectingSet = new HashSet<string>(),
+                        DirectingSet = new HashSet<TermType>(),
                         Name = Word.End,
                         Type = WordType.EndOfLang
                     }
@@ -114,7 +114,12 @@ namespace SyntacticalAnalyzerGenerator
         {
             string[] splited = str.Split( "/" );
             string[] mainAndOthers = splited[ 0 ].Split( "->" );
-            HashSet<string> mainDirectingSet = new HashSet<string>( splited[ 1 ].Split( "," ).Select( s => s.Trim() ) );
+            var mainDirectingSet = new HashSet<TermType>(
+                splited[ 1 ]
+                    .Split( "," )
+                    .Select( s => s.Trim() )
+                    .Select( s => TermRecognizer.GetTypeByTermString( s ) )
+            );
 
             var mainWord = new Word
             {
@@ -135,9 +140,10 @@ namespace SyntacticalAnalyzerGenerator
                 }
                 else if ( trimmedOther.Length < 2 || ( trimmedOther[ 0 ] != '<' || trimmedOther[ trimmedOther.Length - 1 ] != '>' ) )
                 {
-                    word.DirectingSet = new HashSet<string> { trimmedOther };
+                    TermType termType = word.Name == Word.Identifier ? TermType.Identifier : TermRecognizer.GetTypeByTermString( trimmedOther );
+                    word.DirectingSet = new HashSet<TermType> { termType };
                     word.Type = WordType.Term;
-                    word.TermType = TermRecognizer.GetTypeByTermString( word.Name );
+                    word.TermType = termType;
                 }
                 else
                 {
@@ -176,7 +182,8 @@ namespace SyntacticalAnalyzerGenerator
                 else if ( trimmedOther.Length < 2 || ( trimmedOther[ 0 ] != '<' || trimmedOther[ trimmedOther.Length - 1 ] != '>' ) )
                 {
                     word.Type = WordType.Term;
-                    if ( TermRecognizer.GetTypeByTermString( word.Name ) == TermType.Error )
+                    TermType termType = TermRecognizer.GetTypeByTermString( word.Name );
+                    if ( word.Name != Word.Identifier && ( termType == TermType.Error || termType == TermType.Identifier ) )
                         throw new Exception( $"Unrecognized term {word.Name}" );
                 }
                 else
