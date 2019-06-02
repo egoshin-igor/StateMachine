@@ -47,7 +47,7 @@ namespace SyntacticalAnalyzerGenerator
                         nonFactorizedExpression.Words.RemoveAt( 0 );
                         if ( nonFactorizedExpression.Words.Count == 0 )
                         {
-                            nonFactorizedExpression.Words.Add( new Word { Name = "e", Type = WordType.Epsilant } );
+                            nonFactorizedExpression.Words.Add( new Word { Name = Word.Epsilant, Type = WordType.Epsilant } );
                         }
                     }
                     var newExpressionName = expressionsGroup.Key.Substring( 0, expressionsGroup.Key.Length - 1 ) + "___" + i + ">";
@@ -126,7 +126,7 @@ namespace SyntacticalAnalyzerGenerator
                 result.Add( new Expression
                 {
                     NoTerm = new Word { Name = newExpressionNameTwo, Type = WordType.LeftNoTerm },
-                    Words = new List<Word> { new Word { Name = "e", Type = WordType.Epsilant } }
+                    Words = new List<Word> { new Word { Name = Word.Epsilant, Type = WordType.Epsilant } }
                 } );
                 recursiveExpression.Words.RemoveAt( 0 );
                 var words = new List<Word>();

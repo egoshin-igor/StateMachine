@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GuideSetsDeterminant\GuideSetsDeterminant.csproj" />
+    <ProjectReference Include="..\Lekser\Lekser.csproj" />
   </ItemGroup>
 
   <ItemGroup>

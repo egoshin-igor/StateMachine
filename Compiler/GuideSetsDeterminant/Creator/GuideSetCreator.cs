@@ -7,7 +7,7 @@ namespace GuideSetsDeterminant.Creator
     {
         const string END_TOKEN = "[END]";
         const string START_LINK = "<";
-        const string EMPTY_LINK = "e";
+        const string EMPTY_LINK = "[EPS]";
 
         private List<Sentence> _sentences = new List<Sentence>();
         private Stack<string> _stackOfEmpties = new Stack<string>();

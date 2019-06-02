@@ -6,7 +6,7 @@ namespace SyntacticalAnalyzerGenerator
 {
     public class Runner
     {
-        private const string END_WORD_NAME = "[END]";
+        private const string END_WORD_NAME = Word.End;
 
         private int _currentWordIndex;
         private int _currentTableIndex;

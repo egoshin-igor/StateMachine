@@ -55,6 +55,7 @@
         INy = 45,
         Oj = 46,
         Kakoj = 47,
-        End = 48
+        End = 48,
+        MainTerm = 49
     }
 }

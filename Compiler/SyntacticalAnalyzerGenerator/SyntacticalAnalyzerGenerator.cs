@@ -83,6 +83,7 @@ namespace SyntacticalAnalyzerGenerator
                 IsShift = r.IsShift,
                 N = r.N,
                 Name = r.Name,
+                TermType = r.TermType,
                 ShiftOnError = r.ShiftOnError
             } );
         }
@@ -135,6 +136,7 @@ namespace SyntacticalAnalyzerGenerator
                     var row = new TableRow
                     {
                         Name = word.Name,
+                        TermType = word.TermType,
                         N = rowIndex,
                         DirectingSet = word.DirectingSet,
                         Word = word,
