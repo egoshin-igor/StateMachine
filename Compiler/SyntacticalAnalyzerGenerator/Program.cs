@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using Lekser;
 using SyntacticalAnalyzerGenerator.Words;
 
 namespace SyntacticalAnalyzerGenerator
@@ -14,7 +16,7 @@ namespace SyntacticalAnalyzerGenerator
         {
             try
             {
-                Run();
+                RunAsync().Wait();
             }
             catch ( Exception ex )
             {
@@ -22,23 +24,20 @@ namespace SyntacticalAnalyzerGenerator
             }
         }
 
-        private static void Run()
+        private static async Task RunAsync()
         {
             List<Expression> expressions = LangParser.Parse( LangFileName );
             var generator = new SyntacticalAnalyzerGenerator( expressions, expressions.First().NoTerm.Name );
             List<ResultTableRow> rows = generator.Generate();
 
-            var words = new List<Word>();
-            using ( var sw = new StreamReader( "../../../in.txt" ) )
+            ProgramLekser programLekser;
+            using ( TextReader tw = new StreamReader( "../../../in.txt" ) )
             {
-                words = sw.ReadLine().Split( " " ).Select( s => new Word { Name = s } ).ToList();
+                programLekser = new ProgramLekser( tw );
+                var runner = new Runner( programLekser );
+                var result = await runner.IsCorrectSentenceAsync( rows );
+                Console.WriteLine( result );
             }
-
-            var runner = new Runner();
-            var result = runner.IsCorrectSentence( rows, words );
-            Console.WriteLine( result );
         }
-
-
     }
 }

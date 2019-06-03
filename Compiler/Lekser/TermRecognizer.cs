@@ -60,6 +60,7 @@ namespace Lekser
              { "i_ny", TermType.INy },
              { "oj", TermType.Oj },
              { "kakoj", TermType.Kakoj },
+             { "[END]", TermType.End }
         };
 
         public static readonly Dictionary<string, TermType> DelimeterTypeByString = new Dictionary<string, TermType>

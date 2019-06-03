@@ -1,6 +1,9 @@
-﻿using SyntacticalAnalyzerGenerator.Words;
+﻿using Lekser;
+using Lekser.Enums;
+using SyntacticalAnalyzerGenerator.Words;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SyntacticalAnalyzerGenerator
 {
@@ -8,38 +11,43 @@ namespace SyntacticalAnalyzerGenerator
     {
         private const string END_WORD_NAME = Word.End;
 
-        private int _currentWordIndex;
+       // private int _currentWordIndex;
         private int _currentTableIndex;
         private List<int> _indexStack;
+        private ProgramLekser _programLekser;
+        private Term _currentTerm;
 
-        public Runner()
+        public Runner( ProgramLekser programLekser )
         {
+            _programLekser = programLekser; 
+
             _indexStack = new List<int>();
         }
 
-        public bool IsCorrectSentence( List<ResultTableRow> table, List<Word> words )
+        public async Task<bool> IsCorrectSentenceAsync( List<ResultTableRow> table )
         {
             _currentTableIndex = 0;
-            _currentWordIndex = 0;
-            return CheckWords( table, words );
+            _currentTerm = await _programLekser.GetTermAsync();
+         //   _currentWordIndex = 0;
+            return await CheckWordsAsync( table );
         }
 
-        private bool CheckWords( List<ResultTableRow> table, List<Word> words )
+        private async Task<bool> CheckWordsAsync( List<ResultTableRow> table )
         {
-            if ( CanProcessRow( table, words ) )  // проверяем можно ли обрабатывать строку в таблице
+            if ( CanProcessRow( table ) )  // проверяем можно ли обрабатывать строку в таблице
             {
-                ShiftIfEnabled( table );
+                await ShiftIfEnabledAsync( table );
                 PushToStackIfEnabled( table );
                 if ( table[ _currentTableIndex ].GoTo == -1 && _indexStack.Count > 0 )  // переходим по стеку, если нельзя по goto
                 {
                     _currentTableIndex = _indexStack.Last();
                     _indexStack.RemoveAt( _indexStack.Count - 1 );
-                    return CheckWords( table, words );
+                    return await CheckWordsAsync( table );
                 }
                 if ( table[ _currentTableIndex ].GoTo != -1 )  // переходим по goto
                 {
                     _currentTableIndex = table[ _currentTableIndex ].GoTo;
-                    return CheckWords( table, words );
+                    return await CheckWordsAsync( table );
                 }
                 return _indexStack.Count == 0 && table[ _currentTableIndex ].IsEnd;
             }
@@ -48,25 +56,24 @@ namespace SyntacticalAnalyzerGenerator
                 if ( table[ _currentTableIndex ].ShiftOnError != -1 )  // переходим по onError, если возможно и нельзя обработать строку
                 {
                     _currentTableIndex = table[ _currentTableIndex ].ShiftOnError;
-                    return CheckWords( table, words );
+                    return await CheckWordsAsync( table );
                 }
                 return false;
             }
         }
 
-        private bool CanProcessRow( List<ResultTableRow> table, List<Word> words )
+        private bool CanProcessRow( List<ResultTableRow> table )
         {
-            var currentWord = _currentWordIndex == words.Count ? END_WORD_NAME : words[ _currentWordIndex ].Name;
-            // ToDo: Приделать лексер
-            // return table[ _currentTableIndex ].DirectingSet.Contains( currentWord ) || ( currentWord == END_WORD_NAME && table[ _currentTableIndex ].DirectingSet.Count == 0 );
-            return false;
+            var currentTermType = _currentTerm == null ? TermType.End : _currentTerm.Type;
+
+            return table[ _currentTableIndex ].DirectingSet.Contains( currentTermType ) || ( currentTermType == TermType.End && table[ _currentTableIndex ].DirectingSet.Count == 0 );
         }
 
-        private void ShiftIfEnabled( List<ResultTableRow> table )
+        private async Task ShiftIfEnabledAsync( List<ResultTableRow> table )
         {
             if ( table[ _currentTableIndex ].IsShift )
             {
-                _currentWordIndex++;
+                _currentTerm = await _programLekser.GetTermAsync();
             }
         }
 
