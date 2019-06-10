@@ -27,7 +27,7 @@ namespace SyntacticalAnalyzerGenerator.Words
             var result = "";
             foreach ( var direct in DirectingSet )
             {
-                result += direct + " ";
+                result += direct.ToString() + " ";
             }
 
             return string.Join( ", ", DirectingSet.ToArray() );

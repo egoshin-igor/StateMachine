@@ -8,6 +8,7 @@ namespace SyntacticalAnalyzerGenerator.Words
         public const string Epsilant = "[EPS]";
         public const string Identifier = "[IDENTIFIER]";
         public const string End = "[END]";
+        public const string DecimalWholeNumber = "[DecimalWholeNumber]";
     }
 
     public partial class Word

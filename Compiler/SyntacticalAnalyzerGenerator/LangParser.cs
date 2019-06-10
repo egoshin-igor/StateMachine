@@ -13,6 +13,11 @@ namespace SyntacticalAnalyzerGenerator
 {
     public static class LangParser
     {
+        private static readonly Dictionary<string, TermType> _reservedTermByName = new Dictionary<string, TermType>
+        {
+            { Word.Identifier, TermType.Identifier },
+            { Word.DecimalWholeNumber, TermType.DecimalWholeNumber }
+        };
 
         public static List<Expression> Parse( string langFileName )
         {
@@ -118,9 +123,16 @@ namespace SyntacticalAnalyzerGenerator
                 splited[ 1 ]
                     .Split( "," )
                     .Select( s => s.Trim() )
-                    .Select( s => TermRecognizer.GetTypeByTermString( s ) )
-            );
+                    .Select( s =>
+                    {
+                        if ( string.IsNullOrWhiteSpace( s ) )
+                            return TermType.End;
+                        if ( _reservedTermByName.ContainsKey( s ) )
+                            return _reservedTermByName[ s ];
 
+                        return TermRecognizer.GetTypeByTermString( s );
+                    } )
+            );
             var mainWord = new Word
             {
                 DirectingSet = mainDirectingSet,
@@ -140,7 +152,10 @@ namespace SyntacticalAnalyzerGenerator
                 }
                 else if ( trimmedOther.Length < 2 || ( trimmedOther[ 0 ] != '<' || trimmedOther[ trimmedOther.Length - 1 ] != '>' ) )
                 {
-                    TermType termType = word.Name == Word.Identifier ? TermType.Identifier : TermRecognizer.GetTypeByTermString( trimmedOther );
+                    TermType termType = _reservedTermByName.ContainsKey( word.Name )
+                        ? _reservedTermByName[ word.Name ]
+                        : TermRecognizer.GetTypeByTermString( trimmedOther );
+
                     word.DirectingSet = new HashSet<TermType> { termType };
                     word.Type = WordType.Term;
                     word.TermType = termType;
@@ -183,7 +198,7 @@ namespace SyntacticalAnalyzerGenerator
                 {
                     word.Type = WordType.Term;
                     TermType termType = TermRecognizer.GetTypeByTermString( word.Name );
-                    if ( word.Name != Word.Identifier && ( termType == TermType.Error || termType == TermType.Identifier ) )
+                    if ( !_reservedTermByName.ContainsKey( word.Name ) && ( termType == TermType.Error || _reservedTermByName.Values.Contains( termType ) ) )
                         throw new Exception( $"Unrecognized term {word.Name}" );
                 }
                 else

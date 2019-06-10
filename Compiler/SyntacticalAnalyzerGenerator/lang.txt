@@ -1,9 +1,4 @@
-﻿<R1> -> <R1> ay <R2>
-<R1> -> <R2>
-<R2> -> <R2> <R3>
-<R2> -> <R3>
-<R3> -> yx_ti
-<R3> -> xo <R3>
-<R3> -> ny <R4> i_ny
-<R4> -> [EPS]
-<R4> -> oj <R1> kakoj
+﻿<A> -> <B> char
+<A> -> <D> char
+<B> -> <A> int
+<D> -> float

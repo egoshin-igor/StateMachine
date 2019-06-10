@@ -1,1 +1,1 @@
-﻿ny oj yx_ti ay xo yx_ti kakoj i_ny
+﻿int char

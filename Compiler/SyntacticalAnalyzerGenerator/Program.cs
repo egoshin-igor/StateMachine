@@ -31,12 +31,20 @@ namespace SyntacticalAnalyzerGenerator
             List<ResultTableRow> rows = generator.Generate();
 
             ProgramLekser programLekser;
-            using ( TextReader tw = new StreamReader( "../../../in.txt" ) )
+            using ( TextReader tr = new StreamReader( "../../../in.txt" ) )
             {
-                programLekser = new ProgramLekser( tw );
+                programLekser = new ProgramLekser( tr );
                 var runner = new Runner( programLekser );
                 var result = await runner.IsCorrectSentenceAsync( rows );
                 Console.WriteLine( result );
+            }
+
+            using ( TextWriter tw = new StreamWriter( "../../../table.txt" ) )
+            {
+                foreach ( ResultTableRow row in rows )
+                {
+                    tw.WriteLine( row.ToString() );
+                }
             }
         }
     }

@@ -1,0 +1,7 @@
+N: 0;	Name:<A>;	Set:Char, Int;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:2;	IsEnd:False
+N: 1;	Name:[END];	Set:;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:True
+N: 2;	Name:<B>;	Set:Char;	Shift:False;	OnErr:4;	Stack:True;	GoTo:6;	IsEnd:False
+N: 3;	Name:char;	Set:Char;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 4;	Name:int;	Set:Int;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:5;	IsEnd:False
+N: 5;	Name:<B>;	Set:Char;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:6;	IsEnd:False
+N: 6;	Name:char;	Set:Char;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False

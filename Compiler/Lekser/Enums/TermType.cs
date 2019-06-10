@@ -56,6 +56,8 @@
         Oj = 46,
         Kakoj = 47,
         End = 48,
-        MainTerm = 49
+        MainTerm = 49,
+
+        Multiple = 50
     }
 }

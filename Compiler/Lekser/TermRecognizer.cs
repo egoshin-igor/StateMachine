@@ -70,10 +70,11 @@ namespace Lekser
              { "(", TermType.OpeningRoundBracket },
              { ")", TermType.ClosingRoundBracket },
              { ";", TermType.InstructionEnd },
-             // { "+", TermType.Plus },
+             { "+", TermType.Plus },
              { "-", TermType.Minis },
              { ":", TermType.Colon },
-             { ",", TermType.Comma }
+             { ",", TermType.Comma },
+            { "*", TermType.Multiple }
         };
 
         public static readonly Dictionary<KeyValuePair<CommentState, char>, CommentState> CommentStateMachine = new Dictionary<KeyValuePair<CommentState, char>, CommentState>
@@ -139,7 +140,7 @@ namespace Lekser
             return true;
         }
 
-        public static HashSet<char> Delimeters = new HashSet<char> { '(', ')', '{', '}', ';', ' ', '\t', '+', /*'-',*/ ':', ',' };
+        public static HashSet<char> Delimeters = new HashSet<char> { '(', ')', '{', '}', ';', ' ', '\t', '+', '-', ':', ',', '*' };
 
 
 
