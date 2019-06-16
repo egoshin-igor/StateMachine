@@ -1,4 +1,7 @@
-﻿<A> -> <B> char
-<A> -> <D> char
-<B> -> <A> int
-<D> -> float
+﻿<E> -> <E> + <T>
+<E> -> <T>
+<T> -> <T> * <F>
+<T> -> <F>
+<F> -> ( <E> )
+<F> -> - <F>
+<F> -> [IDENTIFIER]	
