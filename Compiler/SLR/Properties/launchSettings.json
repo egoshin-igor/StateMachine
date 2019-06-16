@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SLR": {
+      "commandName": "Project",
+      "commandLineArgs": "../../../lang.txt"
+    }
+  }
+}

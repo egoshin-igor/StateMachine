@@ -6,7 +6,7 @@ namespace SLR.Table
 {
     public sealed class Cell
     {
-        private readonly List<Token> _values = new List<Token>();
+        public List<Token> Values { get; } = new List<Token>();
 
         /// <summary>
         /// get value of the cell by index
@@ -15,23 +15,38 @@ namespace SLR.Table
         /// <returns></returns>
         public Token this[ int index ]
         {
-            get => _values[ index ];
-            set => _values[ index ] = value;
+            get => Values[ index ];
         }
 
         /// <summary>
         /// value of the cell
         /// </summary>
-        public string Value => _values.Count != 0 ? _values[ 0 ].Value : "";
+        public string Value => Values.Count != 0 ? Values[ 0 ].Value : "";
+
+        public void AddValue( Token token )
+        {
+            if ( !Values.Contains( token ) )
+            {
+                Values.Add( token );
+            }
+        }
 
         public Cell( Token token )
         {
-            _values.Add( token );
+            Values.Add( token );
+        }
+
+        public Cell( Cell cell )
+        {
+            foreach ( var value in cell.Values )
+            {
+                Values.Add( new Token( value.Value, value.ColIndex, value.RowIndex ) );
+            }
         }
 
         public Cell( List<Token> tokens )
         {
-            _values.AddRange( tokens );
+            Values.AddRange( tokens );
         }
     }
 }

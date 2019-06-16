@@ -38,10 +38,36 @@ namespace SLR.Table
             }
         }
 
-        public void AddInTable( Cell cell )
+        public void AddRuleInTable( Cell cell, string rule )
         {
             var columnIndex = Column.IndexOf( cell.Value );
-            Table[ _currentIndex ][ columnIndex ] = cell;
+            var tempCell = new Cell( cell );
+            foreach ( var value in tempCell.Values )
+            {
+                value.Value = rule;
+                value.Type = TokenType.Rule;
+            }
+
+            Table[ _currentIndex ][ columnIndex ] = tempCell;
+        }
+
+        public void AddInTable( List<Cell> cells )
+        {
+            foreach ( var cell in cells )
+            {
+                var columnIndex = Column.IndexOf( cell.Value );
+                if ( Table[ _currentIndex ][ columnIndex ] != null )
+                {
+                    foreach ( var item in cell.Values )
+                    {
+                        Table[ _currentIndex ][ columnIndex ].Values.Add( item );
+                    }
+                }
+                else
+                {
+                    Table[ _currentIndex ][ columnIndex ] = cell;
+                }
+            }
         }
     }
 }

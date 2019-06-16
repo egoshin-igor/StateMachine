@@ -113,12 +113,19 @@ namespace SLR.Table
 
         public bool Equals( Token other )
         {
-            return other != null &&
-                     Value == other.Value &&
-                     ColIndex == other.ColIndex &&
-                     RowIndex == other.RowIndex &&
-                     Type == other.Type &&
-                    EqualityComparer<TermType?>.Default.Equals( LekserTermType, other.LekserTermType );
+            //Check whether the compared object is null. 
+            if ( other == null )
+                return false;
+
+            //Check whether the compared object references the same data. 
+            if ( ReferenceEquals( this, other ) )
+                return true;
+
+            return Value == other.Value &&
+                ColIndex == other.ColIndex &&
+                RowIndex == other.RowIndex &&
+                Type == other.Type &&
+                EqualityComparer<TermType?>.Default.Equals( LekserTermType, other.LekserTermType );
         }
 
         public override int GetHashCode()

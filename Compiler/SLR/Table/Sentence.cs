@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace SLR.Table
 {
@@ -24,6 +25,16 @@ namespace SLR.Table
         {
             Tokens = new List<Token>( tokens );
             MainToken = main;
+        }
+
+        public override string ToString()
+        {
+            return $"{MainToken} -> {TokensToString()}";
+        }
+
+        private string TokensToString()
+        {
+            return string.Join( " ", Tokens.Select( w => w.Value ) );
         }
     }
 }

@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AntiXSS" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GuideSetsDeterminant\GuideSetsDeterminant.csproj" />
     <ProjectReference Include="..\Lekser\Lekser.csproj" />
   </ItemGroup>

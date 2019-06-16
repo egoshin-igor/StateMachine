@@ -1,0 +1,6 @@
+﻿<S> -> real <idList> 
+<idList> -> <idList> , <id> 
+<idList> -> <id> 
+<id> -> A 
+<id> -> B 
+<id> -> C
