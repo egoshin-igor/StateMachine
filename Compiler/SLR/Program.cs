@@ -28,10 +28,10 @@ namespace SLR
             {
                 reader = new SentencesReader( streamReader );
             }
+            if ( !reader.Sentences.IsValid() )
+                throw new ApplicationException( "Circles exist" );
+
             FirstCreator creator = new FirstCreator( reader.Sentences );
-            if ( !creator.Sentences.IsValid() )
-            {
-            }
 
             using ( var writer = new StreamWriter( "../../../1.html" ) )
             {
