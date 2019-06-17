@@ -90,7 +90,9 @@ namespace SLR.Table
                 throw new ArgumentException( $"found empty sentence in row: { index }" );
             }
 
-            for ( var i = 0; i < tokens.Count; ++i )
+			Token firstToken = null;
+
+			for ( var i = 0; i < tokens.Count; ++i )
             {
                 if ( tokens[ i ].Type == TokenType.End )
                 {
@@ -99,9 +101,19 @@ namespace SLR.Table
 
                 _setOfVisited.Add( tokens[ i ] );
                 CreateFirstRowOfTable( tokens[ i ] );
+				firstToken = tokens[i];
             }
 
-            while ( _cellsQueue.Count != 0 )
+			_tableOfFirsts.ExpandTable( new Cell( firstToken ) );
+			var tokenListSecondRow = new List<Token> { tokens[1] };
+			var cellsListSecondRow = CreateListOfCells(tokenListSecondRow);
+			foreach (var c in cellsListSecondRow)
+			{
+				_tableOfFirsts.AddRuleInTable(c, $"[{ 0 }]");
+			}
+			
+
+			while ( _cellsQueue.Count != 0 )
             {
                 var cell = _cellsQueue.Dequeue();
                 foreach ( var item in cell.Values )
