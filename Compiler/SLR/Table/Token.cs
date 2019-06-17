@@ -15,8 +15,8 @@ namespace SLR.Table
             { ReservedTerm.DecimalWholeNumber, TermType.DecimalWholeNumber }
         };
 
-        const string END_TOKEN = "[END]";
-        const string START_TOKEN = "[START]";
+        const string END_TOKEN = SpecialWords.End;
+        const string START_TOKEN = SpecialWords.Start;
         const char START_LINK = '<';
         const char RULE_LINK = '[';
 
@@ -85,7 +85,7 @@ namespace SLR.Table
 
         private void DefineTermType( string value )
         {
-            if ( Type != TokenType.Terminal || Type != TokenType.End )
+            if ( Type != TokenType.Terminal && Type != TokenType.End )
                 return;
 
             if ( Type == TokenType.End )

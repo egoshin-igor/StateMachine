@@ -9,7 +9,7 @@ namespace SLR.Table
 {
     public sealed class FirstCreator
     {
-        const string END_TOKEN = "[END]";
+        const string END_TOKEN = SpecialWords.End;
 
         public List<Sentence> Sentences { get; private set; } = new List<Sentence>();
         public TableOfFirsts TableOfFirsts => _tableOfFirsts;
@@ -169,7 +169,7 @@ namespace SLR.Table
             if ( token.Type == TokenType.NonTerminal )
             {
                 _stackOfVisited.Push( token );
-                _tableOfFirsts.ExpandTable( new Cell( new Token( "[START]", -1, -1 ) ), true );
+                _tableOfFirsts.ExpandTable( new Cell( new Token( SpecialWords.Start, -1, -1 ) ), true );
                 var tokens = CountingInDepth( token );
                 _stackOfVisited.Pop();
 

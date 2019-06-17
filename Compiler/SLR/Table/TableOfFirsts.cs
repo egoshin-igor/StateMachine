@@ -17,7 +17,7 @@ namespace SLR.Table
         /// <summary>
         /// Start index
         /// </summary>
-        public string StartToken => Column.Count > 0 ? Column[ 0 ] : "[END]";
+        public string StartToken => Column.Count > 0 ? Column[ 0 ] : SpecialWords.End;
 
         /// <summary>
         /// table grid

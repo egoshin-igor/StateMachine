@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using SLR.Table;
@@ -22,16 +23,19 @@ namespace SLR
 
         private static void Run( string[] args )
         {
+            SentencesReader reader = null;
             using ( var streamReader = new StreamReader( args[ 0 ], Encoding.Default ) )
             {
-                SentencesReader reader = new SentencesReader( streamReader );
-                FirstCreator creator = new FirstCreator( reader.Sentences );
-                using ( var writer = new StreamWriter( "../../../1.html" ) )
-                {
-                    SlrTableToHtmlVisualizer.Write( writer, creator );
-                }
+                reader = new SentencesReader( streamReader );
+            }
+            FirstCreator creator = new FirstCreator( reader.Sentences );
+            if ( !creator.Sentences.IsValid() )
+            {
+            }
 
-                // creator.WriteResult( Console.Out );
+            using ( var writer = new StreamWriter( "../../../1.html" ) )
+            {
+                SlrTableToHtmlVisualizer.Write( writer, creator );
             }
         }
     }
