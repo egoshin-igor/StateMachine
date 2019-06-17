@@ -102,8 +102,11 @@ namespace SLR.Table
             {
                 LekserTermType = TermRecognizer.GetTypeByTermString( value );
             }
+
             if ( !_reservedTermByName.ContainsKey( value ) && ( LekserTermType == TermType.Error || _reservedTermByName.Values.Contains( LekserTermType.Value ) ) )
-                throw new Exception( $"Unrecognized term {value}" );
+			{
+				throw new Exception($"Unrecognized term {value}");
+			}
         }
 
         public override bool Equals( object obj )

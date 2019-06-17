@@ -136,8 +136,6 @@ namespace SLR.Table
                     }
                 }
             }
-
-            var indeXXX = 0;
         }
 
         private List<Token> GenerateFirsts( Token token )
@@ -166,11 +164,13 @@ namespace SLR.Table
 
         private void CreateFirstRowOfTable( Token token )
         {
-            if ( token.Type == TokenType.NonTerminal )
+			var tokens = new List<Token>();
+			if ( token.Type == TokenType.NonTerminal )
             {
                 _stackOfVisited.Push( token );
                 _tableOfFirsts.ExpandTable( new Cell( new Token( SpecialWords.Start, -1, -1 ) ), true );
-                var tokens = CountingInDepth( token );
+				tokens.Add(token);
+				tokens.AddRange( CountingInDepth( token ) );
                 _stackOfVisited.Pop();
 
                 var cells = CreateListOfCells( tokens );
