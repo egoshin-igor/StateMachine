@@ -27,6 +27,7 @@ namespace SLR.Table
                 Sentences = SentenceConverter.ConvertRawSentences( sentenses );
                 CreateHeaderRowOfTable();
                 Create();
+                _tableOfFirsts.Table [ 1 ] [ 1 ].Values [ 0 ] = new Token( "[0]" );
             }
             catch( StackOverflowException )
             {

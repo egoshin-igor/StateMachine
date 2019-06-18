@@ -138,7 +138,7 @@ namespace SLR.Runner
             int columnIndex = GetColumnIndex( currentInputWord );
             var currentCell = _tableOfFirsts.Table [ rowIndex ] [ columnIndex ];
 
-            if ( currentCell.Values [ 0 ].Type != TokenType.Rule )
+            if (  currentCell.Values [ 0 ].Type != TokenType.Rule )
             {
                 return;
             }

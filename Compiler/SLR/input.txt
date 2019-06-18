@@ -1,1 +1,1 @@
-int asdasd
+10 + 10

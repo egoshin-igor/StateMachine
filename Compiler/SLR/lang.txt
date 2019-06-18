@@ -1,7 +1,5 @@
-﻿<E> -> <E> + <T>
-<E> -> <T>
-<T> -> <T> * <F>
-<T> -> <F>
-<F> -> ( <E> )
-<F> -> - <F>
-<F> -> #IDENTIFIER#
+﻿<S> -> char <idList> 
+<idList> -> <idList> , <id> 
+<idList> -> <id> 
+<id> -> #IDENTIFIER#
+<id> -> #DecimalWholeNumber#
