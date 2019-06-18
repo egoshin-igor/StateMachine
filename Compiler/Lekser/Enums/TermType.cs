@@ -46,18 +46,20 @@
         Var = 37,
         Float = 38,
         Comma = 39,
-
-        Ay = 40,
-        Ky = 41,
-        YxTi = 42,
-        Xo = 43,
-        Ny = 44,
-        INy = 45,
-        Oj = 46,
-        Kakoj = 47,
         End = 48,
         MainTerm = 49,
 
-        Multiple = 50
+        Multiple = 50,
+        True = 51,
+        False = 52,
+        List = 53,
+        Dollar = 54,
+        Equally = 55,
+        More = 57,
+        Less = 58,
+        OpeningSquareBrace = 59,
+        ClosingSquareBrace = 60,
+        ExclamationMark = 61,
+        String = 62
     }
 }

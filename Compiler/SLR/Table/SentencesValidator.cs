@@ -8,6 +8,7 @@ namespace SLR.Table
     public static class SentencesValidator
     {
         private const string NoTermBegining = "<";
+        private const string NoTermEnding = ">";
 
         public static bool IsValid( this List<RawSentence> sentences )
         {
@@ -16,7 +17,7 @@ namespace SLR.Table
             var validationInfo = new ValidationInfo { SentensesByName = sentensesByName, UncoveredNoTerms = new HashSet<string>() };
             foreach ( RawSentence sentence in sentences )
             {
-                if ( !sentence.Tokens.First().StartsWith( NoTermBegining ) )
+                if ( !sentence.Tokens.First().StartsWith( NoTermBegining ) || !sentence.Tokens.First().EndsWith( NoTermEnding ) )
                     continue;
                 if ( sentence.Tokens.Count == 0 )
                     continue;
@@ -49,7 +50,7 @@ namespace SLR.Table
             {
                 if ( sentence.Tokens.Count == 0 )
                     continue;
-                if ( !sentence.Tokens.First().StartsWith( NoTermBegining ) )
+                if ( !sentence.Tokens.First().StartsWith( NoTermBegining ) || !sentence.Tokens.First().EndsWith( NoTermBegining ) )
                     continue;
 
                 string firstToken = sentence.Tokens.First();

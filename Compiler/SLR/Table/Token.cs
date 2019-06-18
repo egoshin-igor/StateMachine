@@ -58,11 +58,11 @@ namespace SLR.Table
 
         private void DefineType( string value )
         {
-            if ( value.StartsWith( START_LINK ) )
+            if ( value.StartsWith( START_LINK ) && value.EndsWith( '>' ) )
             {
                 Type = TokenType.NonTerminal;
             }
-            else if ( value.StartsWith( RULE_LINK ) )
+            else if ( value.StartsWith( RULE_LINK ) && value.EndsWith( ']' ) )
             {
                 if ( value == END_TOKEN )
                 {

@@ -1,0 +1,10 @@
+List<int> intsToSort;
+bool isSorted = false;
+while( !isSorted )
+{
+	isSorted = true;
+	for(int i = 1; i < ints.Length; i++)
+	{
+		Swap( intsToSort[i - 1], intsToSort[i] );
+	}
+}

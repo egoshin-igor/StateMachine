@@ -12,7 +12,6 @@ namespace SLR.Runner
 {
     public class Runner
     {
-        private const string AKSIOMA = "<S>";
         private ILekser _lekser;
         private TableOfFirsts _tableOfFirsts;
         private List<Sentence> _sentences;

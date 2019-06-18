@@ -52,15 +52,11 @@ namespace Lekser
              { "var", TermType.Var },
              { "int", TermType.Int },
              { "float", TermType.Float },
-             { "ay", TermType.Ay },
-             { "ky", TermType.Ky },
-             { "yx_ti", TermType.YxTi },
-             { "xo", TermType.Xo },
-             { "ny", TermType.Ny },
-             { "i_ny", TermType.INy },
-             { "oj", TermType.Oj },
-             { "kakoj", TermType.Kakoj },
-             { "[END]", TermType.End }
+             { "[END]", TermType.End },
+             { "true", TermType.True },
+             { "false", TermType.False },
+             { "List", TermType.List },
+             { "string", TermType.String }
         };
 
         public static readonly Dictionary<string, TermType> DelimeterTypeByString = new Dictionary<string, TermType>
@@ -74,7 +70,15 @@ namespace Lekser
              { "-", TermType.Minis },
              { ":", TermType.Colon },
              { ",", TermType.Comma },
-            { "*", TermType.Multiple }
+             { "*", TermType.Multiple },
+             { "$", TermType.Dollar },
+             { "=", TermType.Equally },
+             { ">", TermType.More },
+             { "<", TermType.Less },
+             { ".", TermType.Point },
+             { "[", TermType.OpeningSquareBrace },
+             { "]", TermType.ClosingSquareBrace },
+             { "!", TermType.ExclamationMark }
         };
 
         public static readonly Dictionary<KeyValuePair<CommentState, char>, CommentState> CommentStateMachine = new Dictionary<KeyValuePair<CommentState, char>, CommentState>
@@ -140,7 +144,7 @@ namespace Lekser
             return true;
         }
 
-        public static HashSet<char> Delimeters = new HashSet<char> { '(', ')', '{', '}', ';', ' ', '\t', '+', '-', ':', ',', '*' };
+        public static HashSet<char> Delimeters = new HashSet<char> { '(', ')', '{', '}', ';', ' ', '\t', '+', '-', ':', ',', '*', '$', '=', '>', '<', '.', '[', ']', '!' };
 
 
 

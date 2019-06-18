@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Lekser;
-using SLR.Runner;
 using SLR.Table;
 using SLR.Utils;
 
@@ -13,9 +11,10 @@ namespace SLR
     {
         static void Main( string[] args )
         {
+            Run( args );
             try
             {
-                Run( args );
+                
             }
             catch ( Exception ex )
             {

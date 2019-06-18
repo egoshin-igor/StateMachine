@@ -1,8 +1,45 @@
-﻿<E> -> <E> + <T> 
-<E> -> <T> 
-<T> -> <T> * <F> 
-<T> -> <F> 
-<F> -> ( <E> ) 
-<F> -> - <F> 
-<F> -> #IDENTIFIER#
-<F> -> #DecimalWholeNumber#
+﻿<operators> -> <operator>
+<operators> -> <operator> <operators>
+<operator> -> <declarationOperator>
+<operator> -> <if>
+<operator> -> <functionOperator>
+<operator> -> <while>
+<operator> -> <for>
+<operator> -> <procedure>
+<operator> -> <setIdentifier>
+<declarationOperator> -> <declaration> ;
+<declaration> -> List < <genericTypes> > #IDENTIFIER#
+<declaration> -> int #IDENTIFIER#
+<declaration> -> bool #IDENTIFIER# = <boolValue>
+<boolValue> -> true
+<boolValue> -> false
+<while> -> while ( <boolStatement> ) { <operators> }
+<for> -> for ( int #IDENTIFIER# = #DecimalWholeNumber# ; <boolStatement> ; #IDENTIFIER# + + ) { <operators> }
+<boolStatement> -> #IDENTIFIER# <bigSmall> #IDENTIFIER# . #IDENTIFIER#
+<boolStatement> -> #IDENTIFIER#
+<boolStatement> -> ! #IDENTIFIER#
+<boolStatement> -> <functionCall> <bigSmall> <functionCall>
+<bigSmall> -> >
+<bigSmall> -> <
+<functionOperator> -> <functionCall> ;
+<functionCall> -> #IDENTIFIER# <functionCallEnd>
+<functionCallEnd> -> . #IDENTIFIER#
+<functionCallEnd> -> ( )
+<functionCallEnd> -> ( #IDENTIFIER# )
+<functionCallEnd> -> ( #IDENTIFIER# , <listAccessIndex> , <listAccessIndex> )
+<listAccess> -> #IDENTIFIER# [ <listAccessIndex>  ]
+<listAccessIndex> -> #IDENTIFIER#
+<listAccessIndex> -> #IDENTIFIER# - #DecimalWholeNumber#
+<if> -> if ( #IDENTIFIER# <bigSmall> #IDENTIFIER# ) { <operators> }
+<setIdentifier> -> #IDENTIFIER# = <setIdentifierEnd> ;
+<setIdentifier> -> <listAccess> = <setIdentifierEnd> ;
+<setIdentifierEnd> -> <boolValue>
+<setIdentifierEnd> -> #IDENTIFIER#
+<setIdentifierEnd> -> <listAccess>
+<procedure> -> <functionAccessType> void #IDENTIFIER# ( <funcParametrs> ) { <operators> }
+<functionAccessType> -> public
+<functionAccessType> -> private
+<funcParametrs> -> <declaration>
+<funcParametrs> -> <declaration> , <funcParametrs>
+<genericTypes> -> int
+<genericTypes> -> string
