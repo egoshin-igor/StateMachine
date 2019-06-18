@@ -5,3 +5,4 @@
 <F> -> ( <E> ) 
 <F> -> - <F> 
 <F> -> #IDENTIFIER#
+<F> -> #DecimalWholeNumber#
