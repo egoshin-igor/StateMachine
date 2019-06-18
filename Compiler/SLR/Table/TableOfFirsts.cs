@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace SLR.Table
 {
@@ -8,6 +9,7 @@ namespace SLR.Table
         /// headers of table columns
         /// </summary>
         public List<string> Column = new List<string>();
+        public List<Token> TokensColumn => Column.Select( s => new Token( s ) ).ToList();
 
         /// <summary>
         /// headers of table rows

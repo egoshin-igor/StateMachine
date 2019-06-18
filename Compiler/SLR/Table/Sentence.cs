@@ -27,6 +27,11 @@ namespace SLR.Table
             MainToken = main;
         }
 
+        public Token GetByIndexes(int i, int j)
+        {
+            return Tokens.FirstOrDefault( t => t.RowIndex == i && t.ColIndex == j );
+        }
+
         public override string ToString()
         {
             return $"{MainToken} -> {TokensToString()}";

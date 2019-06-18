@@ -22,9 +22,16 @@ namespace SLR.Table
 
         public FirstCreator( List<RawSentence> sentenses )
         {
-            Sentences = SentenceConverter.ConvertRawSentences( sentenses );
-            CreateHeaderRowOfTable();
-            Create();
+            try
+            {
+                Sentences = SentenceConverter.ConvertRawSentences( sentenses );
+                CreateHeaderRowOfTable();
+                Create();
+            }
+            catch( StackOverflowException )
+            {
+                throw new ApplicationException( "Cicles exist" );
+            }
         }
 
         public void WriteResult( TextWriter writer )
