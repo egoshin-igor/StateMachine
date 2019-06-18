@@ -1,6 +1,6 @@
 ﻿using Lekser.Enums;
 
-namespace SLR.PussyRunner
+namespace SLR.Runner
 {
     public class InputWord
     {

@@ -28,8 +28,13 @@ namespace SLR.Table
 
         private int _currentIndex = 0;
 
-        public void ExpandTable( Cell cell, bool firstCall = false )
+        public bool ExpandTable( Cell cell, bool firstCall = false )
         {
+            if ( Row.Contains(cell) )
+            {
+                return false;
+            }
+
             Row.Add( cell );
             var row = new List<Cell>( Column.Count );
             for ( int i = 0; i < Column.Count; i++ ) row.Add( null );
@@ -38,6 +43,8 @@ namespace SLR.Table
             {
                 _currentIndex++;
             }
+
+            return true;
         }
 
         public void AddRuleInTable( Cell cell, string rule )

@@ -1,4 +1,4 @@
-﻿namespace SLR.PussyRunner
+﻿namespace SLR.Runner
 {
     public enum InputWordType
     {

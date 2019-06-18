@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SLR.PussyRunner
+namespace SLR.Runner
 {
     public class Runner
     {

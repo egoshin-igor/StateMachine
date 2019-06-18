@@ -9,6 +9,10 @@ namespace SLR.Utils
         public string MainToken { get; set; }
         public List<string> Tokens { get; set; }
 
+        public RawSentence()
+        {
+        }
+
         public RawSentence( string main, List<string> tokens )
         {
             Tokens = tokens;

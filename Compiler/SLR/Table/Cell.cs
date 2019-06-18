@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SLR.Table
 {
-    public sealed class Cell
+    public sealed class Cell: IEquatable<Cell>
     {
         public List<Token> Values { get; } = new List<Token>();
 
@@ -29,6 +29,31 @@ namespace SLR.Table
             {
                 Values.Add( token );
             }
+        }
+
+        public override bool Equals( object obj )
+        {
+            return Equals( obj as Cell );
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine( Values, Value );
+        }
+
+        public bool Equals( Cell other )
+        {
+            if ( other == null )
+                return false;
+            if ( other.Values.Count != Values.Count )
+                return false;
+            
+            for ( int i = 0; i < other.Values.Count; i++ )
+            {
+                if ( !other.Values [ i ].Equals( Values [ i ] ) )
+                    return false;
+            }
+            return true;
         }
 
         public Cell( Token token )

@@ -30,7 +30,7 @@ namespace SLR.Table
             }
             catch( StackOverflowException )
             {
-                throw new ApplicationException( "Cicles exist" );
+                throw new ApplicationException( "Cycles exist" );
             }
         }
 
@@ -106,19 +106,9 @@ namespace SLR.Table
                     continue;
                 }
 
-                _setOfVisited.Add( tokens[ i ] );
                 CreateFirstRowOfTable( tokens[ i ] );
 				firstToken = tokens[i];
             }
-
-			_tableOfFirsts.ExpandTable( new Cell( firstToken ) );
-			var tokenListSecondRow = new List<Token> { tokens[1] };
-			var cellsListSecondRow = CreateListOfCells(tokenListSecondRow);
-			foreach (var c in cellsListSecondRow)
-			{
-				_tableOfFirsts.AddRuleInTable(c, $"[{ 0 }]");
-			}
-			
 
 			while ( _cellsQueue.Count != 0 )
             {
@@ -127,33 +117,36 @@ namespace SLR.Table
                 {
                     _setOfVisited.Add( item );
                 }
-
-                _tableOfFirsts.ExpandTable( cell );
-                var tokensLists = new List<List<Token>>();
-                foreach ( var value in cell.Values )
+    
+                if ( _tableOfFirsts.ExpandTable( cell ) )
                 {
-                    _stackOfVisited.Push( value );
-                    tokensLists.Add( GenerateFirsts( value ) );
-                    _stackOfVisited.Pop();
-                }
-
-                for ( var i = 0; i < tokensLists.Count; ++i )
-                {
-                    var cells = CreateListOfCells( tokensLists[ i ] );
-                    var isLast = !( cell.Values[ i ].ColIndex + 1 < Sentences[ cell.Values[ i ].RowIndex ].Tokens.Count );
-                    if ( isLast )
+                    var tokensLists = new List<List<Token>>();
+                    foreach ( var value in cell.Values )
                     {
-                        foreach ( var c in cells )
+                        _stackOfVisited.Push( value );
+                        tokensLists.Add( GenerateFirsts( value ) );
+                        _stackOfVisited.Pop();
+                    }
+
+                    for ( var i = 0; i < tokensLists.Count; ++i )
+                    {
+                        var cells = CreateListOfCells( tokensLists [ i ] );
+                        var isLast = !( cell.Values [ i ].ColIndex + 1 < Sentences [ cell.Values [ i ].RowIndex ].Tokens.Count );
+                        if ( isLast )
                         {
-                            _tableOfFirsts.AddRuleInTable( c, $"[{ cell.Values[ i ].RowIndex }]" );
+                            foreach ( var c in cells )
+                            {
+                                _tableOfFirsts.AddRuleInTable( c, $"[{ cell.Values [ i ].RowIndex }]" );
+                            }
+                        }
+                        else
+                        {
+                            _tableOfFirsts.AddInTable( cells );
+                            AddCellsInQueue( cells );
                         }
                     }
-                    else
-                    {
-                        _tableOfFirsts.AddInTable( cells );
-                        AddCellsInQueue( cells );
-                    }
                 }
+               
             }
         }
 
@@ -188,7 +181,7 @@ namespace SLR.Table
             {
                 _stackOfVisited.Push( token );
                 _tableOfFirsts.ExpandTable( new Cell( new Token( SpecialWords.Start, -1, -1 ) ), true );
-				tokens.Add(token);
+				tokens.Add( token ); 
 				tokens.AddRange( CountingInDepth( token ) );
                 _stackOfVisited.Pop();
 
@@ -209,11 +202,11 @@ namespace SLR.Table
                 var needToAddInQueue = true;
                 foreach ( var value in cell.Values )
                 {
-                    if ( _setOfVisited.Contains( value ) )
+                    if ( _setOfVisited.Contains( value ) || value.Type == TokenType.End )
                     {
                         needToAddInQueue = false;
                     }
-                }
+                }   
 
                 if ( needToAddInQueue )
                 {
@@ -292,13 +285,13 @@ namespace SLR.Table
                             var index = j + 1;
                             if ( index < tokens.Count )
                             {
+                                if ( _stackOfVisited.Contains( tokens [ index ] ) )
+                                {
+                                    throw new Exception( $"loop detected! { tokens [ index ].Value } { tokens [ index ].ColIndex } { tokens [ index ].RowIndex }" );
+                                }
+
                                 if ( tokens[ index ].Type == TokenType.NonTerminal )
                                 {
-                                    if ( _stackOfVisited.Contains( tokens[ index ] ) )
-                                    {
-                                        throw new Exception( $"loop detected! { tokens[ index ].Value } { tokens[ index ].ColIndex } { tokens[ index ].RowIndex }" );
-                                    }
-
                                     _stackOfVisited.Push( tokens[ index ] );
                                     tokensList.AddRange( CountingInDepth( tokens[ index ] ) );
                                     _stackOfVisited.Pop();
@@ -310,7 +303,12 @@ namespace SLR.Table
                             }
                             else
                             {
-                                tokensList.AddRange( ReverseCountInDepth( sentence.MainToken ) );
+                                
+                                if ( value != sentence.MainToken )
+                                {
+                                    tokensList.AddRange( ReverseCountInDepth( sentence.MainToken ) );
+                                }
+                                
                             }
                         }
                     }

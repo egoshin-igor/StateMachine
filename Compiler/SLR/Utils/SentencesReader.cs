@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SLR.Table;
+using System.Collections.Generic;
 using System.IO;
 
 namespace SLR.Utils
