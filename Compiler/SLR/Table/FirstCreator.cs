@@ -200,16 +200,17 @@ namespace SLR.Table
         {
             foreach ( var cell in cells )
             {
-                var needToAddInQueue = true;
+				var equalsCounter = cell.Values.Count;
+				var counter = 0;
                 foreach ( var value in cell.Values )
                 {
                     if ( _setOfVisited.Contains( value ) || value.Type == TokenType.End )
                     {
-                        needToAddInQueue = false;
-                    }
+						counter++;
+					}
                 }   
 
-                if ( needToAddInQueue )
+                if (counter != equalsCounter)
                 {
                     _cellsQueue.Enqueue( cell );
                 }
@@ -286,10 +287,10 @@ namespace SLR.Table
                             var index = j + 1;
                             if ( index < tokens.Count )
                             {
-                                if ( _stackOfVisited.Contains( tokens [ index ] ) )
-                                {
-                                    throw new Exception( $"loop detected! { tokens [ index ].Value } { tokens [ index ].ColIndex } { tokens [ index ].RowIndex }" );
-                                }
+                                //if ( _stackOfVisited.Contains( tokens [ index ] ) )
+                                //{
+                                //    throw new Exception( $"loop detected! { tokens [ index ].Value } { tokens [ index ].ColIndex } { tokens [ index ].RowIndex }" );
+                                //}
 
                                 if ( tokens[ index ].Type == TokenType.NonTerminal )
                                 {

@@ -34,7 +34,7 @@ namespace SLR
                 throw new ApplicationException( "Cycles exist" );
 
             FirstCreator creator = new FirstCreator( reader.Sentences );
-            var lexer = new ProgramLekser( new StreamReader( "E:\\GITHUB\\SLR\\Новая папка\\StateMachine\\Compiler\\SLR\\input.txt" ) );
+            var lexer = new ProgramLekser( new StreamReader( "../../../input.txt" ) );
             var runner = new Runner.Runner( lexer, creator.TableOfFirsts, creator.Sentences );
             Console.WriteLine( runner.IsCorrectSentence().Result );
 
