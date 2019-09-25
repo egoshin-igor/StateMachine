@@ -1,0 +1,27 @@
+void main 
+{
+	Array<int> numbersToSort`
+	bool isSorted`
+	
+	int forIndex`
+	@@@
+	isSorted = false`
+	for(forIndex = 0` forIndex < numbersToSort.Length` forIndex++)
+	{
+		int tempNumber`
+		int prevNumber`
+		int currNumber`
+		@@@
+		prevNumber  = numbersToSort[i - 1]`
+		currNumber = numbersToSort[i]`
+		if (prevNumber > currNumber)
+		{
+			@@@
+			tempNumber = numbersToSort[i]`
+			numbersToSort[i] = numbersToSort[i - 1]`
+			numbersToSort[i - 1] = tempNumber`
+
+			isSorted = false`
+		}
+	}
+}

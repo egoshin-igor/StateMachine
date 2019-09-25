@@ -9,6 +9,7 @@ namespace GuideSetsDeterminant.Creator
     {
         const string END_TOKEN = "[END]";
         const string START_LINK = "<";
+        const string END_LINK = ">";
         const string EMPTY_LINK = "[EPS]";
 
         public List<Sentence> Sentences { get; private set; } = new List<Sentence>();
@@ -42,7 +43,7 @@ namespace GuideSetsDeterminant.Creator
             Dictionary<string, List<Sentence>> sentensesByName = sentenses.GroupBy( s => s.MainToken ).ToDictionary( g => g.Key, g => g.ToList() );
             foreach ( Sentence sentence in sentenses )
             {
-                if ( !sentence.Tokens.First().StartsWith( START_LINK ) )
+                if ( !( sentence.Tokens.First().StartsWith( START_LINK ) && sentence.Tokens.First().EndsWith( END_LINK ) ) )
                     continue;
                 if ( sentence.Tokens.Count == 0 )
                     continue;
@@ -67,7 +68,7 @@ namespace GuideSetsDeterminant.Creator
             {
                 if ( sentence.Tokens.Count == 0 )
                     continue;
-                if ( !sentence.Tokens.First().StartsWith( START_LINK ) )
+                if ( !( sentence.Tokens.First().StartsWith( START_LINK ) && sentence.Tokens.First().EndsWith( END_LINK ) ) )
                     continue;
                 if ( !IsWithoutCircles( sentensesByName, mainToken, sentence.Tokens.First() ) )
                     return false;
@@ -121,7 +122,7 @@ namespace GuideSetsDeterminant.Creator
             {
                 _TempToken = Sentences[ i ].MainToken;
 
-                if ( Sentences[ i ].Tokens[ 0 ].StartsWith( START_LINK ) )
+                if ( Sentences[ i ].Tokens[ 0 ].StartsWith( START_LINK ) && Sentences[ i ].Tokens[ 0 ].EndsWith( END_LINK ) )
                 {
                     Sentences[ i ].AddInSet( CalculateCurrent( Sentences[ i ].Tokens[ 0 ] ) );
                 }
@@ -153,7 +154,7 @@ namespace GuideSetsDeterminant.Creator
                     {
                         AddInLocalSet( generatedSet, Sentences[ i ].ForwardSet );
                     }
-                    else if ( Sentences[ i ].Tokens[ 0 ].StartsWith( START_LINK ) )
+                    else if ( Sentences[ i ].Tokens[ 0 ].StartsWith( START_LINK ) && Sentences[ i ].Tokens[ 0 ].EndsWith( END_LINK ) )
                     {
                         var set = CalculateCurrent( Sentences[ i ].Tokens[ 0 ] );
                         AddInLocalSet( generatedSet, set );
@@ -193,7 +194,7 @@ namespace GuideSetsDeterminant.Creator
                             var seachedIndex = currentIndex + 1;
                             if ( seachedIndex < Sentences[ i ].Tokens.Count ) // token not last
                             {
-                                if ( Sentences[ i ].Tokens[ seachedIndex ].StartsWith( START_LINK ) ) // is link
+                                if ( Sentences[ i ].Tokens[ seachedIndex ].StartsWith( START_LINK ) && Sentences[ i ].Tokens[ seachedIndex ].EndsWith( END_LINK ) ) // is link
                                 {
                                     AddInLocalSet( generatedSet, CalculateCurrent( Sentences[ i ].Tokens[ seachedIndex ] ) );
                                 }

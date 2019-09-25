@@ -56,7 +56,10 @@ namespace Lekser
              { "true", TermType.True },
              { "false", TermType.False },
              { "List", TermType.List },
-             { "string", TermType.String }
+             { "string", TermType.String },
+             { "main", TermType.Main },
+             { "@@@", TermType.DEnd },
+             { "Array", TermType.Array },
         };
 
         public static readonly Dictionary<string, TermType> DelimeterTypeByString = new Dictionary<string, TermType>
@@ -78,7 +81,8 @@ namespace Lekser
              { ".", TermType.Point },
              { "[", TermType.OpeningSquareBrace },
              { "]", TermType.ClosingSquareBrace },
-             { "!", TermType.ExclamationMark }
+             { "!", TermType.ExclamationMark },
+            { "`", TermType.Tilda }
         };
 
         public static readonly Dictionary<KeyValuePair<CommentState, char>, CommentState> CommentStateMachine = new Dictionary<KeyValuePair<CommentState, char>, CommentState>
@@ -144,7 +148,7 @@ namespace Lekser
             return true;
         }
 
-        public static HashSet<char> Delimeters = new HashSet<char> { '(', ')', '{', '}', ';', ' ', '\t', '+', '-', ':', ',', '*', '$', '=', '>', '<', '.', '[', ']', '!' };
+        public static HashSet<char> Delimeters = new HashSet<char> { '(', ')', '{', '}', ';', ' ', '\t', '+', '-', ':', ',', '*', '$', '=', '>', '<', '.', '[', ']', '!', '`' };
 
 
 

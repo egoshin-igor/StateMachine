@@ -1,7 +1,43 @@
-﻿<E> -> <E> + <T>
-<E> -> <T>
-<T> -> <T> * <F>
-<T> -> <F>
-<F> -> ( <E> )
-<F> -> - <F>
-<F> -> [IDENTIFIER]	
+﻿<PROG> -> void main { <body> }
+<body> -> <declarations> <operators>
+<body> -> <declarations>
+
+<declarations> -> <declarations_0> @@@
+<declarations_0> -> [EPS]
+<declarations_0> -> <declaration> ` <declarations_0>
+<declaration> -> <type> #IDENTIFIER#
+
+<type> -> bool
+<type> -> char
+<type> -> string
+<type> -> int
+<type> -> float
+<type> -> Array < <type> >
+
+<operators> -> <operator> <operators>
+<operators> -> <operator>
+<operator> -> <leftValue> = <rightValue> `
+<operator> -> <for>
+<operator> -> <if>
+
+<leftValue> -> <identOrIndexIdent>
+<rightValue> -> <boolOp>
+<rightValue> -> #DecimalWholeNumber#
+<rightValue> -> <identOrIndexIdent>
+<identOrIndexIdent> -> #IDENTIFIER#
+<identOrIndexIdent> -> #IDENTIFIER# [ #IDENTIFIER# ]
+<identOrIndexIdent> -> #IDENTIFIER# [ #IDENTIFIER# - #DecimalWholeNumber# ]
+
+
+<boolOp> -> true
+<boolOp> -> false
+<for> -> for ( #IDENTIFIER# = #DecimalWholeNumber# ` <boolStatement> ` #IDENTIFIER# + +  ) { <body> }
+<if> -> if ( <boolStatement> ) { <body> }
+<boolStatement> -> <fieldOrIdent> <condition> <fieldOrIdent>
+<condition> -> = =
+<condition> -> ! =
+<condition> -> <
+<condition> -> >
+
+<fieldOrIdent> -> #IDENTIFIER# . <fieldOrIdent>
+<fieldOrIdent> -> #IDENTIFIER#

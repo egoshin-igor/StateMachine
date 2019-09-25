@@ -31,7 +31,7 @@ namespace SyntacticalAnalyzerGenerator
             List<ResultTableRow> rows = generator.Generate();
 
             ProgramLekser programLekser;
-            using ( TextReader tr = new StreamReader( "../../../in.txt" ) )
+            using ( TextReader tr = new StreamReader( "../../../input.txt" ) )
             {
                 programLekser = new ProgramLekser( tr );
                 var runner = new Runner( programLekser );

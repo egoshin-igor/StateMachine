@@ -53,13 +53,18 @@
         True = 51,
         False = 52,
         List = 53,
-        Dollar = 54,
+        Tilda = 54,
         Equally = 55,
         More = 57,
         Less = 58,
         OpeningSquareBrace = 59,
         ClosingSquareBrace = 60,
         ExclamationMark = 61,
-        String = 62
+        String = 62,
+
+        Main = 63,
+        DEnd = 64,
+        Array = 65,
+        Dollar = 66
     }
 }
