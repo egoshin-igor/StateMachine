@@ -33,7 +33,9 @@
 <boolOp> -> false
 <for> -> for ( #IDENTIFIER# = #DecimalWholeNumber# ` <boolStatement> ` #IDENTIFIER# + +  ) { <body> }
 <if> -> if ( <boolStatement> ) { <body> }
+<while> -> while ( <boolStatement> ) { <body> }
 <boolStatement> -> <fieldOrIdent> <condition> <fieldOrIdent>
+<boolStatement> -> <fieldOrIdent>
 <condition> -> = =
 <condition> -> ! =
 <condition> -> <

@@ -1,11 +1,11 @@
 void main 
 {
 	Array<int> numbersToSort`
-	bool isSorted`
+	bool notSorted`
 	
 	int forIndex`
 	@@@
-	isSorted = false`
+	notSorted = false`
 	for(forIndex = 0` forIndex < numbersToSort.Length` forIndex++)
 	{
 		int tempNumber`
@@ -21,7 +21,7 @@ void main
 			numbersToSort[i] = numbersToSort[i - 1]`
 			numbersToSort[i - 1] = tempNumber`
 
-			isSorted = false`
+			notSorted = false`
 		}
 	}
 }

@@ -59,7 +59,7 @@ N: 57;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoT
 N: 58;	Name:=;	Set:Equally;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:59;	IsEnd:False
 N: 59;	Name:#DecimalWholeNumber#;	Set:DecimalWholeNumber;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:60;	IsEnd:False
 N: 60;	Name:`;	Set:Tilda;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:61;	IsEnd:False
-N: 61;	Name:<boolStatement>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:77;	IsEnd:False
+N: 61;	Name:<boolStatement>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:84;	IsEnd:False
 N: 62;	Name:`;	Set:Tilda;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:63;	IsEnd:False
 N: 63;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:64;	IsEnd:False
 N: 64;	Name:+;	Set:Plus;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:65;	IsEnd:False
@@ -70,22 +70,31 @@ N: 68;	Name:<body>;	Set:DEnd, Array, Bool, Char, Float, Int, String;	Shift:False
 N: 69;	Name:};	Set:ClosingBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
 N: 70;	Name:if;	Set:If;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:71;	IsEnd:False
 N: 71;	Name:(;	Set:OpeningRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:72;	IsEnd:False
-N: 72;	Name:<boolStatement>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:77;	IsEnd:False
+N: 72;	Name:<boolStatement>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:84;	IsEnd:False
 N: 73;	Name:);	Set:ClosingRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:74;	IsEnd:False
 N: 74;	Name:{;	Set:OpeningBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:75;	IsEnd:False
 N: 75;	Name:<body>;	Set:DEnd, Array, Bool, Char, Float, Int, String;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:7;	IsEnd:False
 N: 76;	Name:};	Set:ClosingBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 77;	Name:<fieldOrIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:86;	IsEnd:False
-N: 78;	Name:<condition>;	Set:ExclamationMark, Less, Equally, More;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:80;	IsEnd:False
-N: 79;	Name:<fieldOrIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:86;	IsEnd:False
-N: 80;	Name:!;	Set:ExclamationMark;	Shift:True;	OnErr:82;	Stack:False;	GoTo:81;	IsEnd:False
-N: 81;	Name:=;	Set:Equally;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 82;	Name:<;	Set:Less;	Shift:True;	OnErr:83;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 83;	Name:=;	Set:Equally;	Shift:True;	OnErr:85;	Stack:False;	GoTo:84;	IsEnd:False
-N: 84;	Name:=;	Set:Equally;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 85;	Name:>;	Set:More;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 86;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:87;	IsEnd:False
-N: 87;	Name:<fieldOrIdent___10000>;	Set:Point, ExclamationMark, Less, Equally, More, Tilda, ClosingRoundBracket;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:88;	IsEnd:False
-N: 88;	Name:.;	Set:Point;	Shift:True;	OnErr:90;	Stack:False;	GoTo:89;	IsEnd:False
-N: 89;	Name:<fieldOrIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:86;	IsEnd:False
-N: 90;	Name:[EPS];	Set:ExclamationMark, Less, Equally, More, Tilda, ClosingRoundBracket;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 77;	Name:while;	Set:While;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:78;	IsEnd:False
+N: 78;	Name:(;	Set:OpeningRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:79;	IsEnd:False
+N: 79;	Name:<boolStatement>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:84;	IsEnd:False
+N: 80;	Name:);	Set:ClosingRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:81;	IsEnd:False
+N: 81;	Name:{;	Set:OpeningBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:82;	IsEnd:False
+N: 82;	Name:<body>;	Set:DEnd, Array, Bool, Char, Float, Int, String;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:7;	IsEnd:False
+N: 83;	Name:};	Set:ClosingBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 84;	Name:<fieldOrIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:95;	IsEnd:False
+N: 85;	Name:<boolStatement___10000>;	Set:Tilda, ClosingRoundBracket, ExclamationMark, Less, Equally, More;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:86;	IsEnd:False
+N: 86;	Name:[EPS];	Set:Tilda, ClosingRoundBracket;	Shift:False;	OnErr:87;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 87;	Name:<condition>;	Set:ExclamationMark, Less, Equally, More;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:89;	IsEnd:False
+N: 88;	Name:<fieldOrIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:95;	IsEnd:False
+N: 89;	Name:!;	Set:ExclamationMark;	Shift:True;	OnErr:91;	Stack:False;	GoTo:90;	IsEnd:False
+N: 90;	Name:=;	Set:Equally;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 91;	Name:<;	Set:Less;	Shift:True;	OnErr:92;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 92;	Name:=;	Set:Equally;	Shift:True;	OnErr:94;	Stack:False;	GoTo:93;	IsEnd:False
+N: 93;	Name:=;	Set:Equally;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 94;	Name:>;	Set:More;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 95;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:96;	IsEnd:False
+N: 96;	Name:<fieldOrIdent___10000>;	Set:Point, Tilda, ClosingRoundBracket, ExclamationMark, Less, Equally, More;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:97;	IsEnd:False
+N: 97;	Name:.;	Set:Point;	Shift:True;	OnErr:99;	Stack:False;	GoTo:98;	IsEnd:False
+N: 98;	Name:<fieldOrIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:95;	IsEnd:False
+N: 99;	Name:[EPS];	Set:Tilda, ClosingRoundBracket, ExclamationMark, Less, Equally, More;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
