@@ -39,6 +39,11 @@ namespace SyntacticalAnalyzerGenerator
             var generator = new SyntacticalAnalyzerGenerator( expressions, expressions.First().NoTerm.Name );
             List<ResultTableRow> rows = generator.Generate();
 
+            using ( TextWriter tw = new StreamWriter( "../../../table.html" ) )
+            {
+                LlTableToHtmlVisualizer.Write( tw, rows );
+            }
+
             ProgramLekser programLekser;
             using ( TextReader tr = new StreamReader( "../../../input.txt" ) )
             {
@@ -46,11 +51,6 @@ namespace SyntacticalAnalyzerGenerator
                 var runner = new Runner( programLekser, new VariablesTableController() );
                 bool result = await runner.IsCorrectSentenceAsync( rows );
                 Console.WriteLine( result );
-            }
-
-            using ( TextWriter tw = new StreamWriter( "../../../table.html" ) )
-            {
-                LlTableToHtmlVisualizer.Write( tw, rows );
             }
 
             using ( TextWriter tw = new StreamWriter( "../../../table.txt" ) )

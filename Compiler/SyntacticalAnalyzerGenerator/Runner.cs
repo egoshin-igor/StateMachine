@@ -39,6 +39,10 @@ namespace SyntacticalAnalyzerGenerator
         {
             if ( CanProcessRow( table ) )  // проверяем можно ли обрабатывать строку в таблице
             {
+                if ( !string.IsNullOrEmpty( table[ _currentTableIndex ].ActionName ) )
+                {
+                    DoOnAction( table[ _currentTableIndex ].ActionName );
+                }
                 await ShiftIfEnabledAsync( table );
                 PushToStackIfEnabled( table );
                 if ( table[ _currentTableIndex ].GoTo == -1 && _indexStack.Count > 0 )  // переходим по стеку, если нельзя по goto
@@ -49,10 +53,6 @@ namespace SyntacticalAnalyzerGenerator
                 }
                 if ( table[ _currentTableIndex ].GoTo != -1 )  // переходим по goto
                 {
-                    if ( string.IsNullOrEmpty(table [ _currentTableIndex ].ActionName ) )
-                    {
-                        DoOnAction( table [ _currentTableIndex ].ActionName );
-                    }
                     _currentTableIndex = table[ _currentTableIndex ].GoTo;
                     return await CheckWordsAsync( table );
                 }
@@ -92,14 +92,13 @@ namespace SyntacticalAnalyzerGenerator
             }
         }
 
-        private void DoOnAction(string actionName)
+        private void DoOnAction( string actionName )
         {
             var actionNameData = actionName.Split( '.' );
-            if (actionName.Length != 0)
-            {
+            if ( actionNameData.Length < 1 )
                 throw new Exception();
-            }
-            switch( actionNameData[ 0 ] )
+
+            switch ( actionNameData[ 0 ] )
             {
                 case ActionSourceType.VariablesTableController:
                     DoVTCAction( actionNameData[ 1 ] );
@@ -109,9 +108,9 @@ namespace SyntacticalAnalyzerGenerator
             }
         }
 
-        private void DoVTCAction(string actionName)
+        private void DoVTCAction( string actionName )
         {
-            switch( actionName)
+            switch ( actionName )
             {
                 case SourceActionName.VtcCreateTable:
                     _variablesTableController.CreateTable();
@@ -119,11 +118,14 @@ namespace SyntacticalAnalyzerGenerator
                 case SourceActionName.VtcDestroyLastTable:
                     _variablesTableController.DestroyLastTable();
                     break;
-                case SourceActionName.VtcInsertToCurrentTable:
-                    _variablesTableController.InsertToCurrentTable(_currentTerm);
+                case SourceActionName.VtcDefineNewType:
+                    _variablesTableController.DefineNewType( _currentTerm );
+                    break;
+                case SourceActionName.VtcDefineIdentifier:
+                    _variablesTableController.DefineIdentifier( _currentTerm );
                     break;
                 default:
-                    throw new Exception();
+                    throw new Exception( $"action: {actionName} not found" );
             }
         }
     }

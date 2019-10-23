@@ -2,10 +2,10 @@
 {
     public static class SourceActionName
     {
-        public static string VtcCreateTable = "CreateTable";
-        public static string VtcDefineNewType = "DefineNewType";
-        public static string VtcDefineIdentifier = "DefineIdentifier";
-        public static string VtcDestroyLastTable = "DestroyLastTable";
-        public static string VtcGetTerm = "GetTerm";
+        public const string VtcCreateTable = "CreateTable";
+        public const string VtcDefineNewType = "DefineNewType";
+        public const string VtcDefineIdentifier = "DefineIdentifier";
+        public const string VtcDestroyLastTable = "DestroyLastTable";
+        public const string VtcGetTerm = "GetVariable";
     }
 }

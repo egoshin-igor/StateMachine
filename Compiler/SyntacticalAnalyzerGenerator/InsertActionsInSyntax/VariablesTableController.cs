@@ -22,35 +22,43 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
             _lastTableIndex--;
         }
 
-        public Term GetTerm( int id )
+        public Variable GetVariable( int id )
         {
             var tableIndex = _lastTableIndex;
 
-            Term term = null;
+            Variable result = null;
             while ( tableIndex != -1 )
             {
-                term = _tables[ tableIndex ].FirstOrDefault( t => t.Id == id );
+                result = _tables[ tableIndex ].FirstOrDefault( t => t.Identifier?.Id == id );
                 tableIndex--;
 
-                if ( term != null ) break;
+                if ( result != null ) break;
             }
 
-            return term;
+            return result;
         }
 
+        /// <summary>
+        /// Определяет тип для новой переменной
+        /// </summary>
+        /// <param name="type"></param>
         public void DefineNewType( Term type )
         {
             if ( _lastTableIndex == -1 )
                 throw new Exception( "Not exist any scope" );
 
             var lastVariable = _tables[ _lastTableIndex ].LastOrDefault();
-            if ( lastVariable?.Identifier == null )
+            if ( lastVariable != null && lastVariable.Identifier == null )
                 throw new Exception( $"You try define new type:{type.Type.ToString()} without defining previous" );
 
 
             _tables[ _lastTableIndex ].Add( new Variable { Type = type } );
         }
 
+        /// <summary>
+        /// Определяет идентификатор для уже объявленной переменной
+        /// </summary>
+        /// <param name="identifier"></param>
         public void DefineIdentifier( Term identifier )
         {
             if ( _lastTableIndex == -1 )
@@ -61,10 +69,10 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
                 .FirstOrDefault( t => t.Identifier.Id == identifier.Id );
 
             if ( duplicate != null )
-                throw new Exception( $"Found duplicate: on string { identifier.NumberString } on position { identifier.RowPosition }" );
+                throw new Exception( $"Found duplicate: on row { identifier.RowPosition }" );
             Variable lastVariable = _tables[ _lastTableIndex ].LastOrDefault();
             if ( lastVariable == null || lastVariable?.Identifier != null )
-                throw new Exception( $"Can't define identifier on string { identifier.NumberString } on position { identifier.RowPosition }" );
+                throw new Exception( $"Can't define identifier on row { identifier.RowPosition }" );
 
             lastVariable.Identifier = identifier;
         }
