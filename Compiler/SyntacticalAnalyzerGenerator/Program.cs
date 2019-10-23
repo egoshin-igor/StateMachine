@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Lekser;
+using SyntacticalAnalyzerGenerator.InsertActionsInSyntax;
 using SyntacticalAnalyzerGenerator.Words;
 
 namespace SyntacticalAnalyzerGenerator
@@ -42,7 +43,7 @@ namespace SyntacticalAnalyzerGenerator
             using ( TextReader tr = new StreamReader( "../../../input.txt" ) )
             {
                 programLekser = new ProgramLekser( tr );
-                var runner = new Runner( programLekser, null );
+                var runner = new Runner( programLekser, new VariablesTableController() );
                 bool result = await runner.IsCorrectSentenceAsync( rows );
                 Console.WriteLine( result );
             }

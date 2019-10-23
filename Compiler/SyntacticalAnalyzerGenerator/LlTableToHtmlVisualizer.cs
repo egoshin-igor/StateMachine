@@ -10,7 +10,7 @@ namespace SyntacticalAnalyzerGenerator
     {
         private static List<string> _tableNames = new List<string>
         {
-            "N", "Name", "Set", "Shift", "OnErr", "Stack", "GoTo", "IsEnd"
+            "N", "Name", "Set", "Shift", "OnErr", "Stack", "GoTo", "IsEnd", "ActionName"
         };
 
         public static void Write( TextWriter writer, List<ResultTableRow> rows )

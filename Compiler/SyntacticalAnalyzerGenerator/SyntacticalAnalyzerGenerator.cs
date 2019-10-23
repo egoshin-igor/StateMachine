@@ -85,7 +85,8 @@ namespace SyntacticalAnalyzerGenerator
                 N = r.N,
                 Name = r.Name,
                 TermType = r.TermType,
-                ShiftOnError = r.ShiftOnError
+                ShiftOnError = r.ShiftOnError,
+                ActionName = r.ActionName
             } );
         }
 
@@ -143,7 +144,8 @@ namespace SyntacticalAnalyzerGenerator
                         Word = word,
                         Parent = expression.NoTerm,
                         IsFirst = i == 0,
-                        IsLast = i + 1 == expression.Words.Count
+                        IsLast = i + 1 == expression.Words.Count,
+                        ActionName = word.ActionName
                     };
 
                     int nextParallelRow = row.N + expression.Words.Count - i;

@@ -34,7 +34,8 @@ namespace SyntacticalAnalyzerGenerator.Words
                 ShiftOnError.ToString(),
                 IsPushToStack.ToString(),
                 GoTo.ToString(),
-                IsEnd.ToString()
+                IsEnd.ToString(),
+                ActionName
             };
         }
 

@@ -15,6 +15,7 @@ namespace SyntacticalAnalyzerGenerator.Words
         public bool IsPushToStack { get; set; } = false;
         public int GoTo { get; set; }
         public bool IsEnd { get; set; } = false;
+        public string ActionName { get; set; }
 
         public Word Word { get; set; }
         public Word Parent { get; set; }
