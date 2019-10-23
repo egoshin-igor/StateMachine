@@ -13,15 +13,51 @@ namespace SyntacticalAnalyzerGenerator
 {
     public static class LangParser
     {
+        private const string NameActionPairSplitString = "~";
+
         private static readonly Dictionary<string, TermType> _reservedTermByName = new Dictionary<string, TermType>
         {
             { Word.Identifier, TermType.Identifier },
             { Word.DecimalWholeNumber, TermType.DecimalWholeNumber }
         };
 
-        public static List<Expression> Parse( string langFileName )
+        public static void ConvertToLlOneTable( string sourceLangPath, string llOneTablePath )
         {
-            List<Expression> result = GetNotReadMadeExpressions( langFileName );
+            string tempFileName = Path.GetTempFileName();
+
+            var result = new List<Expression>();
+            List<Expression> expressions = new List<Expression>();
+            using ( StreamReader streamReader = new StreamReader( sourceLangPath, Encoding.Default ) )
+            {
+                while ( !streamReader.EndOfStream )
+                {
+                    string line = streamReader.ReadLine();
+                    if ( line != "" )
+                    {
+                        expressions.Add( ParseToPartExpression( line ) );
+                    }
+                }
+            }
+            using ( var sw = new StreamWriter( tempFileName ) )
+            {
+                List<Expression> llOneExpressions = LLOneConverter.Convert( expressions );
+                foreach ( var llOneExpression in llOneExpressions )
+                {
+                    sw.WriteLine( llOneExpression.ToStringWithoutSet() );
+                }
+            }
+
+            using ( StreamReader streamReader = new StreamReader( tempFileName, Encoding.Default ) )
+            {
+                var reader = new SentencesReader( streamReader );
+                GuideSetCreator creator = new GuideSetCreator( reader.Sentences );
+                using ( var sw = new StreamWriter( llOneTablePath ) ) { creator.WriteResultToStream( sw ); }
+            }
+        }
+
+        public static List<Expression> Parse( string llOneTablePath )
+        {
+            List<Expression> result = GetNotReadMadeExpressions( llOneTablePath );
             Dictionary<string, HashSet<TermType>> directingSetByName = result
                 .GroupBy( r => r.NoTerm.Name )
                 .ToDictionary( g => g.Key, g => g.ToList().SelectMany( l => l.NoTerm.DirectingSet ).ToHashSet() );
@@ -69,38 +105,9 @@ namespace SyntacticalAnalyzerGenerator
 
         private static List<Expression> GetNotReadMadeExpressions( string langFileName )
         {
-            string tempFileName = Path.GetTempFileName();
-            string tempFileNameTwo = Path.GetTempFileName();
-
             var result = new List<Expression>();
-            List<Expression> expressions = new List<Expression>();
-            using ( StreamReader streamReader = new StreamReader( langFileName, Encoding.Default ) )
-            {
-                while ( !streamReader.EndOfStream )
-                {
-                    string line = streamReader.ReadLine();
-                    if ( line != "" )
-                    {
-                        expressions.Add( ParseToPartExpression( line ) );
-                    }
-                }
-            }
-            using ( var sw = new StreamWriter( tempFileName ) )
-            {
-                List<Expression> llOneExpressions = LLOneConverter.Convert( expressions );
-                foreach ( var llOneExpression in llOneExpressions )
-                {
-                    sw.WriteLine( llOneExpression.ToStringWithoutSet() );
-                }
-            }
 
-            using ( StreamReader streamReader = new StreamReader( tempFileName, Encoding.Default ) )
-            {
-                var reader = new SentencesReader( streamReader );
-                GuideSetCreator creator = new GuideSetCreator( reader.Sentences );
-                using ( var sw = new StreamWriter( tempFileNameTwo ) ) { creator.WriteResultToStream( sw ); }
-            }
-            using ( StreamReader sr = new StreamReader( tempFileNameTwo ) )
+            using ( StreamReader sr = new StreamReader( langFileName ) )
             {
                 while ( !sr.EndOfStream )
                 {
@@ -144,17 +151,20 @@ namespace SyntacticalAnalyzerGenerator
             foreach ( string other in others )
             {
                 var trimmedOther = other.Trim();
-                var word = new Word { Name = trimmedOther };
-                if ( trimmedOther == Word.Epsilant )
+                string[] nameActionPair = trimmedOther.Split( "~" );
+                string wordName = nameActionPair[ 0 ];
+                string actionName = nameActionPair.Length > 1 ? nameActionPair[ 1 ] : "";
+                var word = new Word { Name = wordName, ActionName = actionName };
+                if ( wordName == Word.Epsilant )
                 {
                     word.DirectingSet = mainDirectingSet;
                     word.Type = WordType.Epsilant;
                 }
-                else if ( trimmedOther.Length < 2 || ( trimmedOther[ 0 ] != '<' || trimmedOther[ trimmedOther.Length - 1 ] != '>' ) )
+                else if ( wordName.Length < 2 || ( wordName[ 0 ] != '<' || wordName[ wordName.Length - 1 ] != '>' ) )
                 {
                     TermType termType = _reservedTermByName.ContainsKey( word.Name )
                         ? _reservedTermByName[ word.Name ]
-                        : TermRecognizer.GetTypeByTermString( trimmedOther );
+                        : TermRecognizer.GetTypeByTermString( wordName );
 
                     word.DirectingSet = new HashSet<TermType> { termType };
                     word.Type = WordType.Term;
@@ -188,13 +198,13 @@ namespace SyntacticalAnalyzerGenerator
             var words = new List<Word>();
             foreach ( string other in others )
             {
-                var trimmedOther = other.Trim();
-                var word = new Word { Name = trimmedOther };
-                if ( trimmedOther == Word.Epsilant )
+                var wordName = other.Trim();
+                var word = new Word { Name = wordName };
+                if ( wordName == Word.Epsilant )
                 {
                     word.Type = WordType.Epsilant;
                 }
-                else if ( trimmedOther.Length < 2 || ( trimmedOther[ 0 ] != '<' || trimmedOther[ trimmedOther.Length - 1 ] != '>' ) )
+                else if ( wordName.Length < 2 || ( wordName[ 0 ] != '<' || wordName[ wordName.Length - 1 ] != '>' ) )
                 {
                     word.Type = WordType.Term;
                     TermType termType = TermRecognizer.GetTypeByTermString( word.Name );

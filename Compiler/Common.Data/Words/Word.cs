@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Lekser.Enums;
 
-namespace SyntacticalAnalyzerGenerator.Words
+namespace Common.Data.Words
 {
     public partial class Word
     {

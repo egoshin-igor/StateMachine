@@ -1,6 +1,6 @@
 void main 
 {
-	Array<int> numbersToSort`
+	IntArray numbersToSort`
 	bool notSorted`
 	
 	int forIndex`

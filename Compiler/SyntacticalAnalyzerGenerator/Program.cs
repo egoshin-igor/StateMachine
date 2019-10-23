@@ -11,12 +11,13 @@ namespace SyntacticalAnalyzerGenerator
     class Program
     {
         private const string LangFileName = "../../../lang.txt";
+        private const string LlOneLangFileName = "../../../llOneLang.txt";
 
         static void Main( string[] args )
         {
             try
             {
-                RunAsync().Wait();
+                RunAsync( args ).Wait();
             }
             catch ( Exception ex )
             {
@@ -24,9 +25,16 @@ namespace SyntacticalAnalyzerGenerator
             }
         }
 
-        private static async Task RunAsync()
+        private static async Task RunAsync( string[] args )
         {
-            List<Expression> expressions = LangParser.Parse( LangFileName );
+            if ( args.Length > 0 && args[ 0 ] == "GenerateLlOneTable" )
+            {
+                LangParser.ConvertToLlOneTable( LangFileName, LlOneLangFileName );
+                Console.WriteLine( "Ll one table generated" );
+                return;
+            }
+
+            List<Expression> expressions = LangParser.Parse( LlOneLangFileName );
             var generator = new SyntacticalAnalyzerGenerator( expressions, expressions.First().NoTerm.Name );
             List<ResultTableRow> rows = generator.Generate();
 
@@ -34,8 +42,8 @@ namespace SyntacticalAnalyzerGenerator
             using ( TextReader tr = new StreamReader( "../../../input.txt" ) )
             {
                 programLekser = new ProgramLekser( tr );
-                var runner = new Runner( programLekser );
-                var result = await runner.IsCorrectSentenceAsync( rows );
+                var runner = new Runner( programLekser, null );
+                bool result = await runner.IsCorrectSentenceAsync( rows );
                 Console.WriteLine( result );
             }
 

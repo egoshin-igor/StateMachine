@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SyntacticalAnalyzerGenerato
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuideSetsDeterminant", "GuideSetsDeterminant\GuideSetsDeterminant.csproj", "{5A361E76-51C3-4B98-808C-9EF5CAE583A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLR", "SLR\SLR.csproj", "{C2FFC332-7D73-4DAF-846D-6D9048BDE647}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLR", "SLR\SLR.csproj", "{C2FFC332-7D73-4DAF-846D-6D9048BDE647}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -71,6 +71,7 @@ namespace Lekser
              { "label", TermType.label },
              { "goto", TermType.Goto },
              { "begin", TermType.Goto },
+             { "IntArray", TermType.IntArray }
         };
 
         public static readonly Dictionary<string, TermType> DelimeterTypeByString = new Dictionary<string, TermType>

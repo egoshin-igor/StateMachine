@@ -12,7 +12,7 @@
 <type> -> string
 <type> -> int
 <type> -> float
-<type> -> Array < <type> >
+<type> -> IntArray
 
 <operators> -> <operator> <operators>
 <operators> -> <operator>
@@ -27,7 +27,6 @@
 <identOrIndexIdent> -> #IDENTIFIER#
 <identOrIndexIdent> -> #IDENTIFIER# [ #IDENTIFIER# ]
 <identOrIndexIdent> -> #IDENTIFIER# [ #IDENTIFIER# - #DecimalWholeNumber# ]
-
 
 <boolOp> -> true
 <boolOp> -> false
