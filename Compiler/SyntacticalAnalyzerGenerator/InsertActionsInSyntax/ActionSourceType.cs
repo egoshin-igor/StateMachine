@@ -2,6 +2,6 @@
 {
     public static class ActionSourceType
     {
-        public static string VariablesTableController = "VTC";
+        public const string VariablesTableController = "VTC";
     }
 }

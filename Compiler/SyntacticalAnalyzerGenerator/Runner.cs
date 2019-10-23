@@ -2,6 +2,7 @@
 using Lekser.Enums;
 using SyntacticalAnalyzerGenerator.InsertActionsInSyntax;
 using SyntacticalAnalyzerGenerator.Words;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,6 +49,10 @@ namespace SyntacticalAnalyzerGenerator
                 }
                 if ( table[ _currentTableIndex ].GoTo != -1 )  // переходим по goto
                 {
+                    if ( string.IsNullOrEmpty(table [ _currentTableIndex ].ActionName ) )
+                    {
+                        DoOnAction( table [ _currentTableIndex ].ActionName );
+                    }
                     _currentTableIndex = table[ _currentTableIndex ].GoTo;
                     return await CheckWordsAsync( table );
                 }
@@ -84,6 +89,41 @@ namespace SyntacticalAnalyzerGenerator
             if ( table[ _currentTableIndex ].IsPushToStack )
             {
                 _indexStack.Add( _currentTableIndex + 1 );
+            }
+        }
+
+        private void DoOnAction(string actionName)
+        {
+            var actionNameData = actionName.Split( '.' );
+            if (actionName.Length != 0)
+            {
+                throw new Exception();
+            }
+            switch( actionNameData[ 0 ] )
+            {
+                case ActionSourceType.VariablesTableController:
+                    DoVTCAction( actionNameData[ 1 ] );
+                    break;
+                default:
+                    throw new Exception();
+            }
+        }
+
+        private void DoVTCAction(string actionName)
+        {
+            switch( actionName)
+            {
+                case SourceActionName.VtcCreateTable:
+                    _variablesTableController.CreateTable();
+                    break;
+                case SourceActionName.VtcDestroyLastTable:
+                    _variablesTableController.DestroyLastTable();
+                    break;
+                case SourceActionName.VtcInsertToCurrentTable:
+                    _variablesTableController.InsertToCurrentTable(_currentTerm);
+                    break;
+                default:
+                    throw new Exception();
             }
         }
     }
