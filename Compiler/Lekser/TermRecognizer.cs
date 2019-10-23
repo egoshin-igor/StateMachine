@@ -60,6 +60,17 @@ namespace Lekser
              { "main", TermType.Main },
              { "@@@", TermType.DEnd },
              { "Array", TermType.Array },
+             { "I", TermType.I },
+             { "E", TermType.E },
+             { "step", TermType.Step },
+             { "to", TermType.To },
+             { "a", TermType.a },
+             { "b", TermType.b },
+             { "program", TermType.program },
+             { "end", TermType.end },
+             { "label", TermType.label },
+             { "goto", TermType.Goto },
+             { "begin", TermType.Goto },
         };
 
         public static readonly Dictionary<string, TermType> DelimeterTypeByString = new Dictionary<string, TermType>

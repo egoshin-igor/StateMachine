@@ -15,6 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="tempLang.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="lang.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

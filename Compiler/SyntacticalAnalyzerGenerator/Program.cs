@@ -39,6 +39,11 @@ namespace SyntacticalAnalyzerGenerator
                 Console.WriteLine( result );
             }
 
+            using ( TextWriter tw = new StreamWriter( "../../../table.html" ) )
+            {
+                LlTableToHtmlVisualizer.Write( tw, rows );
+            }
+
             using ( TextWriter tw = new StreamWriter( "../../../table.txt" ) )
             {
                 foreach ( ResultTableRow row in rows )

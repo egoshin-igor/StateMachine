@@ -1,5 +1,6 @@
 ﻿using Lekser;
 using Lekser.Enums;
+using SyntacticalAnalyzerGenerator.InsertActionsInSyntax;
 using SyntacticalAnalyzerGenerator.Words;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +12,17 @@ namespace SyntacticalAnalyzerGenerator
     {
         private const string END_WORD_NAME = Word.End;
 
-       // private int _currentWordIndex;
+        // private int _currentWordIndex;
         private int _currentTableIndex;
         private List<int> _indexStack;
         private ProgramLekser _programLekser;
+        private readonly IVariablesTableController _variablesTableController;
         private Term _currentTerm;
 
-        public Runner( ProgramLekser programLekser )
+        public Runner( ProgramLekser programLekser, IVariablesTableController variablesTableController )
         {
-            _programLekser = programLekser; 
-
+            _programLekser = programLekser;
+            _variablesTableController = variablesTableController;
             _indexStack = new List<int>();
         }
 
@@ -28,7 +30,7 @@ namespace SyntacticalAnalyzerGenerator
         {
             _currentTableIndex = 0;
             _currentTerm = await _programLekser.GetTermAsync();
-         //   _currentWordIndex = 0;
+            //   _currentWordIndex = 0;
             return await CheckWordsAsync( table );
         }
 

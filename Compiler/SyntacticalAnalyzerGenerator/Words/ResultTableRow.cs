@@ -16,10 +16,26 @@ namespace SyntacticalAnalyzerGenerator.Words
         public bool IsPushToStack { get; set; } = false;
         public int GoTo { get; set; }
         public bool IsEnd { get; set; } = false;
+        public string ActionName { get; set; } = "";
 
         public override string ToString()
         {
             return $"N: {N};\tName:{Name};\tSet:{SetToString()};\tShift:{IsShift};\tOnErr:{ShiftOnError};\tStack:{IsPushToStack};\tGoTo:{GoTo};\tIsEnd:{IsEnd}";
+        }
+
+        public List<string> GetItems()
+        {
+            return new List<string>
+            {
+                N.ToString(),
+                Name,
+                SetToString(),
+                IsShift.ToString(),
+                ShiftOnError.ToString(),
+                IsPushToStack.ToString(),
+                GoTo.ToString(),
+                IsEnd.ToString()
+            };
         }
 
         private string SetToString()

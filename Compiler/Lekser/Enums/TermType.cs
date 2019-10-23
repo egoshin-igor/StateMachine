@@ -65,6 +65,22 @@
         Main = 63,
         DEnd = 64,
         Array = 65,
-        Dollar = 66
+        Dollar = 66,
+
+        I = 1000,
+        E = 1001,
+        Step = 1002,
+        To = 1003,
+        Doo = 1004,
+
+
+        program = 1005,
+        begin = 1006,
+        end = 1007,
+        label = 1008,
+        Goto = 1009,
+
+        a = 1010,
+        b = 1011,
     }
 }
