@@ -30,7 +30,8 @@ namespace SyntacticalAnalyzerGenerator
             TypeController typeController,
             AriphmeticalOperationsController ariphmeticalOperationsController )
         {
-            _programLekser = programLekser;
+			_aSTGenerator = new ASTGenerator(); // move realisation somewhere else if you want
+			_programLekser = programLekser;
             _variablesTableController = variablesTableController;
             _typeController = typeController;
             _ariphmeticalOperationsController = ariphmeticalOperationsController;
@@ -224,7 +225,7 @@ namespace SyntacticalAnalyzerGenerator
 					_aSTGenerator.CreateLeafNode( _currentTerm );
 					break;
 				case SourceActionName.AoActionAfterSign:
-					_aSTGenerator.AddSign(_currentTerm);
+					_aSTGenerator.AddSign( _currentTerm );
 					break;
 				case SourceActionName.AoActionAfterOperation:
 					_aSTGenerator.CreateOperationNode( _currentTerm );

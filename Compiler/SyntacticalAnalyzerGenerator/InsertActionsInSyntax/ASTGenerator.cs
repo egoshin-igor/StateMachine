@@ -13,6 +13,12 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 
 		public IASTNode RootNode => _nodesStack.Peek();
 
+		public ASTGenerator()
+		{
+			_signStack = new Stack<TermType>();
+			_nodesStack = new Stack<IASTNode>();
+		}
+
 		public void CreateLeafNode( Term number )
 		{
 			_nodesStack.Push( new LeafNode( number.Type, number.Value ) );
