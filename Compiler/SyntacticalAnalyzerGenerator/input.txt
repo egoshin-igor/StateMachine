@@ -2,7 +2,7 @@ void main
 {
 	IntArray numbersToSort`
 	bool notSorted`
-	
+	string abc`
 	int forIndex`
 	@@@
 	notSorted = false`
@@ -12,16 +12,25 @@ void main
 		int prevNumber`
 		int currNumber`
 		@@@
-		prevNumber  = numbersToSort[i - 1]`
-		currNumber = numbersToSort[i]`
+		prevNumber  = numbersToSort[forIndex - 1]`
+		currNumber = numbersToSort[forIndex]`
+		currNumber = forIndex`
 		if (prevNumber > currNumber)
 		{
+            int abc`
 			@@@
-			tempNumber = numbersToSort[i]`
-			numbersToSort[i] = numbersToSort[i - 1]`
-			numbersToSort[i - 1] = tempNumber`
-
+			if (prevNumber > currNumber)
+			{
+				char abc`
+				@@@
+			}
 			notSorted = false`
+		}
+
+		if (prevNumber > currNumber)
+		{
+			int abc`
+			@@@
 		}
 	}
 }

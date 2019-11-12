@@ -45,11 +45,11 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
         public void DefineNewType( Term type )
         {
             if ( _lastTableIndex == -1 )
-                throw new Exception( "Not exist any scope" );
+                throw new ApplicationException( "Not exist any scope" );
 
             var lastVariable = _tables[ _lastTableIndex ].LastOrDefault();
             if ( lastVariable != null && lastVariable.Identifier == null )
-                throw new Exception( $"You try define new type:{type.Type.ToString()} without defining previous" );
+                throw new ApplicationException( $"You try define new type:{type.Type.ToString()} without defining previous" );
 
 
             _tables[ _lastTableIndex ].Add( new Variable { Type = type } );
@@ -62,17 +62,17 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
         public void DefineIdentifier( Term identifier )
         {
             if ( _lastTableIndex == -1 )
-                throw new Exception( "Not exist any scope" );
+                throw new ApplicationException( "Not exist any scope" );
 
             Variable duplicate = _tables[ _lastTableIndex ]
                 .Where( t => t.Identifier != null )
                 .FirstOrDefault( t => t.Identifier.Id == identifier.Id );
 
             if ( duplicate != null )
-                throw new Exception( $"Found duplicate: on row { identifier.RowPosition }" );
+                throw new ApplicationException( $"Found duplicate: on row { identifier.RowPosition }" );
             Variable lastVariable = _tables[ _lastTableIndex ].LastOrDefault();
             if ( lastVariable == null || lastVariable?.Identifier != null )
-                throw new Exception( $"Can't define identifier on row { identifier.RowPosition }" );
+                throw new ApplicationException( $"Can't define identifier on row { identifier.RowPosition }" );
 
             lastVariable.Identifier = identifier;
         }

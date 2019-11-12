@@ -18,12 +18,17 @@ namespace SyntacticalAnalyzerGenerator
         private List<int> _indexStack;
         private ProgramLekser _programLekser;
         private readonly IVariablesTableController _variablesTableController;
+        private readonly TypeController _typeController;
         private Term _currentTerm;
 
-        public Runner( ProgramLekser programLekser, IVariablesTableController variablesTableController )
+        public Runner(
+            ProgramLekser programLekser,
+            IVariablesTableController variablesTableController,
+            TypeController typeController )
         {
             _programLekser = programLekser;
             _variablesTableController = variablesTableController;
+            _typeController = typeController;
             _indexStack = new List<int>();
         }
 
@@ -31,7 +36,6 @@ namespace SyntacticalAnalyzerGenerator
         {
             _currentTableIndex = 0;
             _currentTerm = await _programLekser.GetTermAsync();
-            //   _currentWordIndex = 0;
             return await CheckWordsAsync( table );
         }
 
@@ -96,19 +100,25 @@ namespace SyntacticalAnalyzerGenerator
         {
             var actionNameData = actionName.Split( '.' );
             if ( actionNameData.Length < 1 )
-                throw new Exception();
+                throw new ApplicationException();
 
             switch ( actionNameData[ 0 ] )
             {
                 case ActionSourceType.VariablesTableController:
-                    DoVTCAction( actionNameData[ 1 ] );
+                    DoVtcAction( actionNameData[ 1 ] );
+                    break;
+                case ActionSourceType.TypesController:
+                    DoTcAction( actionNameData[ 1 ] );
+                    break;
+                case ActionSourceType.Common:
+                    DoCommonAction( actionNameData[ 1 ] );
                     break;
                 default:
-                    throw new Exception();
+                    throw new ApplicationException();
             }
         }
 
-        private void DoVTCAction( string actionName )
+        private void DoVtcAction( string actionName )
         {
             switch ( actionName )
             {
@@ -125,7 +135,54 @@ namespace SyntacticalAnalyzerGenerator
                     _variablesTableController.DefineIdentifier( _currentTerm );
                     break;
                 default:
-                    throw new Exception( $"action: {actionName} not found" );
+                    throw new ApplicationException( $"action: {actionName} not found" );
+            }
+        }
+
+        private void DoTcAction( string actionName )
+        {
+            switch ( actionName )
+            {
+                case SourceActionName.TcSaveLastTerm:
+                    _typeController.SaveLastTerm( _currentTerm );
+                    break;
+                case SourceActionName.TcCheckLeftRight:
+                    Term term = null;
+                    if ( _typeController.LastTerm.Type == TermType.Identifier )
+                    {
+                        term = _variablesTableController.GetVariable( _typeController.LastTerm.Id ).Type;
+                    }
+                    else
+                    {
+                        term = _typeController.LastTerm;
+                    }
+                    _typeController.SaveRightTerm( term );
+                    _typeController.CheckLeftRight( _currentTerm.RowPosition );
+                    break;
+                case SourceActionName.TcSaveLeftTerm:
+                    Variable variable = _variablesTableController.GetVariable( _typeController.LastTerm.Id );
+                    _typeController.SaveLeftTerm( variable.Type );
+                    break;
+                case SourceActionName.TcDefineArrElemType:
+                    variable = _variablesTableController.GetVariable( _typeController.LastTerm.Id );
+                    _typeController.DefineArrElemType( variable.Type );
+                    break;
+                default:
+                    throw new ApplicationException( $"action: {actionName} not found" );
+            }
+        }
+
+        private void DoCommonAction( string actionName )
+        {
+            switch ( actionName )
+            {
+                case SourceActionName.CommonIsIntIndex:
+                    Variable variable = _variablesTableController.GetVariable( _currentTerm.Id );
+                    if ( variable.Type.Type != TermType.Int )
+                        throw new ApplicationException( $"Index must be int on row { _currentTerm.RowPosition }" );
+                    break;
+                default:
+                    throw new ApplicationException( $"action: {actionName} not found" );
             }
         }
     }

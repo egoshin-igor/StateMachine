@@ -17,19 +17,19 @@
 <operators___10000> -> <operators> / for,if,#IDENTIFIER#
 <operator> -> <for> / for
 <operator> -> <if> / if
-<operator> -> <leftValue> = <rightValue> ` / #IDENTIFIER#
+<operator> -> <leftValue> =~TC.SaveLeftTerm <rightValue> `~TC.CheckLeftRight / #IDENTIFIER#
 <leftValue> -> <identOrIndexIdent> / #IDENTIFIER#
-<rightValue> -> #DecimalWholeNumber# / #DecimalWholeNumber#
+<rightValue> -> #DecimalWholeNumber#~TC.SaveLastTerm / #DecimalWholeNumber#
 <rightValue> -> <boolOp> / false,true
 <rightValue> -> <identOrIndexIdent> / #IDENTIFIER#
-<identOrIndexIdent> -> #IDENTIFIER# <identOrIndexIdent___10000> / #IDENTIFIER#
-<identOrIndexIdent___10000> -> [ <identOrIndexIdent___10000___10000> / [
+<identOrIndexIdent> -> #IDENTIFIER#~TC.SaveLastTerm <identOrIndexIdent___10000> / #IDENTIFIER#
+<identOrIndexIdent___10000> -> [ <identOrIndexIdent___10000___10000>~Common.IsIntIndex / [
 <identOrIndexIdent___10000> -> [EPS] / =,`
 <identOrIndexIdent___10000___10000> -> #IDENTIFIER# <identOrIndexIdent___10000___10000___10000> / #IDENTIFIER#
-<identOrIndexIdent___10000___10000___10000> -> - #DecimalWholeNumber# ] / -
-<identOrIndexIdent___10000___10000___10000> -> ] / ]
-<boolOp> -> false / false
-<boolOp> -> true / true
+<identOrIndexIdent___10000___10000___10000> -> - #DecimalWholeNumber# ]~TC.DefineArrElemType / -
+<identOrIndexIdent___10000___10000___10000> -> ]~TC.DefineArrElemType / ]
+<boolOp> -> false~TC.SaveLastTerm / false
+<boolOp> -> true~TC.SaveLastTerm / true
 <for> -> for ( #IDENTIFIER# = #DecimalWholeNumber# ` <boolStatement> ` #IDENTIFIER# + + ) {~VTC.CreateTable <body> }~VTC.DestroyLastTable / for
 <if> -> if ( <boolStatement> ) {~VTC.CreateTable <body> }~VTC.DestroyLastTable / if
 <while> -> while ( <boolStatement> ) {~VTC.CreateTable <body> }~VTC.DestroyLastTable / while
@@ -40,6 +40,6 @@
 <condition> -> < / <
 <condition> -> = = / =
 <condition> -> > / >
-<fieldOrIdent> -> #IDENTIFIER# <fieldOrIdent___10000> / #IDENTIFIER#
-<fieldOrIdent___10000> -> . <fieldOrIdent> / .
+<fieldOrIdent> -> #IDENTIFIER#~TC.SaveLastTerm <fieldOrIdent___10000> / #IDENTIFIER#
+<fieldOrIdent___10000> -> . <fieldOrIdent>~TC.SaveLastTerm / .
 <fieldOrIdent___10000> -> [EPS] / `,),!,<,=,>

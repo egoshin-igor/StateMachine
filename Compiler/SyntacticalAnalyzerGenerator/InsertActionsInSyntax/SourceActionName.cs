@@ -7,5 +7,13 @@
         public const string VtcDefineIdentifier = "DefineIdentifier";
         public const string VtcDestroyLastTable = "DestroyLastTable";
         public const string VtcGetTerm = "GetVariable";
+
+        public const string TcSaveLastTerm = "SaveLastTerm";
+        public const string TcCheckLeftRight = "CheckLeftRight";
+        public const string TcSaveLeftTerm = "SaveLeftTerm";
+        public const string TcSaveRightTerm = "SaveRightTerm";
+        public const string TcDefineArrElemType = "DefineArrElemType";
+
+        public const string CommonIsIntIndex = "IsIntIndex";
     }
 }

@@ -43,7 +43,7 @@ namespace Lekser
 
             UndefinedTerm undefinedTerm = _undefinedTerms.Dequeue();
             TermType definedTermType = TermRecognizer.GetTypeByTermString( undefinedTerm.Id );
-            var result = new Term( GetIdByTerm( undefinedTerm.Id ), definedTermType, undefinedTerm.RowPosition, undefinedTerm.ColumnPosition );
+            var result = new Term( GetIdByTerm( undefinedTerm.Id ), definedTermType, undefinedTerm.RowPosition, undefinedTerm.ColumnPosition, undefinedTerm.Id );
             if ( TermRecognizer.IsNumber( definedTermType ) )
             {
                 result.SetNumberString( undefinedTerm.Id );

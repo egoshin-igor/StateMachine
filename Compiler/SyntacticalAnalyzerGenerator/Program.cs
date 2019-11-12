@@ -48,7 +48,7 @@ namespace SyntacticalAnalyzerGenerator
             using ( TextReader tr = new StreamReader( "../../../input.txt" ) )
             {
                 programLekser = new ProgramLekser( tr );
-                var runner = new Runner( programLekser, new VariablesTableController() );
+                var runner = new Runner( programLekser, new VariablesTableController(), new TypeController() );
                 bool result = await runner.IsCorrectSentenceAsync( rows );
                 Console.WriteLine( result );
             }

@@ -209,7 +209,7 @@ namespace SyntacticalAnalyzerGenerator
                     word.Type = WordType.Term;
                     TermType termType = TermRecognizer.GetTypeByTermString( word.Name );
                     if ( !_reservedTermByName.ContainsKey( word.Name ) && ( termType == TermType.Error || _reservedTermByName.Values.Contains( termType ) ) )
-                        throw new Exception( $"Unrecognized term {word.Name}" );
+                        throw new ApplicationException( $"Unrecognized term {word.Name}" );
                 }
                 else
                 {

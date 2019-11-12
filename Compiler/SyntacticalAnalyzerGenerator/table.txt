@@ -31,11 +31,11 @@ N: 29;	Name:<for>;	Set:For;	Shift:False;	OnErr:30;	Stack:False;	GoTo:52;	IsEnd:F
 N: 30;	Name:<if>;	Set:If;	Shift:False;	OnErr:31;	Stack:False;	GoTo:67;	IsEnd:False
 N: 31;	Name:<leftValue>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:35;	IsEnd:False
 N: 32;	Name:=;	Set:Equally;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:33;	IsEnd:False
-N: 33;	Name:<rightValue>;	Set:DecimalWholeNumber, False, True, Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:36;	IsEnd:False
+N: 33;	Name:<rightValue>;	Set:DecimalWholeNumber, Bool, Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:36;	IsEnd:False
 N: 34;	Name:`;	Set:Tilda;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
 N: 35;	Name:<identOrIndexIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:39;	IsEnd:False
 N: 36;	Name:#DecimalWholeNumber#;	Set:DecimalWholeNumber;	Shift:True;	OnErr:37;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 37;	Name:<boolOp>;	Set:False, True;	Shift:False;	OnErr:38;	Stack:False;	GoTo:50;	IsEnd:False
+N: 37;	Name:<boolOp>;	Set:Bool;	Shift:False;	OnErr:38;	Stack:False;	GoTo:50;	IsEnd:False
 N: 38;	Name:<identOrIndexIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:39;	IsEnd:False
 N: 39;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:40;	IsEnd:False
 N: 40;	Name:<identOrIndexIdent___10000>;	Set:OpeningSquareBrace, Equally, Tilda;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:41;	IsEnd:False
@@ -48,8 +48,8 @@ N: 46;	Name:-;	Set:Minis;	Shift:True;	OnErr:49;	Stack:False;	GoTo:47;	IsEnd:Fals
 N: 47;	Name:#DecimalWholeNumber#;	Set:DecimalWholeNumber;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:48;	IsEnd:False
 N: 48;	Name:];	Set:ClosingSquareBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
 N: 49;	Name:];	Set:ClosingSquareBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 50;	Name:false;	Set:False;	Shift:True;	OnErr:51;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 51;	Name:true;	Set:True;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 50;	Name:false;	Set:Bool;	Shift:True;	OnErr:51;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 51;	Name:true;	Set:Bool;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
 N: 52;	Name:for;	Set:For;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:53;	IsEnd:False
 N: 53;	Name:(;	Set:OpeningRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:54;	IsEnd:False
 N: 54;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:55;	IsEnd:False
