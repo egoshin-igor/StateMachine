@@ -15,5 +15,8 @@
         public const string TcDefineArrElemType = "DefineArrElemType";
 
         public const string CommonIsIntIndex = "IsIntIndex";
+
+        public const string AoActionAfterNumber = "ActionAfterNumber";
+        public const string AoClear = "Clear";
     }
 }

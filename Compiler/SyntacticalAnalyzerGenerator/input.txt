@@ -15,6 +15,7 @@ void main
 		prevNumber  = numbersToSort[forIndex - 1]`
 		currNumber = numbersToSort[forIndex]`
 		currNumber = forIndex`
+		0B11 + 0B11`
 		if (prevNumber > currNumber)
 		{
             int abc`

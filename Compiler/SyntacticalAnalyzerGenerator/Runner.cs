@@ -19,16 +19,19 @@ namespace SyntacticalAnalyzerGenerator
         private ProgramLekser _programLekser;
         private readonly IVariablesTableController _variablesTableController;
         private readonly TypeController _typeController;
+        private readonly AriphmeticalOperationsController _ariphmeticalOperationsController;
         private Term _currentTerm;
 
         public Runner(
             ProgramLekser programLekser,
             IVariablesTableController variablesTableController,
-            TypeController typeController )
+            TypeController typeController,
+            AriphmeticalOperationsController ariphmeticalOperationsController )
         {
             _programLekser = programLekser;
             _variablesTableController = variablesTableController;
             _typeController = typeController;
+            _ariphmeticalOperationsController = ariphmeticalOperationsController;
             _indexStack = new List<int>();
         }
 
@@ -60,7 +63,13 @@ namespace SyntacticalAnalyzerGenerator
                     _currentTableIndex = table[ _currentTableIndex ].GoTo;
                     return await CheckWordsAsync( table );
                 }
-                return _indexStack.Count == 0 && table[ _currentTableIndex ].IsEnd;
+
+
+                bool isCorrectLang = _indexStack.Count == 0 && table[ _currentTableIndex ].IsEnd;
+                if ( !isCorrectLang )
+                    throw new ApplicationException( $"Error. Incorrect execution of rule:{table[ _currentTableIndex ].Name} on row {_currentTerm.RowPosition}" );
+
+                return isCorrectLang;
             }
             else
             {
@@ -69,6 +78,8 @@ namespace SyntacticalAnalyzerGenerator
                     _currentTableIndex = table[ _currentTableIndex ].ShiftOnError;
                     return await CheckWordsAsync( table );
                 }
+
+                throw new ApplicationException( $"Error. Incorrect execution of rule:{table[ _currentTableIndex ].Name} on row {_currentTerm.RowPosition}" );
                 return false;
             }
         }
@@ -113,8 +124,11 @@ namespace SyntacticalAnalyzerGenerator
                 case ActionSourceType.Common:
                     DoCommonAction( actionNameData[ 1 ] );
                     break;
+                case ActionSourceType.AriphmeticalOperation:
+                    DoAoAction( actionNameData[ 1 ] );
+                    break;
                 default:
-                    throw new ApplicationException();
+                    throw new NotImplementedException();
             }
         }
 
@@ -135,7 +149,7 @@ namespace SyntacticalAnalyzerGenerator
                     _variablesTableController.DefineIdentifier( _currentTerm );
                     break;
                 default:
-                    throw new ApplicationException( $"action: {actionName} not found" );
+                    throw new NotImplementedException( $"action: {actionName} not found" );
             }
         }
 
@@ -161,6 +175,8 @@ namespace SyntacticalAnalyzerGenerator
                     break;
                 case SourceActionName.TcSaveLeftTerm:
                     Variable variable = _variablesTableController.GetVariable( _typeController.LastTerm.Id );
+                    if ( variable == null )
+                        throw new ApplicationException( $"Variable not declated on row {_typeController.LastTerm.RowPosition}" );
                     _typeController.SaveLeftTerm( variable.Type );
                     break;
                 case SourceActionName.TcDefineArrElemType:
@@ -168,7 +184,7 @@ namespace SyntacticalAnalyzerGenerator
                     _typeController.DefineArrElemType( variable.Type );
                     break;
                 default:
-                    throw new ApplicationException( $"action: {actionName} not found" );
+                    throw new NotImplementedException( $"action: {actionName} not found" );
             }
         }
 
@@ -182,7 +198,22 @@ namespace SyntacticalAnalyzerGenerator
                         throw new ApplicationException( $"Index must be int on row { _currentTerm.RowPosition }" );
                     break;
                 default:
-                    throw new ApplicationException( $"action: {actionName} not found" );
+                    throw new NotImplementedException( $"action: {actionName} not found" );
+            }
+        }
+
+        private void DoAoAction( string actionName )
+        {
+            switch ( actionName )
+            {
+                case SourceActionName.AoActionAfterNumber:
+                    _ariphmeticalOperationsController.AddNewNumber( _currentTerm );
+                    break;
+                case SourceActionName.AoClear:
+                    _ariphmeticalOperationsController.Clear();
+                    break;
+                default:
+                    throw new NotImplementedException( $"action: {actionName} not found" );
             }
         }
     }

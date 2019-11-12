@@ -1,7 +1,7 @@
 <PROG> -> void main {~VTC.CreateTable <body> }~VTC.DestroyLastTable / void
 <body> -> <declarations> <body___10000> / @@@,bool,char,float,int,IntArray,string
 <body___10000> -> [EPS] / }
-<body___10000> -> <operators> / for,if,#IDENTIFIER#
+<body___10000> -> <operators> / #DecimalWholeNumber#,#BinaryWholeNumber#,for,if,#IDENTIFIER#
 <declarations> -> <declarations_0> @@@ / @@@,bool,char,float,int,IntArray,string
 <declarations_0> -> [EPS] / @@@
 <declarations_0> -> <declaration> ` <declarations_0> / bool,char,float,int,IntArray,string
@@ -12,12 +12,23 @@
 <type> -> int~VTC.DefineNewType / int
 <type> -> IntArray~VTC.DefineNewType / IntArray
 <type> -> string~VTC.DefineNewType / string
-<operators> -> <operator> <operators___10000> / for,if,#IDENTIFIER#
+<operators> -> <operator> <operators___10000> / for,if,#IDENTIFIER#,#DecimalWholeNumber#,#BinaryWholeNumber#
 <operators___10000> -> [EPS] / }
-<operators___10000> -> <operators> / for,if,#IDENTIFIER#
+<operators___10000> -> <operators> / #DecimalWholeNumber#,#BinaryWholeNumber#,for,if,#IDENTIFIER#
 <operator> -> <for> / for
 <operator> -> <if> / if
 <operator> -> <leftValue> =~TC.SaveLeftTerm <rightValue> `~TC.CheckLeftRight / #IDENTIFIER#
+<operator> -> <ariphmeticalOperation> `~AO.Clear / #DecimalWholeNumber#,#BinaryWholeNumber#
+
+<ariphmeticalOperation> -> <number> <ariphmeticalOperation_0> / #DecimalWholeNumber#,#BinaryWholeNumber#
+<ariphmeticalOperation_0> -> <ariphmeticalSign> <number> <ariphmeticalOperation_0> / *,+,-
+<ariphmeticalOperation_0> -> [EPS] / `
+<number> -> #DecimalWholeNumber#~AO.ActionAfterNumber / #DecimalWholeNumber#
+<number> -> #BinaryWholeNumber#~AO.ActionAfterNumber / #BinaryWholeNumber#
+<ariphmeticalSign> -> * / *
+<ariphmeticalSign> -> + / +
+<ariphmeticalSign> -> - / -
+
 <leftValue> -> <identOrIndexIdent> / #IDENTIFIER#
 <rightValue> -> #DecimalWholeNumber#~TC.SaveLastTerm / #DecimalWholeNumber#
 <rightValue> -> <boolOp> / false,true

@@ -18,7 +18,8 @@ namespace SyntacticalAnalyzerGenerator
         private static readonly Dictionary<string, TermType> _reservedTermByName = new Dictionary<string, TermType>
         {
             { Word.Identifier, TermType.Identifier },
-            { Word.DecimalWholeNumber, TermType.DecimalWholeNumber }
+            { Word.DecimalWholeNumber, TermType.DecimalWholeNumber },
+            { Word.BinaryWholeNumber, TermType.BinaryWholeNumber }
         };
 
         public static void ConvertToLlOneTable( string sourceLangPath, string llOneTablePath )
