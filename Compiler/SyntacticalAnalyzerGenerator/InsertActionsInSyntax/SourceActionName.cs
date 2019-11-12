@@ -17,6 +17,10 @@
         public const string CommonIsIntIndex = "IsIntIndex";
 
         public const string AoActionAfterNumber = "ActionAfterNumber";
-        public const string AoClear = "Clear";
+        public const string AoActionAfterSign = "ActionAfterSign";
+		public const string AoActionAfterOperation = "ActionAfterOperation";
+
+
+		public const string AoClear = "Clear";
     }
 }

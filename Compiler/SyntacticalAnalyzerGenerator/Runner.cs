@@ -1,6 +1,7 @@
 ﻿using Lekser;
 using Lekser.Enums;
 using SyntacticalAnalyzerGenerator.InsertActionsInSyntax;
+using SyntacticalAnalyzerGenerator.InsertActionsInSyntax.ASTNodes;
 using SyntacticalAnalyzerGenerator.Words;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace SyntacticalAnalyzerGenerator
         private readonly IVariablesTableController _variablesTableController;
         private readonly TypeController _typeController;
         private readonly AriphmeticalOperationsController _ariphmeticalOperationsController;
+		private readonly ASTGenerator _aSTGenerator;
         private Term _currentTerm;
 
         public Runner(
@@ -41,6 +43,17 @@ namespace SyntacticalAnalyzerGenerator
             _currentTerm = await _programLekser.GetTermAsync();
             return await CheckWordsAsync( table );
         }
+
+		public IASTNode GetGeneratedAST()
+		{
+			if (_aSTGenerator.IsSuccessfulyCreated())
+			{
+				return _aSTGenerator.RootNode;
+			}
+
+			throw new ApplicationException($"root nodes more or less than 1!");
+			
+		}
 
         private async Task<bool> CheckWordsAsync( List<ResultTableRow> table )
         {
@@ -208,8 +221,15 @@ namespace SyntacticalAnalyzerGenerator
             {
                 case SourceActionName.AoActionAfterNumber:
                     _ariphmeticalOperationsController.AddNewNumber( _currentTerm );
-                    break;
-                case SourceActionName.AoClear:
+					_aSTGenerator.CreateLeafNode( _currentTerm );
+					break;
+				case SourceActionName.AoActionAfterSign:
+					_aSTGenerator.AddSign(_currentTerm);
+					break;
+				case SourceActionName.AoActionAfterOperation:
+					_aSTGenerator.CreateOperationNode( _currentTerm );
+					break;
+				case SourceActionName.AoClear:
                     _ariphmeticalOperationsController.Clear();
                     break;
                 default:
