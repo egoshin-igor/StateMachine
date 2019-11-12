@@ -55,6 +55,7 @@ namespace SyntacticalAnalyzerGenerator
                     new AriphmeticalOperationsController()
                 );
                 bool result = await runner.IsCorrectSentenceAsync( rows );
+                var ast = runner.GetGeneratedAST();
                 Console.WriteLine( result );
             }
 

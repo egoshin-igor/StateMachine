@@ -1,37 +1,5 @@
 void main 
 {
-	IntArray numbersToSort`
-	bool notSorted`
-	string abc`
-	int forIndex`
 	@@@
-	notSorted = false`
-	for(forIndex = 0` forIndex < numbersToSort.Length` forIndex++)
-	{
-		int tempNumber`
-		int prevNumber`
-		int currNumber`
-		@@@
-		prevNumber  = numbersToSort[forIndex - 1]`
-		currNumber = numbersToSort[forIndex]`
-		currNumber = forIndex`
-		0B11 + 0B11`
-		if (prevNumber > currNumber)
-		{
-            int abc`
-			@@@
-			if (prevNumber > currNumber)
-			{
-				char abc`
-				@@@
-			}
-			notSorted = false`
-		}
-
-		if (prevNumber > currNumber)
-		{
-			int abc`
-			@@@
-		}
-	}
+	11 + 22 * 33`
 }

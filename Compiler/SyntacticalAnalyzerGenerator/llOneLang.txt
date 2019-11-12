@@ -21,7 +21,7 @@
 <operator> -> <ariphmeticalOperation> `~AO.Clear / #DecimalWholeNumber#,#BinaryWholeNumber#
 
 <ariphmeticalOperation> -> <number> <ariphmeticalOperation_0> / #DecimalWholeNumber#,#BinaryWholeNumber#
-<ariphmeticalOperation_0> -> <ariphmeticalSign> <number>~AO.ActionAfterOperation <ariphmeticalOperation_0> / *,+,-
+<ariphmeticalOperation_0> -> <ariphmeticalSign> <number> <ariphmeticalOperation_0> / *,+,-
 <ariphmeticalOperation_0> -> [EPS] / `
 <number> -> #DecimalWholeNumber#~AO.ActionAfterNumber / #DecimalWholeNumber#
 <number> -> #BinaryWholeNumber#~AO.ActionAfterNumber / #BinaryWholeNumber#

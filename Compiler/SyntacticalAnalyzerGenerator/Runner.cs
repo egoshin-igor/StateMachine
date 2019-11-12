@@ -21,7 +21,7 @@ namespace SyntacticalAnalyzerGenerator
         private readonly IVariablesTableController _variablesTableController;
         private readonly TypeController _typeController;
         private readonly AriphmeticalOperationsController _ariphmeticalOperationsController;
-		private readonly ASTGenerator _aSTGenerator;
+        private readonly ASTGenerator _aSTGenerator;
         private Term _currentTerm;
 
         public Runner(
@@ -30,8 +30,8 @@ namespace SyntacticalAnalyzerGenerator
             TypeController typeController,
             AriphmeticalOperationsController ariphmeticalOperationsController )
         {
-			_aSTGenerator = new ASTGenerator(); // move realisation somewhere else if you want
-			_programLekser = programLekser;
+            _aSTGenerator = new ASTGenerator(); // move realisation somewhere else if you want
+            _programLekser = programLekser;
             _variablesTableController = variablesTableController;
             _typeController = typeController;
             _ariphmeticalOperationsController = ariphmeticalOperationsController;
@@ -45,16 +45,16 @@ namespace SyntacticalAnalyzerGenerator
             return await CheckWordsAsync( table );
         }
 
-		public IASTNode GetGeneratedAST()
-		{
-			if (_aSTGenerator.IsSuccessfulyCreated())
-			{
-				return _aSTGenerator.RootNode;
-			}
+        public IASTNode GetGeneratedAST()
+        {
+            if ( _aSTGenerator.IsSuccessfulyCreated() )
+            {
+                return _aSTGenerator.RootNode;
+            }
 
-			throw new ApplicationException($"root nodes more or less than 1!");
-			
-		}
+            throw new ApplicationException( $"root nodes more or less than 1!" );
+
+        }
 
         private async Task<bool> CheckWordsAsync( List<ResultTableRow> table )
         {
@@ -222,15 +222,16 @@ namespace SyntacticalAnalyzerGenerator
             {
                 case SourceActionName.AoActionAfterNumber:
                     _ariphmeticalOperationsController.AddNewNumber( _currentTerm );
-					_aSTGenerator.CreateLeafNode( _currentTerm );
-					break;
-				case SourceActionName.AoActionAfterSign:
-					_aSTGenerator.AddSign( _currentTerm );
-					break;
-				case SourceActionName.AoActionAfterOperation:
-					_aSTGenerator.CreateOperationNode( _currentTerm );
-					break;
-				case SourceActionName.AoClear:
+                    _aSTGenerator.CreateLeafNode( _currentTerm );
+                    _aSTGenerator.CreateOperationNode( _currentTerm );
+                    break;
+                case SourceActionName.AoActionAfterSign:
+                    _aSTGenerator.AddSign( _currentTerm );
+                    break;
+                case SourceActionName.AoActionAfterOperation:
+                    //_aSTGenerator.CreateOperationNode( _currentTerm );
+                    break;
+                case SourceActionName.AoClear:
                     _ariphmeticalOperationsController.Clear();
                     break;
                 default:
