@@ -53,7 +53,7 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
                 case TermType.Multiple:
                     rightNode = _nodesStack.Pop();
                     leftNode = _nodesStack.Pop();
-                    _nodesStack.Push( new MinusNode( TermType.Multiple, leftNode, rightNode ) );
+                    _nodesStack.Push( new MultipleNode( TermType.Multiple, leftNode, rightNode ) );
                     break;
                 default:
                     throw new ApplicationException( $"Operation not recognized. After:{ number.Value } in row { number.RowPosition }." );

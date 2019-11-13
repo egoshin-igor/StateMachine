@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Lekser;
 using SyntacticalAnalyzerGenerator.InsertActionsInSyntax;
+using SyntacticalAnalyzerGenerator.Utils;
 using SyntacticalAnalyzerGenerator.Words;
 
 namespace SyntacticalAnalyzerGenerator
 {
     class Program
     {
-        private const string LangFileName = "../../../lang.txt";
-        private const string LlOneLangFileName = "../../../llOneLang.txt";
+        private const string PathToLangFiles = "../../../LangFiles";
+        private const string LangFileName = PathToLangFiles + "/lang.txt";
+        private const string LlOneLangFileName = PathToLangFiles + "/llOneLang.txt";
 
         static void Main( string[] args )
         {
@@ -39,27 +42,29 @@ namespace SyntacticalAnalyzerGenerator
             var generator = new SyntacticalAnalyzerGenerator( expressions, expressions.First().NoTerm.Name );
             List<ResultTableRow> rows = generator.Generate();
 
-            using ( TextWriter tw = new StreamWriter( "../../../table.html" ) )
+            using ( TextWriter tw = new StreamWriter( $"{PathToLangFiles}/table.html" ) )
             {
                 LlTableToHtmlVisualizer.Write( tw, rows );
             }
 
             ProgramLekser programLekser;
-            using ( TextReader tr = new StreamReader( "../../../input.txt" ) )
+            using ( TextReader tr = new StreamReader( $"{PathToLangFiles}/input.txt" ) )
             {
                 programLekser = new ProgramLekser( tr );
                 var runner = new Runner(
                     programLekser,
                     new VariablesTableController(),
                     new TypeController(),
-                    new AriphmeticalOperationsController()
+                    new AriphmeticalOperationsController(),
+                    rows
                 );
-                bool result = await runner.IsCorrectSentenceAsync( rows );
-                var ast = runner.GetGeneratedAST();
-                Console.WriteLine( result );
+
+                InsertActionsInSyntax.ASTNodes.IASTNode astTree = await runner.GetTree();
+                await AstTreeVisualizer.VisualizeAsync( astTree, $"{PathToLangFiles}/astTree.dot" );
+                Console.WriteLine( astTree != null ? "Success" : "Error" );
             }
 
-            using ( TextWriter tw = new StreamWriter( "../../../table.txt" ) )
+            using ( TextWriter tw = new StreamWriter( $"{PathToLangFiles}/table.txt" ) )
             {
                 foreach ( ResultTableRow row in rows )
                 {

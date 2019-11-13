@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Common.Util\Common.Util.csproj" />
     <ProjectReference Include="..\GuideSetsDeterminant\GuideSetsDeterminant.csproj" />
     <ProjectReference Include="..\Lekser\Lekser.csproj" />
   </ItemGroup>

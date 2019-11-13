@@ -21,28 +21,49 @@ namespace SyntacticalAnalyzerGenerator
         private readonly IVariablesTableController _variablesTableController;
         private readonly TypeController _typeController;
         private readonly AriphmeticalOperationsController _ariphmeticalOperationsController;
+        private readonly List<ResultTableRow> _table;
         private readonly ASTGenerator _aSTGenerator;
         private Term _currentTerm;
+        private IASTNode _tree;
+        private bool _isIncorrectTerms = false;
 
         public Runner(
             ProgramLekser programLekser,
             IVariablesTableController variablesTableController,
             TypeController typeController,
-            AriphmeticalOperationsController ariphmeticalOperationsController )
+            AriphmeticalOperationsController ariphmeticalOperationsController,
+            List<ResultTableRow> table )
         {
             _aSTGenerator = new ASTGenerator(); // move realisation somewhere else if you want
             _programLekser = programLekser;
             _variablesTableController = variablesTableController;
             _typeController = typeController;
             _ariphmeticalOperationsController = ariphmeticalOperationsController;
+            _table = table;
             _indexStack = new List<int>();
         }
 
-        public async Task<bool> IsCorrectSentenceAsync( List<ResultTableRow> table )
+        public async Task<IASTNode> GetTree()
         {
+            if ( _tree != null )
+                return _tree;
+            if ( _isIncorrectTerms )
+                return null;
+
             _currentTableIndex = 0;
             _currentTerm = await _programLekser.GetTermAsync();
-            return await CheckWordsAsync( table );
+
+            bool result = await CheckWordsAsync( _table );
+            if ( result )
+            {
+                _tree = GetGeneratedAST();
+                return _tree;
+            }
+            else
+            {
+                _isIncorrectTerms = true;
+                return null;
+            }
         }
 
         public IASTNode GetGeneratedAST()

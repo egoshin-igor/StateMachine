@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuideSetsDeterminant", "Gui
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLR", "SLR\SLR.csproj", "{C2FFC332-7D73-4DAF-846D-6D9048BDE647}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Util", "Common.Util\Common.Util.csproj", "{58A9EC78-A0EF-45BA-94C1-2C06B616BA67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C2FFC332-7D73-4DAF-846D-6D9048BDE647}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2FFC332-7D73-4DAF-846D-6D9048BDE647}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2FFC332-7D73-4DAF-846D-6D9048BDE647}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58A9EC78-A0EF-45BA-94C1-2C06B616BA67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58A9EC78-A0EF-45BA-94C1-2C06B616BA67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58A9EC78-A0EF-45BA-94C1-2C06B616BA67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58A9EC78-A0EF-45BA-94C1-2C06B616BA67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
