@@ -244,13 +244,13 @@ namespace SyntacticalAnalyzerGenerator
                 case SourceActionName.AoActionAfterNumber:
                     _ariphmeticalOperationsController.AddNewNumber( _currentTerm );
                     _aSTGenerator.CreateLeafNode( _currentTerm );
-                    _aSTGenerator.CreateOperationNode( _currentTerm );
+                    //_aSTGenerator.CreateOperationNode( _currentTerm );
                     break;
                 case SourceActionName.AoActionAfterSign:
                     _aSTGenerator.AddSign( _currentTerm );
                     break;
                 case SourceActionName.AoActionAfterOperation:
-                    //_aSTGenerator.CreateOperationNode( _currentTerm );
+                    _aSTGenerator.CreateOperationNode( _currentTerm );
                     break;
                 case SourceActionName.AoClear:
                     _ariphmeticalOperationsController.Clear();

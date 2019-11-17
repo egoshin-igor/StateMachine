@@ -20,14 +20,14 @@
 <operator> -> <leftValue> =~TC.SaveLeftTerm <rightValue> `~TC.CheckLeftRight / #IDENTIFIER#
 <operator> -> <ariphmeticalOperation> `~AO.Clear / #DecimalWholeNumber#,#BinaryWholeNumber#
 
-<ariphmeticalOperation> -> <number> <ariphmeticalOperation_0> / #DecimalWholeNumber#,#BinaryWholeNumber#
-<ariphmeticalOperation_0> -> <ariphmeticalSign> <number> <ariphmeticalOperation_0> / *,+,-
-<ariphmeticalOperation_0> -> [EPS] / `
+<ariphmeticalOperation> -> <ariphmeticalOperation_0> <ariphmeticalOperation_1> / #DecimalWholeNumber#,#BinaryWholeNumber#
+<ariphmeticalOperation_0> -> <number> <mulArOp> / #DecimalWholeNumber#,#BinaryWholeNumber#
+<mulArOp> -> *~AO.ActionAfterSign <number> <mulArOp>~AO.ActionAfterOperation / *
+<mulArOp> -> [EPS] / +,`
+<ariphmeticalOperation_1> -> +~AO.ActionAfterSign <ariphmeticalOperation_0> <ariphmeticalOperation_1> / +
+<ariphmeticalOperation_1> -> [EPS] / `
 <number> -> #DecimalWholeNumber#~AO.ActionAfterNumber / #DecimalWholeNumber#
 <number> -> #BinaryWholeNumber#~AO.ActionAfterNumber / #BinaryWholeNumber#
-<ariphmeticalSign> -> *~AO.ActionAfterSign / *
-<ariphmeticalSign> -> +~AO.ActionAfterSign / +
-<ariphmeticalSign> -> -~AO.ActionAfterSign / -
 
 <leftValue> -> <identOrIndexIdent> / #IDENTIFIER#
 <rightValue> -> #DecimalWholeNumber#~TC.SaveLastTerm / #DecimalWholeNumber#

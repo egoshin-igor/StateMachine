@@ -27,84 +27,89 @@ N: 25;	Name:<operator>;	Set:For, If, Identifier, DecimalWholeNumber, BinaryWhole
 N: 26;	Name:<operators___10000>;	Set:ClosingBrace, DecimalWholeNumber, BinaryWholeNumber, For, If, Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:27;	IsEnd:False
 N: 27;	Name:[EPS];	Set:ClosingBrace;	Shift:False;	OnErr:28;	Stack:False;	GoTo:-1;	IsEnd:False
 N: 28;	Name:<operators>;	Set:For, If, Identifier, DecimalWholeNumber, BinaryWholeNumber;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:25;	IsEnd:False
-N: 29;	Name:<for>;	Set:For;	Shift:False;	OnErr:30;	Stack:False;	GoTo:65;	IsEnd:False
-N: 30;	Name:<if>;	Set:If;	Shift:False;	OnErr:31;	Stack:False;	GoTo:80;	IsEnd:False
-N: 31;	Name:<leftValue>;	Set:Identifier;	Shift:False;	OnErr:35;	Stack:True;	GoTo:48;	IsEnd:False
+N: 29;	Name:<for>;	Set:For;	Shift:False;	OnErr:30;	Stack:False;	GoTo:70;	IsEnd:False
+N: 30;	Name:<if>;	Set:If;	Shift:False;	OnErr:31;	Stack:False;	GoTo:85;	IsEnd:False
+N: 31;	Name:<leftValue>;	Set:Identifier;	Shift:False;	OnErr:35;	Stack:True;	GoTo:53;	IsEnd:False
 N: 32;	Name:=;	Set:Equally;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:33;	IsEnd:False
-N: 33;	Name:<rightValue>;	Set:DecimalWholeNumber, Bool, Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:49;	IsEnd:False
+N: 33;	Name:<rightValue>;	Set:DecimalWholeNumber, Bool, Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:54;	IsEnd:False
 N: 34;	Name:`;	Set:Tilda;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
 N: 35;	Name:<ariphmeticalOperation>;	Set:DecimalWholeNumber, BinaryWholeNumber;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:37;	IsEnd:False
 N: 36;	Name:`;	Set:Tilda;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 37;	Name:<number>;	Set:DecimalWholeNumber, BinaryWholeNumber;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:43;	IsEnd:False
-N: 38;	Name:<ariphmeticalOperation_0>;	Set:Multiple, Plus, Minis, Tilda;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:39;	IsEnd:False
-N: 39;	Name:<ariphmeticalSign>;	Set:Multiple, Plus, Minis;	Shift:False;	OnErr:42;	Stack:True;	GoTo:45;	IsEnd:False
-N: 40;	Name:<number>;	Set:DecimalWholeNumber, BinaryWholeNumber;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:43;	IsEnd:False
-N: 41;	Name:<ariphmeticalOperation_0>;	Set:Multiple, Plus, Minis, Tilda;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:39;	IsEnd:False
-N: 42;	Name:[EPS];	Set:Tilda;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 43;	Name:#DecimalWholeNumber#;	Set:DecimalWholeNumber;	Shift:True;	OnErr:44;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 44;	Name:#BinaryWholeNumber#;	Set:BinaryWholeNumber;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 45;	Name:*;	Set:Multiple;	Shift:True;	OnErr:46;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 46;	Name:+;	Set:Plus;	Shift:True;	OnErr:47;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 47;	Name:-;	Set:Minis;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 48;	Name:<identOrIndexIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:52;	IsEnd:False
+N: 37;	Name:<ariphmeticalOperation_0>;	Set:DecimalWholeNumber, BinaryWholeNumber;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:39;	IsEnd:False
+N: 38;	Name:<ariphmeticalOperation_1>;	Set:Plus, Tilda;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:45;	IsEnd:False
+N: 39;	Name:<number1>;	Set:DecimalWholeNumber, BinaryWholeNumber;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:51;	IsEnd:False
+N: 40;	Name:<mulArOp>;	Set:Multiple, Plus, Tilda;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:41;	IsEnd:False
+N: 41;	Name:*;	Set:Multiple;	Shift:True;	OnErr:44;	Stack:False;	GoTo:42;	IsEnd:False
+N: 42;	Name:<number>;	Set:DecimalWholeNumber, BinaryWholeNumber;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:49;	IsEnd:False
+N: 43;	Name:<mulArOp>;	Set:Multiple, Plus, Tilda;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:41;	IsEnd:False
+N: 44;	Name:[EPS];	Set:Plus, Tilda;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 45;	Name:+;	Set:Plus;	Shift:True;	OnErr:48;	Stack:False;	GoTo:46;	IsEnd:False
+N: 46;	Name:<ariphmeticalOperation_0>;	Set:DecimalWholeNumber, BinaryWholeNumber;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:39;	IsEnd:False
+N: 47;	Name:<ariphmeticalOperation_1>;	Set:Plus, Tilda;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:45;	IsEnd:False
+N: 48;	Name:[EPS];	Set:Tilda;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
 N: 49;	Name:#DecimalWholeNumber#;	Set:DecimalWholeNumber;	Shift:True;	OnErr:50;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 50;	Name:<boolOp>;	Set:Bool;	Shift:False;	OnErr:51;	Stack:False;	GoTo:63;	IsEnd:False
-N: 51;	Name:<identOrIndexIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:52;	IsEnd:False
-N: 52;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:53;	IsEnd:False
-N: 53;	Name:<identOrIndexIdent___10000>;	Set:OpeningSquareBrace, Equally, Tilda;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:54;	IsEnd:False
-N: 54;	Name:[;	Set:OpeningSquareBrace;	Shift:True;	OnErr:56;	Stack:False;	GoTo:55;	IsEnd:False
-N: 55;	Name:<identOrIndexIdent___10000___10000>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:57;	IsEnd:False
-N: 56;	Name:[EPS];	Set:Equally, Tilda;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 50;	Name:#BinaryWholeNumber#;	Set:BinaryWholeNumber;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 51;	Name:#DecimalWholeNumber#;	Set:DecimalWholeNumber;	Shift:True;	OnErr:52;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 52;	Name:#BinaryWholeNumber#;	Set:BinaryWholeNumber;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 53;	Name:<identOrIndexIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:57;	IsEnd:False
+N: 54;	Name:#DecimalWholeNumber#;	Set:DecimalWholeNumber;	Shift:True;	OnErr:55;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 55;	Name:<boolOp>;	Set:Bool;	Shift:False;	OnErr:56;	Stack:False;	GoTo:68;	IsEnd:False
+N: 56;	Name:<identOrIndexIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:57;	IsEnd:False
 N: 57;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:58;	IsEnd:False
-N: 58;	Name:<identOrIndexIdent___10000___10000___10000>;	Set:Minis, ClosingSquareBrace;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:59;	IsEnd:False
-N: 59;	Name:-;	Set:Minis;	Shift:True;	OnErr:62;	Stack:False;	GoTo:60;	IsEnd:False
-N: 60;	Name:#DecimalWholeNumber#;	Set:DecimalWholeNumber;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:61;	IsEnd:False
-N: 61;	Name:];	Set:ClosingSquareBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 62;	Name:];	Set:ClosingSquareBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 63;	Name:false;	Set:Bool;	Shift:True;	OnErr:64;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 64;	Name:true;	Set:Bool;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 65;	Name:for;	Set:For;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:66;	IsEnd:False
-N: 66;	Name:(;	Set:OpeningRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:67;	IsEnd:False
-N: 67;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:68;	IsEnd:False
-N: 68;	Name:=;	Set:Equally;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:69;	IsEnd:False
-N: 69;	Name:#DecimalWholeNumber#;	Set:DecimalWholeNumber;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:70;	IsEnd:False
-N: 70;	Name:`;	Set:Tilda;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:71;	IsEnd:False
-N: 71;	Name:<boolStatement>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:94;	IsEnd:False
-N: 72;	Name:`;	Set:Tilda;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:73;	IsEnd:False
-N: 73;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:74;	IsEnd:False
-N: 74;	Name:+;	Set:Plus;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:75;	IsEnd:False
-N: 75;	Name:+;	Set:Plus;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:76;	IsEnd:False
-N: 76;	Name:);	Set:ClosingRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:77;	IsEnd:False
-N: 77;	Name:{;	Set:OpeningBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:78;	IsEnd:False
-N: 78;	Name:<body>;	Set:DEnd, Bool, Char, Float, Int, IntArray, String;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:7;	IsEnd:False
-N: 79;	Name:};	Set:ClosingBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 80;	Name:if;	Set:If;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:81;	IsEnd:False
-N: 81;	Name:(;	Set:OpeningRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:82;	IsEnd:False
-N: 82;	Name:<boolStatement>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:94;	IsEnd:False
-N: 83;	Name:);	Set:ClosingRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:84;	IsEnd:False
-N: 84;	Name:{;	Set:OpeningBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:85;	IsEnd:False
-N: 85;	Name:<body>;	Set:DEnd, Bool, Char, Float, Int, IntArray, String;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:7;	IsEnd:False
-N: 86;	Name:};	Set:ClosingBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 87;	Name:while;	Set:While;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:88;	IsEnd:False
-N: 88;	Name:(;	Set:OpeningRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:89;	IsEnd:False
-N: 89;	Name:<boolStatement>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:94;	IsEnd:False
-N: 90;	Name:);	Set:ClosingRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:91;	IsEnd:False
-N: 91;	Name:{;	Set:OpeningBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:92;	IsEnd:False
-N: 92;	Name:<body>;	Set:DEnd, Bool, Char, Float, Int, IntArray, String;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:7;	IsEnd:False
-N: 93;	Name:};	Set:ClosingBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 94;	Name:<fieldOrIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:105;	IsEnd:False
-N: 95;	Name:<boolStatement___10000>;	Set:Tilda, ClosingRoundBracket, ExclamationMark, Less, Equally, More;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:96;	IsEnd:False
-N: 96;	Name:[EPS];	Set:Tilda, ClosingRoundBracket;	Shift:False;	OnErr:97;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 97;	Name:<condition>;	Set:ExclamationMark, Less, Equally, More;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:99;	IsEnd:False
-N: 98;	Name:<fieldOrIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:105;	IsEnd:False
-N: 99;	Name:!;	Set:ExclamationMark;	Shift:True;	OnErr:101;	Stack:False;	GoTo:100;	IsEnd:False
-N: 100;	Name:=;	Set:Equally;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 101;	Name:<;	Set:Less;	Shift:True;	OnErr:102;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 102;	Name:=;	Set:Equally;	Shift:True;	OnErr:104;	Stack:False;	GoTo:103;	IsEnd:False
-N: 103;	Name:=;	Set:Equally;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 104;	Name:>;	Set:More;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
-N: 105;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:106;	IsEnd:False
-N: 106;	Name:<fieldOrIdent___10000>;	Set:Point, Tilda, ClosingRoundBracket, ExclamationMark, Less, Equally, More;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:107;	IsEnd:False
-N: 107;	Name:.;	Set:Point;	Shift:True;	OnErr:109;	Stack:False;	GoTo:108;	IsEnd:False
-N: 108;	Name:<fieldOrIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:105;	IsEnd:False
-N: 109;	Name:[EPS];	Set:Tilda, ClosingRoundBracket, ExclamationMark, Less, Equally, More;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 58;	Name:<identOrIndexIdent___10000>;	Set:OpeningSquareBrace, Equally, Tilda;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:59;	IsEnd:False
+N: 59;	Name:[;	Set:OpeningSquareBrace;	Shift:True;	OnErr:61;	Stack:False;	GoTo:60;	IsEnd:False
+N: 60;	Name:<identOrIndexIdent___10000___10000>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:62;	IsEnd:False
+N: 61;	Name:[EPS];	Set:Equally, Tilda;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 62;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:63;	IsEnd:False
+N: 63;	Name:<identOrIndexIdent___10000___10000___10000>;	Set:Minis, ClosingSquareBrace;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:64;	IsEnd:False
+N: 64;	Name:-;	Set:Minis;	Shift:True;	OnErr:67;	Stack:False;	GoTo:65;	IsEnd:False
+N: 65;	Name:#DecimalWholeNumber#;	Set:DecimalWholeNumber;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:66;	IsEnd:False
+N: 66;	Name:];	Set:ClosingSquareBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 67;	Name:];	Set:ClosingSquareBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 68;	Name:false;	Set:Bool;	Shift:True;	OnErr:69;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 69;	Name:true;	Set:Bool;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 70;	Name:for;	Set:For;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:71;	IsEnd:False
+N: 71;	Name:(;	Set:OpeningRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:72;	IsEnd:False
+N: 72;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:73;	IsEnd:False
+N: 73;	Name:=;	Set:Equally;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:74;	IsEnd:False
+N: 74;	Name:#DecimalWholeNumber#;	Set:DecimalWholeNumber;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:75;	IsEnd:False
+N: 75;	Name:`;	Set:Tilda;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:76;	IsEnd:False
+N: 76;	Name:<boolStatement>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:99;	IsEnd:False
+N: 77;	Name:`;	Set:Tilda;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:78;	IsEnd:False
+N: 78;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:79;	IsEnd:False
+N: 79;	Name:+;	Set:Plus;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:80;	IsEnd:False
+N: 80;	Name:+;	Set:Plus;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:81;	IsEnd:False
+N: 81;	Name:);	Set:ClosingRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:82;	IsEnd:False
+N: 82;	Name:{;	Set:OpeningBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:83;	IsEnd:False
+N: 83;	Name:<body>;	Set:DEnd, Bool, Char, Float, Int, IntArray, String;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:7;	IsEnd:False
+N: 84;	Name:};	Set:ClosingBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 85;	Name:if;	Set:If;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:86;	IsEnd:False
+N: 86;	Name:(;	Set:OpeningRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:87;	IsEnd:False
+N: 87;	Name:<boolStatement>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:99;	IsEnd:False
+N: 88;	Name:);	Set:ClosingRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:89;	IsEnd:False
+N: 89;	Name:{;	Set:OpeningBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:90;	IsEnd:False
+N: 90;	Name:<body>;	Set:DEnd, Bool, Char, Float, Int, IntArray, String;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:7;	IsEnd:False
+N: 91;	Name:};	Set:ClosingBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 92;	Name:while;	Set:While;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:93;	IsEnd:False
+N: 93;	Name:(;	Set:OpeningRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:94;	IsEnd:False
+N: 94;	Name:<boolStatement>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:99;	IsEnd:False
+N: 95;	Name:);	Set:ClosingRoundBracket;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:96;	IsEnd:False
+N: 96;	Name:{;	Set:OpeningBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:97;	IsEnd:False
+N: 97;	Name:<body>;	Set:DEnd, Bool, Char, Float, Int, IntArray, String;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:7;	IsEnd:False
+N: 98;	Name:};	Set:ClosingBrace;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 99;	Name:<fieldOrIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:110;	IsEnd:False
+N: 100;	Name:<boolStatement___10000>;	Set:Tilda, ClosingRoundBracket, ExclamationMark, Less, Equally, More;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:101;	IsEnd:False
+N: 101;	Name:[EPS];	Set:Tilda, ClosingRoundBracket;	Shift:False;	OnErr:102;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 102;	Name:<condition>;	Set:ExclamationMark, Less, Equally, More;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:104;	IsEnd:False
+N: 103;	Name:<fieldOrIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:110;	IsEnd:False
+N: 104;	Name:!;	Set:ExclamationMark;	Shift:True;	OnErr:106;	Stack:False;	GoTo:105;	IsEnd:False
+N: 105;	Name:=;	Set:Equally;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 106;	Name:<;	Set:Less;	Shift:True;	OnErr:107;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 107;	Name:=;	Set:Equally;	Shift:True;	OnErr:109;	Stack:False;	GoTo:108;	IsEnd:False
+N: 108;	Name:=;	Set:Equally;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 109;	Name:>;	Set:More;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
+N: 110;	Name:#IDENTIFIER#;	Set:Identifier;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:111;	IsEnd:False
+N: 111;	Name:<fieldOrIdent___10000>;	Set:Point, Tilda, ClosingRoundBracket, ExclamationMark, Less, Equally, More;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:112;	IsEnd:False
+N: 112;	Name:.;	Set:Point;	Shift:True;	OnErr:114;	Stack:False;	GoTo:113;	IsEnd:False
+N: 113;	Name:<fieldOrIdent>;	Set:Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:110;	IsEnd:False
+N: 114;	Name:[EPS];	Set:Tilda, ClosingRoundBracket, ExclamationMark, Less, Equally, More;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
