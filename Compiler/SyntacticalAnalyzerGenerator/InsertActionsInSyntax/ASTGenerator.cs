@@ -31,8 +31,6 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 
         public bool CreateOperationNode( Term number )
         {
-            if ( _nodesStack.Count != 2 )
-                return false;
             if ( _signStack.Count == 0 )
                 throw new ApplicationException( $"Error in sign sign stack empty: {number.Value} in row {number.RowPosition}." );
 
