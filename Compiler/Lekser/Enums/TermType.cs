@@ -83,6 +83,8 @@
         a = 1010,
         b = 1011,
 
-        IntArray = 1012
+        IntArray = 1012,
+
+		Division = 1013
     }
 }

@@ -71,8 +71,9 @@ namespace Lekser
              { "label", TermType.label },
              { "goto", TermType.Goto },
              { "begin", TermType.Goto },
-             { "IntArray", TermType.IntArray }
-        };
+             { "IntArray", TermType.IntArray },
+			 { "div", TermType.Division },
+		};
 
         public static readonly Dictionary<string, TermType> DelimeterTypeByString = new Dictionary<string, TermType>
         {
@@ -86,7 +87,7 @@ namespace Lekser
              { ":", TermType.Colon },
              { ",", TermType.Comma },
              { "*", TermType.Multiple },
-             { "$", TermType.Dollar },
+			 { "$", TermType.Dollar },
              { "=", TermType.Equally },
              { ">", TermType.More },
              { "<", TermType.Less },

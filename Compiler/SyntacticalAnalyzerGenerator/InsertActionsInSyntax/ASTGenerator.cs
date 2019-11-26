@@ -1,6 +1,7 @@
 ﻿using Lekser;
 using Lekser.Enums;
 using SyntacticalAnalyzerGenerator.InsertActionsInSyntax.ASTNodes;
+using SyntacticalAnalyzerGenerator.InsertActionsInSyntax.ASTNodes.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -32,27 +33,41 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
         public bool CreateOperationNode( Term number )
         {
             if ( _signStack.Count == 0 )
-                throw new ApplicationException( $"Error in sign sign stack empty: {number.Value} in row {number.RowPosition}." );
+                throw new ApplicationException( $"Error in sign sign stack empty: { number.Value } in row { number.RowPosition }." );
 
             IASTNode rightNode;
             IASTNode leftNode;
-            switch ( _signStack.Pop() )
+			var nodes = new List<IASTNode>();
+			switch ( _signStack.Pop() )
             {
                 case TermType.Plus:
                     rightNode = _nodesStack.Pop();
                     leftNode = _nodesStack.Pop();
-                    _nodesStack.Push( new PlusNode( TermType.Plus, leftNode, rightNode ) );
+					nodes.Add(leftNode);
+					nodes.Add(rightNode);
+					_nodesStack.Push( new TreeNode( NodeType.PlusNode, TermType.Plus, nodes ) );
                     break;
                 case TermType.Minis:
                     rightNode = _nodesStack.Pop();
                     leftNode = _nodesStack.Pop();
-                    _nodesStack.Push( new MinusNode( TermType.Minis, leftNode, rightNode ) );
+					nodes.Add(leftNode);
+					nodes.Add(rightNode);
+					_nodesStack.Push( new TreeNode( NodeType.BinaryMinusNode, TermType.Minis, nodes ) );
                     break;
-                case TermType.Multiple:
-                    rightNode = _nodesStack.Pop();
-                    leftNode = _nodesStack.Pop();
-                    _nodesStack.Push( new MultipleNode( TermType.Multiple, leftNode, rightNode ) );
-                    break;
+				case TermType.Multiple:
+					rightNode = _nodesStack.Pop();
+					leftNode = _nodesStack.Pop();
+					nodes.Add(leftNode);
+					nodes.Add(rightNode);
+					_nodesStack.Push( new TreeNode( NodeType.MultipleNode, TermType.Multiple, nodes ) );
+					break;
+				case TermType.Division:
+					rightNode = _nodesStack.Pop();
+					leftNode = _nodesStack.Pop();
+					nodes.Add(leftNode);
+					nodes.Add(rightNode);
+					_nodesStack.Push( new TreeNode( NodeType.DivisionNode, TermType.Division, nodes ) );
+					break;
                 default:
                     throw new ApplicationException( $"Operation not recognized. After:{ number.Value } in row { number.RowPosition }." );
             }

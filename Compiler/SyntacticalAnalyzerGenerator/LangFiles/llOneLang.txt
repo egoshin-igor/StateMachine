@@ -26,8 +26,11 @@
 <mulArOp> -> [EPS] / +,`
 <ariphmeticalOperation_1> -> +~AO.ActionAfterSign <ariphmeticalOperation_0> <ariphmeticalOperation_1>~AO.ActionAfterOperation / +
 <ariphmeticalOperation_1> -> [EPS] / `
-<number> -> #DecimalWholeNumber#~AO.ActionAfterNumber / #DecimalWholeNumber#
-<number> -> #BinaryWholeNumber#~AO.ActionAfterNumber / #BinaryWholeNumber#
+<number> -> <number2> / #DecimalWholeNumber#,#BinaryWholeNumber#
+<number> -> - <number2> / -
+<number> -> ( <ariphmeticalOperation> ) / (
+<number2> -> #DecimalWholeNumber#~AO.ActionAfterNumber / #DecimalWholeNumber#
+<number2> -> #BinaryWholeNumber#~AO.ActionAfterNumber / #BinaryWholeNumber#
 
 <leftValue> -> <identOrIndexIdent> / #IDENTIFIER#
 <rightValue> -> #DecimalWholeNumber#~TC.SaveLastTerm / #DecimalWholeNumber#
