@@ -1,7 +1,7 @@
 <PROG> -> void main {~VTC.CreateTable <body> }~VTC.DestroyLastTable / void
 <body> -> <declarations> <body___10000> / @@@,bool,char,float,int,IntArray,string
 <body___10000> -> [EPS] / }
-<body___10000> -> <operators> / #DecimalWholeNumber#,#BinaryWholeNumber#,for,if,#IDENTIFIER#
+<body___10000> -> <operators> / #DecimalWholeNumber#,#BinaryWholeNumber#,for,if,#IDENTIFIER#,-,(
 <declarations> -> <declarations_0> @@@ / @@@,bool,char,float,int,IntArray,string
 <declarations_0> -> [EPS] / @@@
 <declarations_0> -> <declaration> ` <declarations_0> / bool,char,float,int,IntArray,string
@@ -12,16 +12,16 @@
 <type> -> int~VTC.DefineNewType / int
 <type> -> IntArray~VTC.DefineNewType / IntArray
 <type> -> string~VTC.DefineNewType / string
-<operators> -> <operator> <operators___10000> / for,if,#IDENTIFIER#,#DecimalWholeNumber#,#BinaryWholeNumber#
+<operators> -> <operator> <operators___10000> / for,if,#IDENTIFIER#,#DecimalWholeNumber#,#BinaryWholeNumber#,-,(
 <operators___10000> -> [EPS] / }
 <operators___10000> -> <operators> / #DecimalWholeNumber#,#BinaryWholeNumber#,for,if,#IDENTIFIER#
 <operator> -> <for> / for
 <operator> -> <if> / if
 <operator> -> <leftValue> =~TC.SaveLeftTerm <rightValue> `~TC.CheckLeftRight  / #IDENTIFIER#
-<operator> -> <ariphmeticalOperation> `~AO.Clear / #DecimalWholeNumber#,#BinaryWholeNumber#
+<operator> -> <ariphmeticalOperation> `~AO.Clear / #DecimalWholeNumber#,#BinaryWholeNumber#,-,(
 
-<ariphmeticalOperation> -> <ariphmeticalOperation_0> <ariphmeticalOperation_1> / #DecimalWholeNumber#,#BinaryWholeNumber#
-<ariphmeticalOperation_0> -> <number> <mulArOp>~AO.ActionCreateUnaryMinusNode / #DecimalWholeNumber#,#BinaryWholeNumber#
+<ariphmeticalOperation> -> <ariphmeticalOperation_0> <ariphmeticalOperation_1> / #DecimalWholeNumber#,#BinaryWholeNumber#,-,(
+<ariphmeticalOperation_0> -> <number> <mulArOp>~AO.ActionCreateUnaryMinusNode / #DecimalWholeNumber#,#BinaryWholeNumber#,-,(
 <mulArOp> -> *~AO.ActionAfterSign <number> <mulArOp>~AO.ActionAfterOperation / *
 <mulArOp> -> [EPS] / +,`
 <ariphmeticalOperation_1> -> +~AO.ActionAfterSign <ariphmeticalOperation_0> <ariphmeticalOperation_1>~AO.ActionAfterOperation / +
@@ -31,7 +31,6 @@
 <number> -> ( <ariphmeticalOperation> ) / (
 <number2> -> #DecimalWholeNumber#~AO.ActionAfterNumber / #DecimalWholeNumber#
 <number2> -> #BinaryWholeNumber#~AO.ActionAfterNumber / #BinaryWholeNumber#
-<number2> -> #IDENTIFIER# / #IDENTIFIER#
 
 <leftValue> -> <identOrIndexIdent> / #IDENTIFIER#
 <rightValue> -> #DecimalWholeNumber#~TC.SaveLastTerm / #DecimalWholeNumber#
