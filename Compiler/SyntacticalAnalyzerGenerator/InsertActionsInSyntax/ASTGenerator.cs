@@ -47,28 +47,28 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
                     leftNode = _nodesStack.Pop();
 					nodes.Add(leftNode);
 					nodes.Add(rightNode);
-					_nodesStack.Push( new TreeNode( NodeType.PlusNode, TermType.Plus, nodes ) );
+					_nodesStack.Push( new TreeNode( NodeType.PlusNode, TermType.Plus, nodes, NodeType.PlusNode.ToString() ) );
                     break;
                 case TermType.Minis:
                     rightNode = _nodesStack.Pop();
                     leftNode = _nodesStack.Pop();
 					nodes.Add(leftNode);
 					nodes.Add(rightNode);
-					_nodesStack.Push( new TreeNode( NodeType.BinaryMinusNode, TermType.Minis, nodes ) );
+					_nodesStack.Push( new TreeNode( NodeType.BinaryMinusNode, TermType.Minis, nodes, NodeType.BinaryMinusNode.ToString()) );
                     break;
 				case TermType.Multiple:
 					rightNode = _nodesStack.Pop();
 					leftNode = _nodesStack.Pop();
 					nodes.Add(leftNode);
 					nodes.Add(rightNode);
-					_nodesStack.Push( new TreeNode( NodeType.MultipleNode, TermType.Multiple, nodes ) );
+					_nodesStack.Push( new TreeNode( NodeType.MultipleNode, TermType.Multiple, nodes, NodeType.MultipleNode.ToString()) );
 					break;
 				case TermType.Division:
 					rightNode = _nodesStack.Pop();
 					leftNode = _nodesStack.Pop();
 					nodes.Add(leftNode);
 					nodes.Add(rightNode);
-					_nodesStack.Push( new TreeNode( NodeType.DivisionNode, TermType.Division, nodes ) );
+					_nodesStack.Push( new TreeNode( NodeType.DivisionNode, TermType.Division, nodes, NodeType.DivisionNode.ToString()) );
 					break;
                 default:
                     throw new ApplicationException( $"Operation not recognized. After:{ number.Value } in row { number.RowPosition }." );
