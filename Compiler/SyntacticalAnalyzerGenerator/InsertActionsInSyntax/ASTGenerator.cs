@@ -94,7 +94,6 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 			_predictedUnaryMinusesCount++;
 		}
 
-
 		public void AddSign( Term number )
         {
             _signStack.Push( number.Type );

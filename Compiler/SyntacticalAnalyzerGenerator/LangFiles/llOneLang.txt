@@ -23,8 +23,10 @@
 <ariphmeticalOperation> -> <ariphmeticalOperation_0> <ariphmeticalOperation_1> / #DecimalWholeNumber#,#BinaryWholeNumber#,-,(
 <ariphmeticalOperation_0> -> <number> <mulArOp>~AO.ActionCreateUnaryMinusNode / #DecimalWholeNumber#,#BinaryWholeNumber#,-,(
 <mulArOp> -> *~AO.ActionAfterSign <number> <mulArOp>~AO.ActionAfterOperation / *
-<mulArOp> -> [EPS] / +,`
+<mulArOp> -> div~AO.ActionAfterSign <number> <mulArOp>~AO.ActionAfterOperation / div
+<mulArOp> -> [EPS] / +,`,-
 <ariphmeticalOperation_1> -> +~AO.ActionAfterSign <ariphmeticalOperation_0> <ariphmeticalOperation_1>~AO.ActionAfterOperation / +
+<ariphmeticalOperation_1> -> -~AO.ActionAfterSign <ariphmeticalOperation_0> <ariphmeticalOperation_1>~AO.ActionAfterOperation / -
 <ariphmeticalOperation_1> -> [EPS] / `
 <number> -> <number2> / #DecimalWholeNumber#,#BinaryWholeNumber#
 <number> -> -~AO.UnaryMinusFoundAction <number> / -
