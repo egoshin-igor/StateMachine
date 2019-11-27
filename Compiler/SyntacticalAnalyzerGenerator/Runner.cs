@@ -74,7 +74,6 @@ namespace SyntacticalAnalyzerGenerator
             }
 
             throw new ApplicationException( $"root nodes more or less than 1!" );
-
         }
 
         private async Task<bool> CheckWordsAsync( List<ResultTableRow> table )
@@ -255,6 +254,12 @@ namespace SyntacticalAnalyzerGenerator
                 case SourceActionName.AoClear:
                     _ariphmeticalOperationsController.Clear();
                     break;
+				case SourceActionName.AoCreateUnaryMinusNode:
+					_aSTGenerator.CreateUnaryMinusNode();
+					break;
+				case SourceActionName.UnaryMinusFound:
+					_aSTGenerator.UnaryMinusFound();
+					break;
                 default:
                     throw new NotImplementedException( $"action: {actionName} not found" );
             }

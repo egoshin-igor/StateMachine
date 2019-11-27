@@ -12,11 +12,13 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
         private Stack<TermType> _signStack;
         private Stack<IASTNode> _nodesStack;
 
+		private int _predictedUnaryMinusesCount = 0;
+
         public IASTNode RootNode => _nodesStack.Peek();
 
         public ASTGenerator()
         {
-            _signStack = new Stack<TermType>();
+			_signStack = new Stack<TermType>();
             _nodesStack = new Stack<IASTNode>();
         }
 
@@ -75,7 +77,25 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
             return true;
         }
 
-        public void AddSign( Term number )
+		public void CreateUnaryMinusNode()
+		{
+			if (_predictedUnaryMinusesCount > 0)
+			{
+				_predictedUnaryMinusesCount--;
+				var nodes = new List<IASTNode>();
+				nodes.Add(_nodesStack.Pop());
+				
+				_nodesStack.Push(new TreeNode(NodeType.UnaryMinusNode, TermType.Minis, nodes, "-"));
+			}
+		}
+
+		public void UnaryMinusFound()
+		{
+			_predictedUnaryMinusesCount++;
+		}
+
+
+		public void AddSign( Term number )
         {
             _signStack.Push( number.Type );
         }

@@ -21,16 +21,17 @@
 <operator> -> <ariphmeticalOperation> `~AO.Clear / #DecimalWholeNumber#,#BinaryWholeNumber#
 
 <ariphmeticalOperation> -> <ariphmeticalOperation_0> <ariphmeticalOperation_1> / #DecimalWholeNumber#,#BinaryWholeNumber#
-<ariphmeticalOperation_0> -> <number> <mulArOp> / #DecimalWholeNumber#,#BinaryWholeNumber#
+<ariphmeticalOperation_0> -> <number> <mulArOp>~AO.ActionCreateUnaryMinusNode / #DecimalWholeNumber#,#BinaryWholeNumber#
 <mulArOp> -> *~AO.ActionAfterSign <number> <mulArOp>~AO.ActionAfterOperation / *
 <mulArOp> -> [EPS] / +,`
 <ariphmeticalOperation_1> -> +~AO.ActionAfterSign <ariphmeticalOperation_0> <ariphmeticalOperation_1>~AO.ActionAfterOperation / +
 <ariphmeticalOperation_1> -> [EPS] / `
 <number> -> <number2> / #DecimalWholeNumber#,#BinaryWholeNumber#
-<number> -> - <number2> / -
+<number> -> -~AO.UnaryMinusFoundAction <number> / -
 <number> -> ( <ariphmeticalOperation> ) / (
 <number2> -> #DecimalWholeNumber#~AO.ActionAfterNumber / #DecimalWholeNumber#
 <number2> -> #BinaryWholeNumber#~AO.ActionAfterNumber / #BinaryWholeNumber#
+<number2> -> #IDENTIFIER# / #IDENTIFIER#
 
 <leftValue> -> <identOrIndexIdent> / #IDENTIFIER#
 <rightValue> -> #DecimalWholeNumber#~TC.SaveLastTerm / #DecimalWholeNumber#
