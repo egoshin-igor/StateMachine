@@ -241,7 +241,16 @@ namespace SyntacticalAnalyzerGenerator
             switch ( actionName )
             {
                 case SourceActionName.AoActionAfterNumber:
-                    _ariphmeticalOperationsController.AddNewNumber( _currentTerm );
+					if (_currentTerm.Type == TermType.Identifier)
+					{
+						var varType = _variablesTableController.GetVariable(_currentTerm.Id);
+						_ariphmeticalOperationsController.AddNewVariable(_currentTerm, varType.Type.Type);
+					}
+					else
+					{
+						_ariphmeticalOperationsController.AddNewNumber(_currentTerm);
+					}
+					
                     _aSTGenerator.CreateLeafNode( _currentTerm );
                     //_aSTGenerator.CreateOperationNode( _currentTerm );
                     break;
