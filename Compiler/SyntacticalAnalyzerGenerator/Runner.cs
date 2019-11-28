@@ -241,16 +241,16 @@ namespace SyntacticalAnalyzerGenerator
             switch ( actionName )
             {
                 case SourceActionName.AoActionAfterNumber:
-					if (_currentTerm.Type == TermType.Identifier)
-					{
-						var varType = _variablesTableController.GetVariable(_currentTerm.Id);
-						_ariphmeticalOperationsController.AddNewVariable(_currentTerm, varType.Type.Type);
-					}
-					else
-					{
-						_ariphmeticalOperationsController.AddNewNumber(_currentTerm);
-					}
-					
+                    if ( _currentTerm.Type == TermType.Identifier )
+                    {
+                        var variable = _variablesTableController.GetVariable( _currentTerm.Id );
+                        _ariphmeticalOperationsController.AddNewVariable( variable, _currentTerm );
+                    }
+                    else
+                    {
+                        _ariphmeticalOperationsController.AddNewNumber( _currentTerm );
+                    }
+
                     _aSTGenerator.CreateLeafNode( _currentTerm );
                     //_aSTGenerator.CreateOperationNode( _currentTerm );
                     break;
@@ -263,12 +263,18 @@ namespace SyntacticalAnalyzerGenerator
                 case SourceActionName.AoClear:
                     _ariphmeticalOperationsController.Clear();
                     break;
-				case SourceActionName.AoCreateUnaryMinusNode:
-					_aSTGenerator.CreateUnaryMinusNode();
-					break;
-				case SourceActionName.UnaryMinusFound:
-					_aSTGenerator.UnaryMinusFound();
-					break;
+                case SourceActionName.AoCreateUnaryMinusNode:
+                    _aSTGenerator.CreateUnaryMinusNode();
+                    break;
+                case SourceActionName.UnaryMinusFound:
+                    _aSTGenerator.UnaryMinusFound();
+                    break;
+                case SourceActionName.AoOpenBracketFound:
+                    _aSTGenerator.OpenBracketFound();
+                    break;
+                case SourceActionName.AoClosedBracketFound:
+                    _aSTGenerator.CloseBracketFound();
+                    break;
                 default:
                     throw new NotImplementedException( $"action: {actionName} not found" );
             }

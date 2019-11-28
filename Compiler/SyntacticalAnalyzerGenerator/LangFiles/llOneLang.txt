@@ -29,8 +29,8 @@
 <ariphmeticalOperation_1> -> -~AO.ActionAfterSign <ariphmeticalOperation_0> <ariphmeticalOperation_1>~AO.ActionAfterOperation / -
 <ariphmeticalOperation_1> -> [EPS] / `,)
 <number> -> <number2> / #DecimalWholeNumber#,#BinaryWholeNumber#,#IDENTIFIER#
+<number> -> (~AO.OpenBracketFound <ariphmeticalOperation> )~AO.ClosedBracketFound / (
 <number> -> -~AO.UnaryMinusFoundAction <number> / -
-<number> -> ( <ariphmeticalOperation> ) / (
 <number2> -> #DecimalWholeNumber#~AO.ActionAfterNumber / #DecimalWholeNumber#
 <number2> -> #BinaryWholeNumber#~AO.ActionAfterNumber / #BinaryWholeNumber#
 <number2> -> #IDENTIFIER#~AO.ActionAfterNumber / #IDENTIFIER#

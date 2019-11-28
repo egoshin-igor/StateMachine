@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Lekser;
 using Lekser.Enums;
 
@@ -7,43 +8,45 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 {
     public class AriphmeticalOperationsController
     {
-        public List<Term> Numbers { get; } = new List<Term>();
+        public List<TermType> OperandTypes { get; } = new List<TermType>();
 
-		public TermType? TermType = null;
-
-		public void AddNewNumber( Term number )
+        public void AddNewNumber( Term number )
         {
-			if ( !TermType.HasValue )
-			{
-				TermType = number.Type;
-			}
+            TermType type = GetVariableType( number.Type );
 
-			Numbers.Add( number );
+            OperandTypes.Add( type );
 
-            bool numbersIsUnique = number.Type == TermType.Value;
+            bool numbersIsUnique = OperandTypes.Distinct().Count() == 1;
 
             if ( !numbersIsUnique )
                 throw new ApplicationException( $"Not all number types are equal. Number:{number.Value} in row {number.RowPosition}." );
-		}
+        }
 
-		public void AddNewVariable( Term variable, TermType variableType )
-		{
-			if ( !TermType.HasValue )
-			{
-				TermType = variableType;
-			}
-
-			Numbers.Add( variable );
-
-			bool numbersIsUnique = variableType == TermType.Value;
-
-			if ( !numbersIsUnique )
-				throw new ApplicationException($"Not all variable types are equal. Number:{variable.Value} in row {variable.RowPosition}.");
-		}
-
-		public void Clear()
+        public void AddNewVariable( Variable variable, Term currentTerm )
         {
-            Numbers.Clear();
+            OperandTypes.Add( variable.Type.Type );
+
+            bool numbersIsUnique = OperandTypes.Distinct().Count() == 1;
+
+            if ( !numbersIsUnique )
+                throw new ApplicationException( $"Not all variable types are equal. Number:{variable.Identifier.Value} in row {currentTerm.RowPosition}." );
+        }
+
+        private TermType GetVariableType( TermType termType )
+        {
+            switch ( termType )
+            {
+                case Lekser.Enums.TermType.BinaryWholeNumber:
+                case Lekser.Enums.TermType.DecimalWholeNumber:
+                    return Lekser.Enums.TermType.Int;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        public void Clear()
+        {
+            OperandTypes.Clear();
         }
     }
 }

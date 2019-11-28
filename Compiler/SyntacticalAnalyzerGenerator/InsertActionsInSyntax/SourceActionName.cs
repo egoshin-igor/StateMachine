@@ -19,9 +19,11 @@
         public const string AoActionAfterNumber = "ActionAfterNumber";
         public const string AoActionAfterSign = "ActionAfterSign";
         public const string AoActionAfterOperation = "ActionAfterOperation";
-		public const string AoCreateUnaryMinusNode = "ActionCreateUnaryMinusNode";
-		public const string UnaryMinusFound = "UnaryMinusFoundAction";
+        public const string AoCreateUnaryMinusNode = "ActionCreateUnaryMinusNode";
+        public const string UnaryMinusFound = "UnaryMinusFoundAction";
+        public const string AoOpenBracketFound = "OpenBracketFound";
+        public const string AoClosedBracketFound = "ClosedBracketFound";
 
-		public const string AoClear = "Clear";
+        public const string AoClear = "Clear";
     }
 }
