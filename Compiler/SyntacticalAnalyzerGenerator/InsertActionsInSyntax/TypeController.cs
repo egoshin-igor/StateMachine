@@ -6,16 +6,16 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 {
     public class TypeController
     {
-        private Term _leftTerm { get; set; }
-        private Term _rightTerm { get; set; }
+        public Term LeftTerm { get; set; }
+        public Term RightTerm { get; set; }
 
         public Term LastTerm { get; set; }
 
         public void CheckLeftRight( int currentRow )
         {
-            if ( _leftTerm?.Type != _rightTerm?.Type )
+            if ( LeftTerm?.Type != RightTermConvertToType() )
             {
-                throw new ApplicationException( $"Left value:{_leftTerm.Type} and right value:{_rightTerm.Type}" +
+                throw new ApplicationException( $"Left value:{LeftTerm.Type} and right value:{RightTerm.Type}" +
                     $" must be equal on row:{currentRow}" );
             }
         }
@@ -27,12 +27,12 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 
         public void SaveLeftTerm( Term term )
         {
-            _leftTerm = term;
+            LeftTerm = term;
         }
 
         public void SaveRightTerm( Term term )
         {
-            _rightTerm = term;
+            RightTerm = term;
         }
 
         public void DefineArrElemType( Term type )
@@ -45,6 +45,18 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
                     break;
                 default:
                     break;
+            }
+        }
+
+        private TermType RightTermConvertToType()
+        {
+            switch ( RightTerm.Type )
+            {
+                case TermType.DecimalWholeNumber:
+                case TermType.BinaryWholeNumber:
+                    return TermType.Int;
+                default:
+                    return RightTerm.Type;
             }
         }
     }

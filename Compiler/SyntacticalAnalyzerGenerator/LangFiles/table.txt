@@ -24,7 +24,7 @@ N: 22;	Name:int;	Set:Int;	Shift:True;	OnErr:23;	Stack:False;	GoTo:-1;	IsEnd:Fals
 N: 23;	Name:IntArray;	Set:IntArray;	Shift:True;	OnErr:24;	Stack:False;	GoTo:-1;	IsEnd:False
 N: 24;	Name:string;	Set:String;	Shift:True;	OnErr:-1;	Stack:False;	GoTo:-1;	IsEnd:False
 N: 25;	Name:<operator>;	Set:For, If, Identifier, DecimalWholeNumber, BinaryWholeNumber, Minis, OpeningRoundBracket;	Shift:False;	OnErr:-1;	Stack:True;	GoTo:29;	IsEnd:False
-N: 26;	Name:<operators___10000>;	Set:ClosingBrace, DecimalWholeNumber, BinaryWholeNumber, For, If, Identifier;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:27;	IsEnd:False
+N: 26;	Name:<operators___10000>;	Set:ClosingBrace, DecimalWholeNumber, BinaryWholeNumber, For, If, Identifier, Minis, OpeningRoundBracket;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:27;	IsEnd:False
 N: 27;	Name:[EPS];	Set:ClosingBrace;	Shift:False;	OnErr:28;	Stack:False;	GoTo:-1;	IsEnd:False
 N: 28;	Name:<operators>;	Set:For, If, Identifier, DecimalWholeNumber, BinaryWholeNumber, Minis, OpeningRoundBracket;	Shift:False;	OnErr:-1;	Stack:False;	GoTo:25;	IsEnd:False
 N: 29;	Name:<for>;	Set:For;	Shift:False;	OnErr:30;	Stack:False;	GoTo:81;	IsEnd:False

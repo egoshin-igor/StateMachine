@@ -24,7 +24,7 @@ namespace SyntacticalAnalyzerGenerator
         private readonly List<ResultTableRow> _table;
         private readonly ASTGenerator _aSTGenerator;
         private Term _currentTerm;
-        private IASTNode _tree;
+        private List<IASTNode> _trees;
         private bool _isIncorrectTerms = false;
 
         public Runner(
@@ -43,10 +43,10 @@ namespace SyntacticalAnalyzerGenerator
             _indexStack = new List<int>();
         }
 
-        public async Task<IASTNode> GetTree()
+        public async Task<List<IASTNode>> GetTrees()
         {
-            if ( _tree != null )
-                return _tree;
+            if ( _trees != null )
+                return _trees;
             if ( _isIncorrectTerms )
                 return null;
 
@@ -56,24 +56,14 @@ namespace SyntacticalAnalyzerGenerator
             bool result = await CheckWordsAsync( _table );
             if ( result )
             {
-                _tree = GetGeneratedAST();
-                return _tree;
+                _trees = _aSTGenerator.RootNodes.ToList();
+                return _trees;
             }
             else
             {
                 _isIncorrectTerms = true;
                 return null;
             }
-        }
-
-        public IASTNode GetGeneratedAST()
-        {
-            if ( _aSTGenerator.IsSuccessfulyCreated() )
-            {
-                return _aSTGenerator.RootNode;
-            }
-
-            throw new ApplicationException( $"root nodes more or less than 1!" );
         }
 
         private async Task<bool> CheckWordsAsync( List<ResultTableRow> table )
@@ -114,7 +104,6 @@ namespace SyntacticalAnalyzerGenerator
                 }
 
                 throw new ApplicationException( $"Error. Incorrect execution of rule:{table[ _currentTableIndex ].Name} on row {_currentTerm.RowPosition}" );
-                return false;
             }
         }
 
@@ -178,9 +167,11 @@ namespace SyntacticalAnalyzerGenerator
                     break;
                 case SourceActionName.VtcDefineNewType:
                     _variablesTableController.DefineNewType( _currentTerm );
+                    _aSTGenerator.AddDeclarationNode( _currentTerm );
                     break;
                 case SourceActionName.VtcDefineIdentifier:
                     _variablesTableController.DefineIdentifier( _currentTerm );
+                    _aSTGenerator.AddDeclarationNode( _currentTerm );
                     break;
                 default:
                     throw new NotImplementedException( $"action: {actionName} not found" );
@@ -206,12 +197,16 @@ namespace SyntacticalAnalyzerGenerator
                     }
                     _typeController.SaveRightTerm( term );
                     _typeController.CheckLeftRight( _currentTerm.RowPosition );
+                    _aSTGenerator.AddEqualityNodeLeaf( _typeController.LastTerm );
+                    _aSTGenerator.AddEqualityNode();
+                    _aSTGenerator.SaveAndClear();
                     break;
                 case SourceActionName.TcSaveLeftTerm:
                     Variable variable = _variablesTableController.GetVariable( _typeController.LastTerm.Id );
                     if ( variable == null )
                         throw new ApplicationException( $"Variable not declated on row {_typeController.LastTerm.RowPosition}" );
                     _typeController.SaveLeftTerm( variable.Type );
+                    _aSTGenerator.AddEqualityNodeLeaf( _typeController.LastTerm );
                     break;
                 case SourceActionName.TcDefineArrElemType:
                     variable = _variablesTableController.GetVariable( _typeController.LastTerm.Id );
@@ -258,10 +253,12 @@ namespace SyntacticalAnalyzerGenerator
                     _aSTGenerator.AddSign( _currentTerm );
                     break;
                 case SourceActionName.AoActionAfterOperation:
+                    _aSTGenerator.CreateUnaryMinusNode();
                     _aSTGenerator.CreateOperationNode( _currentTerm );
                     break;
                 case SourceActionName.AoClear:
                     _ariphmeticalOperationsController.Clear();
+                    _aSTGenerator.SaveAndClear();
                     break;
                 case SourceActionName.AoCreateUnaryMinusNode:
                     _aSTGenerator.CreateUnaryMinusNode();

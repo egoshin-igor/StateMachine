@@ -54,7 +54,7 @@ namespace SyntacticalAnalyzerGenerator.Utils
             public List<NodeWithId> Childs { get; set; }
             public int Id { get; set; }
 
-            public string UniqueName => $"{ParrentNode.Value}(Id:{Id})";
+            public string UniqueName => $"{ParrentNode.Value}:{ParrentNode.NodeType.ToString()}(Id:{Id})";
         }
     }
 }

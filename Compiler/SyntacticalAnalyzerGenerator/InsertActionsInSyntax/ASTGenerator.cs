@@ -4,6 +4,7 @@ using SyntacticalAnalyzerGenerator.InsertActionsInSyntax.ASTNodes;
 using SyntacticalAnalyzerGenerator.InsertActionsInSyntax.ASTNodes.Enums;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 {
@@ -17,20 +18,30 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 
         public IASTNode RootNode => _nodesStack.Peek();
 
+        private List<IASTNode> _rootNodes = new List<IASTNode>();
+        public IReadOnlyCollection<IASTNode> RootNodes => _rootNodes;
+
         public ASTGenerator()
         {
             _signStack = new Stack<TermType>();
             _nodesStack = new Stack<IASTNode>();
         }
 
+        public void SaveAndClear()
+        {
+            if ( _nodesStack.Any() )
+            {
+                _rootNodes.Add( RootNode );
+            }
+            _nodesStack.Clear();
+            _signStack.Clear();
+            _predictedUnaryMinusesCount = 0;
+            _minusesWithBracketsCount = 0;
+        }
+
         public void CreateLeafNode( Term number )
         {
             _nodesStack.Push( new LeafNode( number.Type, number.Value ) );
-        }
-
-        public bool IsSuccessfulyCreated()
-        {
-            return _nodesStack.Count == 1;
         }
 
         public bool CreateOperationNode( Term number )
@@ -48,28 +59,28 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
                     leftNode = _nodesStack.Pop();
                     nodes.Add( leftNode );
                     nodes.Add( rightNode );
-                    _nodesStack.Push( new TreeNode( NodeType.PlusNode, TermType.Plus, nodes, NodeType.PlusNode.ToString() ) );
+                    _nodesStack.Push( new TreeNode( NodeType.PlusNode, TermType.Plus, nodes ) );
                     break;
                 case TermType.Minis:
                     rightNode = _nodesStack.Pop();
                     leftNode = _nodesStack.Pop();
                     nodes.Add( leftNode );
                     nodes.Add( rightNode );
-                    _nodesStack.Push( new TreeNode( NodeType.BinaryMinusNode, TermType.Minis, nodes, NodeType.BinaryMinusNode.ToString() ) );
+                    _nodesStack.Push( new TreeNode( NodeType.BinaryMinusNode, TermType.Minis, nodes ) );
                     break;
                 case TermType.Multiple:
                     rightNode = _nodesStack.Pop();
                     leftNode = _nodesStack.Pop();
                     nodes.Add( leftNode );
                     nodes.Add( rightNode );
-                    _nodesStack.Push( new TreeNode( NodeType.MultipleNode, TermType.Multiple, nodes, NodeType.MultipleNode.ToString() ) );
+                    _nodesStack.Push( new TreeNode( NodeType.MultipleNode, TermType.Multiple, nodes ) );
                     break;
                 case TermType.Division:
                     rightNode = _nodesStack.Pop();
                     leftNode = _nodesStack.Pop();
                     nodes.Add( leftNode );
                     nodes.Add( rightNode );
-                    _nodesStack.Push( new TreeNode( NodeType.DivisionNode, TermType.Division, nodes, NodeType.DivisionNode.ToString() ) );
+                    _nodesStack.Push( new TreeNode( NodeType.DivisionNode, TermType.Division, nodes ) );
                     break;
                 default:
                     throw new ApplicationException( $"Operation not recognized. After:{ number.Value } in row { number.RowPosition }." );
@@ -89,6 +100,38 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 
                 _nodesStack.Push( new TreeNode( NodeType.UnaryMinusNode, TermType.Minis, nodes, "-" ) );
             }
+        }
+
+        public void AddDeclarationNode( Term term )
+        {
+            switch ( term.Type )
+            {
+                case TermType.Int:
+                case TermType.Float:
+                    _nodesStack.Push( new TreeNode( NodeType.DefineNewType, term.Type, new List<IASTNode>(), term.Value ) );
+                    break;
+                case TermType.Identifier:
+                    IASTNode typeNode = _nodesStack.Pop();
+                    typeNode.Nodes.Add( new LeafNode( TermType.Identifier, term.Value ) );
+                    _nodesStack.Push( typeNode );
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        public void AddEqualityNodeLeaf( Term term )
+        {
+            _nodesStack.Push( new LeafNode( term.Type, term.Value ) );
+        }
+
+        public void AddEqualityNode()
+        {
+            IASTNode rightLeadNode = _nodesStack.Pop();
+            IASTNode leftLeadNode = _nodesStack.Pop();
+            var childs = new List<IASTNode> { leftLeadNode, rightLeadNode };
+            _nodesStack.Push( new TreeNode( NodeType.Equality, TermType.Equally, childs, "=" ) );
         }
 
         public void UnaryMinusFound()

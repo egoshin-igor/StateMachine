@@ -1,1 +1,1 @@
-digraph G{"PlusNode(Id:1)"->"DivisionNode(Id:2)";"PlusNode(Id:1)"->"7(Id:10)";"DivisionNode(Id:2)"->"MultipleNode(Id:3)";"DivisionNode(Id:2)"->"3(Id:9)";"MultipleNode(Id:3)"->"-(Id:4)";"MultipleNode(Id:3)"->"7(Id:8)";"-(Id:4)"->"PlusNode(Id:5)";"PlusNode(Id:5)"->"ca(Id:6)";"PlusNode(Id:5)"->"6(Id:7)";}
+digraph G{"=:Equality(Id:1)"->"ca:Leaf(Id:2)";"=:Equality(Id:1)"->"ba:Leaf(Id:3)";}

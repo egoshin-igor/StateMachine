@@ -19,9 +19,9 @@ namespace SyntacticalAnalyzerGenerator
 
         static void Main( string[] args )
         {
+            RunAsync( args ).Wait();
             try
             {
-                RunAsync( args ).Wait();
             }
             catch ( Exception ex )
             {
@@ -59,9 +59,9 @@ namespace SyntacticalAnalyzerGenerator
                     rows
                 );
 
-                InsertActionsInSyntax.ASTNodes.IASTNode astTree = await runner.GetTree();
-                await AstTreeVisualizer.VisualizeAsync( astTree, $"{PathToLangFiles}/astTree.dot" );
-                Console.WriteLine( astTree != null ? "Success" : "Error" );
+                var astTrees = await runner.GetTrees();
+                await AstTreeVisualizer.VisualizeAsync( astTrees[ 2 ], $"{PathToLangFiles}/astTree.dot" );
+                Console.WriteLine( astTrees.Count != 0 ? "Success" : "Error" );
             }
 
             using ( TextWriter tw = new StreamWriter( $"{PathToLangFiles}/table.txt" ) )
