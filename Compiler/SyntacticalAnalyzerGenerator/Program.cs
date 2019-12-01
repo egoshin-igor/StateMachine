@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lekser;
 using SyntacticalAnalyzerGenerator.InsertActionsInSyntax;
+using SyntacticalAnalyzerGenerator.MSILGenerator;
 using SyntacticalAnalyzerGenerator.Utils;
 using SyntacticalAnalyzerGenerator.Words;
 
@@ -48,6 +49,8 @@ namespace SyntacticalAnalyzerGenerator
             }
 
             ProgramLekser programLekser;
+            var aSTConverter = new ASTConverter();
+            var msilGenerator = new Generator();
             using ( TextReader tr = new StreamReader( $"{PathToLangFiles}/input.txt" ) )
             {
                 programLekser = new ProgramLekser( tr );
@@ -60,7 +63,9 @@ namespace SyntacticalAnalyzerGenerator
                 );
 
                 var astTrees = await runner.GetTrees();
-                await AstTreeVisualizer.VisualizeAsync( astTrees[ 2 ], $"{PathToLangFiles}/astTree.dot" );
+                await AstTreeVisualizer.VisualizeAsync( astTrees[ 3 ], $"{PathToLangFiles}/astTree.dot" );
+                var msilConstructions = aSTConverter.GenerateMSILConstructions( astTrees );
+                msilGenerator.Generate( msilConstructions );
                 Console.WriteLine( astTrees.Count != 0 ? "Success" : "Error" );
             }
 

@@ -1,0 +1,2 @@
+{COMMAND} {VALUE}
+call void [mscorlib]System.Console::WriteLine({TYPE})
