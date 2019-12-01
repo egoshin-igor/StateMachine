@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Resource\MSILResource\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SyntacticalAnalyzerGenerator\SyntacticalAnalyzerGenerator.csproj" />
+  </ItemGroup>
+
+</Project>
