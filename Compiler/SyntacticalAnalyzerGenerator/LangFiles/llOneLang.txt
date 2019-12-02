@@ -20,7 +20,7 @@
 <operator> -> <print> `~AO.Clear / Print,Println
 
 <print> -> Print~Print.Save ( <printValue> )~Print.GenerateNode / Print
-<print> -> Println~Print.Save ( <printValue> ) / Println
+<print> -> Println~Print.Save ( <printValue> )~Print.GenerateNode / Println
 <printValue> -> #DecimalWholeNumber#~Print.Save / #DecimalWholeNumber#
 <printValue> -> #IDENTIFIER#~Print.Save / #IDENTIFIER#
 <printValue> -> [EPS] / )
