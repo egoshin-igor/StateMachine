@@ -6,7 +6,7 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax.ASTNodes
 {
     public interface IASTNode
     {
-		NodeType NodeType { get; }
+        NodeType NodeType { get; }
         TermType TermType { get; }
         string Value { get; }
         List<IASTNode> Nodes { get; }

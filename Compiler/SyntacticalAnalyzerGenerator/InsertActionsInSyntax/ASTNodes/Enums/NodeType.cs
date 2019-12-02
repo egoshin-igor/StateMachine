@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax.ASTNodes.Enums
+﻿namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax.ASTNodes.Enums
 {
     public enum NodeType
     {
@@ -13,6 +9,7 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax.ASTNodes.Enums
         DivisionNode,
         Leaf,
         DefineNewType,
-        Equality
+        Equality,
+        Print
     }
 }

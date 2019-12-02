@@ -144,8 +144,8 @@ namespace SyntacticalAnalyzerGenerator
                 case ActionSourceType.TypesController:
                     DoTcAction( actionNameData[ 1 ] );
                     break;
-                case ActionSourceType.Common:
-                    DoCommonAction( actionNameData[ 1 ] );
+                case ActionSourceType.PrintOperation:
+                    DoPrintAction( actionNameData[ 1 ] );
                     break;
                 case ActionSourceType.AriphmeticalOperation:
                     DoAoAction( actionNameData[ 1 ] );
@@ -182,49 +182,32 @@ namespace SyntacticalAnalyzerGenerator
         {
             switch ( actionName )
             {
-                case SourceActionName.TcSaveLastTerm:
-                    _typeController.SaveLastTerm( _currentTerm );
-                    break;
                 case SourceActionName.TcCheckLeftRight:
-                    Term term = null;
-                    if ( _typeController.LastTerm.Type == TermType.Identifier )
-                    {
-                        term = _variablesTableController.GetVariable( _typeController.LastTerm.Id ).Type;
-                    }
-                    else
-                    {
-                        term = _typeController.LastTerm;
-                    }
-                    _typeController.SaveRightTerm( term );
                     _typeController.CheckLeftRight( _currentTerm.RowPosition );
-                    _aSTGenerator.AddEqualityNodeLeaf( _typeController.LastTerm );
                     _aSTGenerator.AddEqualityNode();
                     _aSTGenerator.SaveAndClear();
                     break;
                 case SourceActionName.TcSaveLeftTerm:
-                    Variable variable = _variablesTableController.GetVariable( _typeController.LastTerm.Id );
+                    Variable variable = _variablesTableController.GetVariable( _currentTerm.Id );
                     if ( variable == null )
-                        throw new ApplicationException( $"Variable not declated on row {_typeController.LastTerm.RowPosition}" );
+                        throw new ApplicationException( $"Variable not declarated on row {_currentTerm.RowPosition}" );
                     _typeController.SaveLeftTerm( variable.Type );
-                    _aSTGenerator.AddEqualityNodeLeaf( _typeController.LastTerm );
-                    break;
-                case SourceActionName.TcDefineArrElemType:
-                    variable = _variablesTableController.GetVariable( _typeController.LastTerm.Id );
-                    _typeController.DefineArrElemType( variable.Type );
+                    _aSTGenerator.AddLeafNode( _currentTerm );
                     break;
                 default:
                     throw new NotImplementedException( $"action: {actionName} not found" );
             }
         }
 
-        private void DoCommonAction( string actionName )
+        private void DoPrintAction( string actionName )
         {
             switch ( actionName )
             {
-                case SourceActionName.CommonIsIntIndex:
-                    Variable variable = _variablesTableController.GetVariable( _currentTerm.Id );
-                    if ( variable.Type.Type != TermType.Int )
-                        throw new ApplicationException( $"Index must be int on row { _currentTerm.RowPosition }" );
+                case SourceActionName.PrintSave:
+                    _aSTGenerator.AddLeafNode( _currentTerm );
+                    break;
+                case SourceActionName.PrintGenerateNode:
+                    _aSTGenerator.AddPrintNode();
                     break;
                 default:
                     throw new NotImplementedException( $"action: {actionName} not found" );
@@ -240,14 +223,15 @@ namespace SyntacticalAnalyzerGenerator
                     {
                         var variable = _variablesTableController.GetVariable( _currentTerm.Id );
                         _ariphmeticalOperationsController.AddNewVariable( variable, _currentTerm );
+                        _typeController.SaveRightType( variable.Type );
                     }
                     else
                     {
                         _ariphmeticalOperationsController.AddNewNumber( _currentTerm );
+                        _typeController.SaveRightType( _currentTerm );
                     }
 
                     _aSTGenerator.CreateLeafNode( _currentTerm );
-                    //_aSTGenerator.CreateOperationNode( _currentTerm );
                     break;
                 case SourceActionName.AoActionAfterSign:
                     _aSTGenerator.AddSign( _currentTerm );

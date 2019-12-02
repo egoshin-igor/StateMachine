@@ -19,9 +19,9 @@ namespace SyntacticalAnalyzerGenerator
 
         static void Main( string[] args )
         {
-            RunAsync( args ).Wait();
             try
             {
+                RunAsync( args ).Wait();
             }
             catch ( Exception ex )
             {
@@ -60,7 +60,7 @@ namespace SyntacticalAnalyzerGenerator
                 );
 
                 var astTrees = await runner.GetTrees();
-                await AstTreeVisualizer.VisualizeAsync( astTrees[ 2 ], $"{PathToLangFiles}/astTree.dot" );
+                await AstTreeVisualizer.VisualizeAsync( astTrees[ 1 ], $"{PathToLangFiles}/astTree.dot" );
                 Console.WriteLine( astTrees.Count != 0 ? "Success" : "Error" );
             }
 

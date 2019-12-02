@@ -67,6 +67,9 @@
         Array = 65,
         Dollar = 66,
 
+        Print = 67,
+        Println = 68,
+
         I = 1000,
         E = 1001,
         Step = 1002,
@@ -85,6 +88,6 @@
 
         IntArray = 1012,
 
-		Division = 1013
+        Division = 1013
     }
 }

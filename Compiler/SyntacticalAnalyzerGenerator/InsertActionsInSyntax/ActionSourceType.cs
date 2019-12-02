@@ -6,5 +6,6 @@
         public const string TypesController = "TC";
         public const string Common = "Common";
         public const string AriphmeticalOperation = "AO";
+        public const string PrintOperation = "Print";
     }
 }

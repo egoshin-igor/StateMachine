@@ -15,6 +15,7 @@ namespace SyntacticalAnalyzerGenerator.Utils
 
             int currentNodeId = 0;
             NodeWithId nodeWithId = NumericNodes( aSTNode, ref currentNodeId );
+            DeclareType( graph, nodeWithId );
             Visualize( graph, nodeWithId );
             using ( var streamWriter = new StreamWriter( fileUri ) )
             {
@@ -33,6 +34,11 @@ namespace SyntacticalAnalyzerGenerator.Utils
             }
 
             return result;
+        }
+
+        private static void DeclareType( Graph graph, NodeWithId aSTNode )
+        {
+            graph.AddType( aSTNode.UniqueName, "box" );
         }
 
         private static void Visualize( Graph graph, NodeWithId aSTNode )

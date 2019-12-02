@@ -9,8 +9,6 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
         public Term LeftTerm { get; set; }
         public Term RightTerm { get; set; }
 
-        public Term LastTerm { get; set; }
-
         public void CheckLeftRight( int currentRow )
         {
             if ( LeftTerm?.Type != RightTermConvertToType() )
@@ -20,32 +18,14 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
             }
         }
 
-        public void SaveLastTerm( Term term )
-        {
-            LastTerm = term;
-        }
-
         public void SaveLeftTerm( Term term )
         {
             LeftTerm = term;
         }
 
-        public void SaveRightTerm( Term term )
+        public void SaveRightType( Term term )
         {
             RightTerm = term;
-        }
-
-        public void DefineArrElemType( Term type )
-        {
-            switch ( type.Type )
-            {
-                case TermType.IntArray:
-                    LastTerm = type.Copy();
-                    LastTerm.Type = TermType.Int;
-                    break;
-                default:
-                    break;
-            }
         }
 
         private TermType RightTermConvertToType()

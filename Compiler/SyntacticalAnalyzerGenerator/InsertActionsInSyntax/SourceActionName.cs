@@ -25,5 +25,8 @@
         public const string AoClosedBracketFound = "ClosedBracketFound";
 
         public const string AoClear = "Clear";
+
+        public const string PrintGenerateNode = "GenerateNode";
+        public const string PrintSave = "Save";
     }
 }

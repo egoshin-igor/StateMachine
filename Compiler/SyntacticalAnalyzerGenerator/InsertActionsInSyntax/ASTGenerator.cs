@@ -121,17 +121,53 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 
         }
 
-        public void AddEqualityNodeLeaf( Term term )
+        public void AddLeafNode( Term term )
         {
             _nodesStack.Push( new LeafNode( term.Type, term.Value ) );
         }
 
+        public void AddPrintNode()
+        {
+            IASTNode printType = null;
+            IASTNode printValue = null;
+
+            IASTNode node = _nodesStack.Pop();
+            if ( _nodesStack.Any() )
+            {
+                printValue = node;
+                printType = _nodesStack.Pop();
+            }
+            else
+            {
+                printType = node;
+            }
+
+            var nodes = new List<IASTNode>();
+            if ( printValue != null )
+            {
+                nodes.Add( printValue );
+            }
+
+            _nodesStack.Push( new TreeNode( NodeType.Print, printType.TermType, nodes ) );
+        }
+
         public void AddEqualityNode()
         {
-            IASTNode rightLeadNode = _nodesStack.Pop();
-            IASTNode leftLeadNode = _nodesStack.Pop();
-            var childs = new List<IASTNode> { leftLeadNode, rightLeadNode };
-            _nodesStack.Push( new TreeNode( NodeType.Equality, TermType.Equally, childs, "=" ) );
+            var nodes = new List<IASTNode>();
+            while ( _nodesStack.Any() )
+            {
+                IASTNode node = _nodesStack.Pop();
+                if ( _nodesStack.Any() )
+                {
+                    nodes.Add( node );
+                }
+                else
+                {
+                    nodes.Insert( 0, node );
+                }
+            }
+
+            _nodesStack.Push( new TreeNode( NodeType.Equality, TermType.Equally, nodes, "=" ) );
         }
 
         public void UnaryMinusFound()
