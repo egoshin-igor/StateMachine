@@ -204,7 +204,14 @@ namespace SyntacticalAnalyzerGenerator
             switch ( actionName )
             {
                 case SourceActionName.PrintSave:
-                    _aSTGenerator.AddLeafNode( _currentTerm );
+                    var term = _currentTerm;
+                    if ( term.Type == TermType.Identifier )
+                    {
+                        Variable variable = _variablesTableController.GetVariable( term.Id );
+                        term = term.Copy();
+                        term.Type = variable.Type.Type;
+                    }
+                    _aSTGenerator.AddLeafNode( term );
                     break;
                 case SourceActionName.PrintGenerateNode:
                     _aSTGenerator.AddPrintNode();

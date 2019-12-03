@@ -148,7 +148,11 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
                 nodes.Add( printValue );
             }
 
-            _nodesStack.Push( new TreeNode( NodeType.Print, printType.TermType, nodes ) );
+            _nodesStack.Push( new TreeNode(
+                NodeType.Print,
+                printType.TermType,
+                nodes )
+            );
         }
 
         public void AddEqualityNode()
