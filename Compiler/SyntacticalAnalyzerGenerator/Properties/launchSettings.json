@@ -1,7 +1,8 @@
 {
   "profiles": {
     "SyntacticalAnalyzerGenerator": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "GenerateLlOneTable"
     }
   }
 }

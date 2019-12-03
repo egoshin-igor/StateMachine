@@ -42,3 +42,21 @@
 
 <leftValue> -> #IDENTIFIER#~TC.SaveLeftTerm / #IDENTIFIER#
 <rightValue> -> <ariphmeticalOperation> / #DecimalWholeNumber#,#BinaryWholeNumber#,-,(,#IDENTIFIER#
+
+<rightValue> -> <boolExpression>
+<rightValue> -> ! <boolExpression>
+<boolExpression> -> <boolOperations> && <boolExpression>
+<boolExpression> -> <boolOperations> || <boolExpression>
+<boolExpression> -> <boolOperations>
+
+<boolOperations> -> <boolValue> < <boolValue>
+<boolOperations> -> <boolValue> <= <boolValue>
+<boolOperations> -> <boolValue> > <boolValue>
+<boolOperations> -> <boolValue> >= <boolValue>
+<boolOperations> -> <boolValue> == <boolValue>
+<boolOperations> -> <boolValue> != <boolValue> / 
+<boolOperations> -> <boolValue> / #IDENTIFIER#,false,true
+
+<boolValue> -> #IDENTIFIER# / #IDENTIFIER#
+<boolValue> -> true / false
+<boolValue> -> false / true

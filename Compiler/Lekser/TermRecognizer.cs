@@ -74,8 +74,13 @@ namespace Lekser
              { "IntArray", TermType.IntArray },
              { "div", TermType.Division },
              { "Print", TermType.Print },
-             { "Println", TermType.Println }
-        };
+             { "Println", TermType.Println },
+			{ "&&", TermType.And },
+			{ "||", TermType.Or },
+			{ "==", TermType.Equal },
+			{ ">=", TermType.MoreEqual },
+			{ "<=", TermType.LessEqual },
+		};
 
         public static readonly Dictionary<string, TermType> DelimeterTypeByString = new Dictionary<string, TermType>
         {

@@ -53,3 +53,22 @@
 <fieldOrIdent> -> #IDENTIFIER# <fieldOrIdent___10000>
 <fieldOrIdent___10000> -> . <fieldOrIdent>
 <fieldOrIdent___10000> -> [EPS]
+
+<rightValue> -> <boolExpression>
+<rightValue> -> ! <boolExpression>
+<boolExpression> -> <boolOperations> && <boolExpression>
+<boolExpression> -> <boolOperations> || <boolExpression>
+<boolExpression> -> <boolOperations>
+
+<boolOperations> -> <boolValue> < <boolValue>
+<boolOperations> -> <boolValue> <= <boolValue>
+<boolOperations> -> <boolValue> > <boolValue>
+<boolOperations> -> <boolValue> >= <boolValue>
+<boolOperations> -> <boolValue> == <boolValue>
+<boolOperations> -> <boolValue> != <boolValue> 
+<boolOperations> -> <boolValue>
+
+<boolValue> -> #IDENTIFIER#
+<boolValue> -> true
+<boolValue> -> false
+

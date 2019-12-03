@@ -88,6 +88,13 @@
 
         IntArray = 1012,
 
-        Division = 1013
-    }
+        Division = 1013,
+		// bool operations
+		And = 1014,
+		Or = 1015,
+		Not = 1016,
+		MoreEqual = 1017,
+		LessEqual = 1018,
+		Equal = 1019
+	}
 }
