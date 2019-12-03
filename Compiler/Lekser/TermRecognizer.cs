@@ -13,6 +13,8 @@ namespace Lekser
         {
             if ( termString == null || !termString.Any() )
                 throw new ArgumentException( "Term can't be empty" );
+            if ( ReservedWordTypeByString.ContainsKey( termString ) )
+                return ReservedWordTypeByString[ termString ];
 
             if ( termString.Length == 1 && DelimeterTypeByString.ContainsKey( termString ) )
             {
@@ -75,12 +77,13 @@ namespace Lekser
              { "div", TermType.Division },
              { "Print", TermType.Print },
              { "Println", TermType.Println },
-			{ "&&", TermType.And },
-			{ "||", TermType.Or },
-			{ "==", TermType.Equal },
-			{ ">=", TermType.MoreEqual },
-			{ "<=", TermType.LessEqual },
-		};
+            { "&&", TermType.And },
+            { "||", TermType.Or },
+            { "==", TermType.Equal },
+            { "!=", TermType.NotEqual },
+            { ">=", TermType.MoreEqual },
+            { "<=", TermType.LessEqual },
+        };
 
         public static readonly Dictionary<string, TermType> DelimeterTypeByString = new Dictionary<string, TermType>
         {

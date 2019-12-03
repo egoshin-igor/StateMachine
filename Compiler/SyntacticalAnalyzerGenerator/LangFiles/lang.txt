@@ -1,60 +1,4 @@
-﻿<PROG> -> void main { <body> }
-<body> -> <declarations> <body___10000>
-<body___10000> -> [EPS]
-<body___10000> -> <operators>
-<declarations> -> <declarations_0> @@@
-<declarations_0> -> [EPS]
-<declarations_0> -> <declaration> ` <declarations_0>
-<declaration> -> <type> #IDENTIFIER#
-<type> -> bool
-<type> -> char
-<type> -> float
-<type> -> int
-<type> -> IntArray
-<type> -> string
-<operators> -> <operator> <operators___10000>
-<operators___10000> -> [EPS]
-<operators___10000> -> <operators>
-<operator> -> <for>
-<operator> -> <if>
-<operator> -> <leftValue> = <rightValue> `
-<operator> -> <ariphmeticalOperation> `
-
-<ariphmeticalOperation> -> <number> <ariphmeticalOperation_0>
-<ariphmeticalOperation_0> -> <ariphmeticalSign> <number> <ariphmeticalOperation_0>
-<ariphmeticalOperation_0> -> [EPS]
-<number> -> #DecimalWholeNumber#
-<ariphmeticalSign> -> *
-<ariphmeticalSign> -> +
-<ariphmeticalSign> -> -
-
-<leftValue> -> <identOrIndexIdent>
-<rightValue> -> #DecimalWholeNumber#
-<rightValue> -> <boolOp>
-<rightValue> -> <identOrIndexIdent>
-<identOrIndexIdent> -> #IDENTIFIER# <identOrIndexIdent___10000>
-<identOrIndexIdent___10000> -> [ <identOrIndexIdent___10000___10000>
-<identOrIndexIdent___10000> -> [EPS]
-<identOrIndexIdent___10000___10000> -> #IDENTIFIER# <identOrIndexIdent___10000___10000___10000>
-<identOrIndexIdent___10000___10000___10000> -> - #DecimalWholeNumber# ]
-<identOrIndexIdent___10000___10000___10000> -> ]
-<boolOp> -> false
-<boolOp> -> true
-<for> -> for ( #IDENTIFIER# = #DecimalWholeNumber# ` <boolStatement> ` #IDENTIFIER# + + ) { <body> }
-<if> -> if ( <boolStatement> ) { <body> }
-<while> -> while ( <boolStatement> ) { <body> }
-<boolStatement> -> <fieldOrIdent> <boolStatement___10000>
-<boolStatement___10000> -> [EPS]
-<boolStatement___10000> -> <condition> <fieldOrIdent>
-<condition> -> ! =
-<condition> -> <
-<condition> -> = =
-<condition> -> >
-<fieldOrIdent> -> #IDENTIFIER# <fieldOrIdent___10000>
-<fieldOrIdent___10000> -> . <fieldOrIdent>
-<fieldOrIdent___10000> -> [EPS]
-
-<rightValue> -> <boolExpression>
+﻿<rightValue> -> <boolExpression>
 <rightValue> -> ! <boolExpression>
 <boolExpression> -> <boolOperations> && <boolExpression>
 <boolExpression> -> <boolOperations> || <boolExpression>
@@ -65,10 +9,9 @@
 <boolOperations> -> <boolValue> > <boolValue>
 <boolOperations> -> <boolValue> >= <boolValue>
 <boolOperations> -> <boolValue> == <boolValue>
-<boolOperations> -> <boolValue> != <boolValue> 
+<boolOperations> -> <boolValue> != <boolValue>
 <boolOperations> -> <boolValue>
 
 <boolValue> -> #IDENTIFIER#
 <boolValue> -> true
 <boolValue> -> false
-

@@ -2,8 +2,10 @@ void main
 {
 	int ca`
 	int ba`
+	bool a`
 	@@@
 	ca = ba`
 	- (-ca - -6) * - 7 div - ( - ca + - - 7 )`
+	a = true`
 	5 + 5`
 }
