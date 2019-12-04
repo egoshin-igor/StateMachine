@@ -204,14 +204,24 @@ namespace SyntacticalAnalyzerGenerator
             switch ( actionName )
             {
                 case SourceActionName.PrintSave:
-                    var term = _currentTerm;
-                    if ( term.Type == TermType.Identifier )
+                    if ( _currentTerm.Type == TermType.Identifier )
                     {
-                        Variable variable = _variablesTableController.GetVariable( term.Id );
-                        term = term.Copy();
-                        term.Type = variable.Type.Type;
+                        Variable variable = _variablesTableController.GetVariable( _currentTerm.Id );
+                        _aSTGenerator.AddLeafNode( variable.Type );
+                        _aSTGenerator.AddLeafNode( variable.Identifier );
                     }
-                    _aSTGenerator.AddLeafNode( term );
+                    else if ( _currentTerm.Type == TermType.Print || _currentTerm.Type == TermType.Println )
+                    {
+                        _aSTGenerator.AddLeafNode( _currentTerm );
+                    }
+                    else
+                    {
+                        var term = _currentTerm.Copy();
+                        term.Type = TypeController.ConvertToSimpleType( term.Type );
+                        term.Value = term.Type.ToString();
+                        _aSTGenerator.AddLeafNode( term );
+                        _aSTGenerator.AddLeafNode( _currentTerm );
+                    }
                     break;
                 case SourceActionName.PrintGenerateNode:
                     _aSTGenerator.AddPrintNode();

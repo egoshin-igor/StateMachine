@@ -11,7 +11,7 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 
         public void CheckLeftRight( int currentRow )
         {
-            if ( LeftTerm?.Type != RightTermConvertToType() )
+            if ( LeftTerm?.Type != ConvertToSimpleType( RightTerm.Type ) )
             {
                 throw new ApplicationException( $"Left value:{LeftTerm.Type} and right value:{RightTerm.Type}" +
                     $" must be equal on row:{currentRow}" );
@@ -28,15 +28,15 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
             RightTerm = term;
         }
 
-        private TermType RightTermConvertToType()
+        public static TermType ConvertToSimpleType( TermType type )
         {
-            switch ( RightTerm.Type )
+            switch ( type )
             {
                 case TermType.DecimalWholeNumber:
                 case TermType.BinaryWholeNumber:
                     return TermType.Int;
                 default:
-                    return RightTerm.Type;
+                    return type;
             }
         }
     }

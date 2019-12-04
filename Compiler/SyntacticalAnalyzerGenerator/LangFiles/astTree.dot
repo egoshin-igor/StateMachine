@@ -1,1 +1,1 @@
-digraph G{":Print(Id:1)" [shape = box];":Print(Id:1)"->"ca:Leaf(Id:2)";}
+digraph G{":Print(Id:1)" [shape = box];":Print(Id:1)"->"int:Leaf(Id:2)";":Print(Id:1)"->"ca:Leaf(Id:3)";}

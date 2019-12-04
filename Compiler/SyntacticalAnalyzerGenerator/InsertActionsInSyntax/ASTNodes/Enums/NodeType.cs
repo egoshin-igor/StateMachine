@@ -10,6 +10,7 @@
         Leaf,
         DefineNewType,
         Equality,
-        Print
+        Print,
+        Println
     }
 }

@@ -6,7 +6,7 @@ namespace Lekser
     {
         public int Id { get; private set; }
         public TermType Type { get; set; }
-        public string Value { get; private set; }
+        public string Value { get;  set; }
         public int RowPosition { get; private set; }
         public int ColumnPosition { get; private set; }
         public string NumberString { get; private set; }

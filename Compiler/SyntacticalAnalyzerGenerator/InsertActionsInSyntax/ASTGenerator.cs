@@ -128,30 +128,24 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 
         public void AddPrintNode()
         {
-            IASTNode printType = null;
-            IASTNode printValue = null;
-
-            IASTNode node = _nodesStack.Pop();
-            if ( _nodesStack.Any() )
-            {
-                printValue = node;
-                printType = _nodesStack.Pop();
-            }
-            else
-            {
-                printType = node;
-            }
-
             var nodes = new List<IASTNode>();
-            if ( printValue != null )
+            while ( _nodesStack.Any() )
             {
-                nodes.Add( printValue );
+                nodes.Add( _nodesStack.Pop() );
+            }
+            if (nodes.Count == 1)
+            {
+                _nodesStack.Push( new TreeNode(
+                    NodeType.Println,
+                    TermType.Println,
+                    new List<IASTNode>() )
+                );
             }
 
             _nodesStack.Push( new TreeNode(
                 NodeType.Print,
-                printType.TermType,
-                nodes )
+                TermType.Print,
+                new List<IASTNode> { nodes[1], nodes[0] } )
             );
         }
 
