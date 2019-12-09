@@ -33,38 +33,6 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
             return _mSILConstructions;
         }
 
-      /*  public List<IMSILConstruction> GetTestProgram()
-        {
-            var msilConstructions = new List<IMSILConstruction>();
-            msilConstructions.Add( new Initializator() );
-            var firstVariable = new Variable( "firstValue", VariableType.Integer );
-            var secondVariable = new Variable( "secondValue", VariableType.Integer );
-            var resultVariable = new Variable( "resultValue", VariableType.Integer );
-            var variableNames = new List<string>
-            {
-                firstVariable.Name,
-                secondVariable.Name,
-                resultVariable.Name,
-                "result"
-            };
-            var mainBody = new List<IMSILConstruction>
-            {
-                new StackCapacityFunction( 10 ),
-                new WriteLineFunction( "Ого" ),
-                new WriteLineFunction( "это" ),
-                new WriteLineFunction( "работает" ),
-                new VariableDeclarationOperator( variableNames, VariableType.Integer ),
-                new AssignmentOperator(VariableType.Integer, firstVariable, 100),
-                new AssignmentOperator(VariableType.Integer, secondVariable, 200),
-                new AddingOperator( 10, 15, "result" ),
-                new AddingOperator( firstVariable, secondVariable, resultVariable ),
-                new WriteLineFunction( new Variable( "result", VariableType.Integer ) ),
-                new WriteLineFunction( resultVariable )
-            };
-            msilConstructions.Add( new MainFunction( mainBody ) );
-            return msilConstructions;
-        }*/
-
         private void ProccessASTNode( IASTNode node )
         {
             if ( node.Nodes [ 0 ].NodeType != NodeType.Leaf )
@@ -93,8 +61,12 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
             {
                 case NodeType.PlusNode:
                     return CreatePlusOperator( node );
+                case NodeType.DivisionNode:
+                    return CreateDivOperation( node );
                 case NodeType.MultipleNode:
                     return CreateMulOperator( node );
+                case NodeType.BinaryMinusNode:
+                    return CreateSubOperation( node );
                 case NodeType.Print:
                     return CreateWriteLineFunction( node );
                 case NodeType.DefineNewType:
@@ -105,6 +77,92 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
                     return null;
             }
 
+        }
+
+        private IMSILConstruction CreateDivOperation( IASTNode node )
+        {
+            var divOperator = new DivOperation();
+            if ( node.Nodes [ 0 ].NodeType == NodeType.Leaf )
+            {
+                if ( IsValue( node.Nodes [ 0 ] ) )
+                {
+                    if ( IsInt( node.Nodes [ 0 ] ) )
+                    {
+                        divOperator.FirstIntValue = Convert.ToInt32( node.Nodes [ 0 ].Value );
+                    }
+                    else if ( IsDouble( node.Nodes [ 0 ] ) )
+                    {
+                        divOperator.FirstDoubleValue = Convert.ToDouble( node.Nodes [ 0 ].Value );
+                    }
+                }
+                else if ( IsVariable( node.Nodes [ 0 ] ) )
+                {
+                    divOperator.FirstVariableName = node.Nodes [ 0 ].Value;
+                }
+            }
+
+            if ( node.Nodes [ 1 ].NodeType == NodeType.Leaf )
+            {
+                if ( IsValue( node.Nodes [ 1 ] ) )
+                {
+                    if ( IsInt( node.Nodes [ 1 ] ) )
+                    {
+                        divOperator.SecondIntValue = Convert.ToInt32( node.Nodes [ 1 ].Value );
+                    }
+                    else if ( IsDouble( node.Nodes [ 1 ] ) )
+                    {
+                        divOperator.SecondDoubleValue = Convert.ToDouble( node.Nodes [ 1 ].Value );
+                    }
+                }
+                else if ( IsVariable( node.Nodes [ 1 ] ) )
+                {
+                    divOperator.SecondVariableName = node.Nodes [ 1 ].Value;
+                }
+            }
+            return divOperator;
+        }
+
+        private IMSILConstruction CreateSubOperation( IASTNode node )
+        {
+            var subOperator = new SubOperation();
+            if ( node.Nodes [ 0 ].NodeType == NodeType.Leaf )
+            {
+                if ( IsValue( node.Nodes [ 0 ] ) )
+                {
+                    if ( IsInt( node.Nodes [ 0 ] ) )
+                    {
+                        subOperator.FirstIntValue = Convert.ToInt32( node.Nodes [ 0 ].Value );
+                    }
+                    else if ( IsDouble( node.Nodes [ 0 ] ) )
+                    {
+                        subOperator.FirstDoubleValue = Convert.ToDouble( node.Nodes [ 0 ].Value );
+                    }
+                }
+                else if ( IsVariable( node.Nodes [ 0 ] ) )
+                {
+                    subOperator.FirstVariableName = node.Nodes [ 0 ].Value;
+                }
+            }
+
+            if ( node.Nodes [ 1 ].NodeType == NodeType.Leaf )
+            {
+                if ( IsValue( node.Nodes [ 1 ] ) )
+                {
+                    if ( IsInt( node.Nodes [ 1 ] ) )
+                    {
+                        subOperator.SecondIntValue = Convert.ToInt32( node.Nodes [ 1 ].Value );
+                    }
+                    else if ( IsDouble( node.Nodes [ 1 ] ) )
+                    {
+                        subOperator.SecondDoubleValue = Convert.ToDouble( node.Nodes [ 1 ].Value );
+                    }
+                }
+                else if ( IsVariable( node.Nodes [ 1 ] ) )
+                {
+                    subOperator.SecondVariableName = node.Nodes [ 1 ].Value;
+                }
+            }
+            return subOperator;
         }
 
         private IMSILConstruction CreateMulOperator( IASTNode node )
@@ -213,63 +271,6 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
                 }
             }
             return addingOperator;
-            /*     if ( IsValue( node.Nodes [ 0 ] ) && IsValue( node.Nodes [ 1 ] ) )
-                 {
-                     if ( int.TryParse( node.Nodes [ 0 ].Value, out var numberOne ) && int.TryParse( node.Nodes [ 1 ].Value, out var numberTwo ) )
-                     {
-                         return new AddingOperator( numberOne, numberTwo );
-                     }
-                 }
-
-                 if ( IsValue( node.Nodes [ 0 ] ) && IsVariable( node.Nodes [ 1 ] ) )
-                 {
-                     if ( int.TryParse( node.Nodes [ 0 ].Value, out var numberOne ) )
-                     {
-                         return new AddingOperator( numberOne, node.Nodes [ 1 ].Value );
-                     }
-                 }
-
-                 if ( IsVariable( node.Nodes [ 0 ] ) && IsValue( node.Nodes [ 1 ] ) )
-                 {
-                     if ( int.TryParse( node.Nodes [ 1 ].Value, out var numberTwo ) )
-                     {
-                         return new AddingOperator( node.Nodes [ 0 ].Value, numberTwo );
-                     }
-                 }
-
-                 if ( IsVariable( node.Nodes [ 0 ] ) && IsVariable( node.Nodes [ 1 ] ) )
-                 {
-                     return new AddingOperator( node.Nodes [ 0 ].Value, node.Nodes [ 1 ].Value );
-                 }
-
-                 if ( string.IsNullOrEmpty( node.Nodes [ 0 ].Value ) && IsValue( node.Nodes [ 1 ] ) )
-                 {
-                     if ( int.TryParse( node.Nodes [ 1 ].Value, out var numberOne ) )
-                     {
-                         return new AddingOperator( numberOne );
-                     }
-                 }
-
-                 if ( string.IsNullOrEmpty( node.Nodes [ 1 ].Value ) && IsValue( node.Nodes [ 0 ] ) )
-                 {
-                     if ( int.TryParse( node.Nodes [ 0 ].Value, out var numberOne ) )
-                     {
-                         return new AddingOperator( numberOne );
-                     }
-                 }
-
-                 if ( string.IsNullOrEmpty( node.Nodes [ 0 ].Value ) && IsVariable( node.Nodes [ 1 ] ) )
-                 {
-                     return new AddingOperator( node.Nodes [ 1 ].Value );
-                 }
-
-                 if ( string.IsNullOrEmpty( node.Nodes [ 1 ].Value ) && IsVariable( node.Nodes [ 0 ] ) )
-                 {
-                     return new AddingOperator( node.Nodes [ 0 ].Value );
-                 }
-
-                 throw new Exception( "Не удалось создать оператор сложения" );
-                 return null;*/
         }
 
         private VariableType TermTypeToVariableType( TermType type )

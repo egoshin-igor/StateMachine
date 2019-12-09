@@ -3,10 +3,10 @@ void main
 	int ca`
 	int ba`
 	@@@
-	ca = 7`
+	ca = 7 - 5`
 	Print(ca)`
 	ba = 6 + ca + 15 + ca`
 	Print(ba)`
-	ca = ca * ca * ba + (20 + 10) * 100`
+	ca = (ca * ca * ba + (20 + 10) * 100 - 24 * (2 + 10)) div 2`
 	Print(ca)`
 }

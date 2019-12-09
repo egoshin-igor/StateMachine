@@ -75,6 +75,16 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.Resources
             return ReadResourceFromFile( ResourceFileRouter.GET_FROM_STACK_ROUTE );
         }
 
+        public static string GetSubOperationResource()
+        {
+            return ReadResourceFromFile( ResourceFileRouter.SUB_OPERATION_ROUTE );
+        }
+
+        public static string GetDivOperation()
+        {
+            return ReadResourceFromFile( ResourceFileRouter.DIV_OPEARTION_ROUTE );
+        }
+
         private static string ReadResourceFromFile( string path )
         {
             if ( !File.Exists( path ) )

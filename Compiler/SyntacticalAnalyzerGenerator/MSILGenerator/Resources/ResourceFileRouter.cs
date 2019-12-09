@@ -18,5 +18,7 @@
         public static readonly string ADD_OPERATION_WITHOUT_RESULT_ROUTE = $"{RESOURCE_DIRECTORY}\\AddOperationWithoutResoultVariables.txt";
         public static readonly string MUL_OPERATION_ROUTE = $"{RESOURCE_DIRECTORY}\\MulOperation.txt";
         public static readonly string GET_FROM_STACK_ROUTE = $"{RESOURCE_DIRECTORY}\\GetFromStack.txt";
+        public static readonly string SUB_OPERATION_ROUTE = $"{RESOURCE_DIRECTORY}\\SubOperation.txt";
+        public static readonly string DIV_OPEARTION_ROUTE = $"{RESOURCE_DIRECTORY}\\Divoperation.txt";
     }
 }
