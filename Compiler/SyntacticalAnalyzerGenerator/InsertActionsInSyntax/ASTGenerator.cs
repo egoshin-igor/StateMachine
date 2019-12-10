@@ -108,6 +108,9 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
             {
                 case TermType.Int:
                 case TermType.Float:
+                case TermType.Bool:
+                case TermType.Char:
+                case TermType.Double:
                     _nodesStack.Push( new TreeNode( NodeType.DefineNewType, term.Type, new List<IASTNode>(), term.Value ) );
                     break;
                 case TermType.Identifier:
@@ -133,7 +136,7 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
             {
                 nodes.Add( _nodesStack.Pop() );
             }
-            if (nodes.Count == 1)
+            if ( nodes.Count == 1 )
             {
                 _nodesStack.Push( new TreeNode(
                     NodeType.Println,
@@ -145,7 +148,7 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
             _nodesStack.Push( new TreeNode(
                 NodeType.Print,
                 TermType.Print,
-                new List<IASTNode> { nodes[1], nodes[0] } )
+                new List<IASTNode> { nodes[ 1 ], nodes[ 0 ] } )
             );
         }
 

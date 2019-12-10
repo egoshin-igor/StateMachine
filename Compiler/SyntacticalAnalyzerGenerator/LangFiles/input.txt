@@ -2,11 +2,14 @@ void main
 {
 	int ca`
 	int ba`
+	bool a`
+	bool b`
 	@@@
 	ca = 7 - 5`
 	Print(ca)`
 	ba = 6 + ca + 15 + ca`
 	Print(ba)`
 	ca = (ca * ca * ba + (20 + 10) * 100 - 24 * (2 + 10)) div 2`
+	a = | a && b`	
 	Print(ca)`
 }

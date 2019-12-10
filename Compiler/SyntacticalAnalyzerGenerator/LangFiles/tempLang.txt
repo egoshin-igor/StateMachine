@@ -43,20 +43,20 @@
 <leftValue> -> #IDENTIFIER#~TC.SaveLeftTerm / #IDENTIFIER#
 <rightValue> -> <ariphmeticalOperation> / #DecimalWholeNumber#,#BinaryWholeNumber#,-,(,#IDENTIFIER#
 
-<rightValue> -> <boolExpression>
-<rightValue> -> ! <boolExpression>
-<boolExpression> -> <boolOperations> && <boolExpression>
-<boolExpression> -> <boolOperations> || <boolExpression>
-<boolExpression> -> <boolOperations>
-
-<boolOperations> -> <boolValue> < <boolValue>
-<boolOperations> -> <boolValue> <= <boolValue>
-<boolOperations> -> <boolValue> > <boolValue>
-<boolOperations> -> <boolValue> >= <boolValue>
-<boolOperations> -> <boolValue> == <boolValue>
-<boolOperations> -> <boolValue> != <boolValue> / 
-<boolOperations> -> <boolValue> / #IDENTIFIER#,false,true
-
+<rightValue> -> ! <boolExpression> / !
+<rightValue> -> <boolExpression> / #IDENTIFIER#,false,true
+<boolExpression> -> <boolOperations> <boolExpression___10000> / #IDENTIFIER#,false,true
+<boolExpression___10000> -> && <boolExpression> / &&
+<boolExpression___10000> -> [EPS] / [END]
+<boolExpression___10000> -> || <boolExpression> / ||
+<boolOperations> -> <boolValue> <boolOperations___10000> / #IDENTIFIER#,false,true
+<boolOperations___10000> -> != <boolValue> / !=
+<boolOperations___10000> -> [EPS] / &&,[END],||
+<boolOperations___10000> -> < <boolValue> / <
+<boolOperations___10000> -> <= <boolValue> / <=
+<boolOperations___10000> -> == <boolValue> / ==
+<boolOperations___10000> -> > <boolValue> / >
+<boolOperations___10000> -> >= <boolValue> / >=
 <boolValue> -> #IDENTIFIER# / #IDENTIFIER#
-<boolValue> -> true / false
-<boolValue> -> false / true
+<boolValue> -> false / false
+<boolValue> -> true / true

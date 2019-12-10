@@ -150,6 +150,9 @@ namespace SyntacticalAnalyzerGenerator
                 case ActionSourceType.AriphmeticalOperation:
                     DoAoAction( actionNameData[ 1 ] );
                     break;
+                case ActionSourceType.BoolOperation:
+                    DoBoAction( actionNameData[ 1 ] );
+                    break;
                 default:
                     throw new NotImplementedException();
             }
@@ -186,6 +189,7 @@ namespace SyntacticalAnalyzerGenerator
                     _typeController.CheckLeftRight( _currentTerm.RowPosition );
                     _aSTGenerator.AddEqualityNode();
                     _aSTGenerator.SaveAndClear();
+                    _ariphmeticalOperationsController.Clear();
                     break;
                 case SourceActionName.TcSaveLeftTerm:
                     Variable variable = _variablesTableController.GetVariable( _currentTerm.Id );
@@ -272,6 +276,28 @@ namespace SyntacticalAnalyzerGenerator
                     break;
                 case SourceActionName.AoClosedBracketFound:
                     _aSTGenerator.CloseBracketFound();
+                    break;
+                default:
+                    throw new NotImplementedException( $"action: {actionName} not found" );
+            }
+        }
+
+        private void DoBoAction( string actionName )
+        {
+            switch ( actionName )
+            {
+                case SourceActionName.BoActonAfterBoolValue:
+                    if ( _currentTerm.Type == TermType.Identifier )
+                    {
+                        var variable = _variablesTableController.GetVariable( _currentTerm.Id );
+                        _typeController.SaveRightType( variable.Type );
+                    }
+                    else
+                    {
+                        _typeController.SaveRightType( _currentTerm );
+                    }
+
+                    _aSTGenerator.CreateLeafNode( _currentTerm );
                     break;
                 default:
                     throw new NotImplementedException( $"action: {actionName} not found" );

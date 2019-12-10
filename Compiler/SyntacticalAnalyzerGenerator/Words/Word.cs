@@ -10,6 +10,7 @@ namespace SyntacticalAnalyzerGenerator.Words
         public const string End = "[END]";
         public const string DecimalWholeNumber = "#DecimalWholeNumber#";
         public const string BinaryWholeNumber = "#BinaryWholeNumber#";
+        public const string DecimalFixedPointNumber = "#DecimalFixedPointNumber#";
     }
 
     public partial class Word

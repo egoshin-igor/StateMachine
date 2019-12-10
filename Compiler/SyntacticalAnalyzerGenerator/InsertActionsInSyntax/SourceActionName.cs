@@ -28,5 +28,7 @@
 
         public const string PrintGenerateNode = "GenerateNode";
         public const string PrintSave = "Save";
+
+        public const string BoActonAfterBoolValue = "ActonAfterBoolValue";
     }
 }

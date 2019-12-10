@@ -35,6 +35,8 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
                 case TermType.DecimalWholeNumber:
                 case TermType.BinaryWholeNumber:
                     return TermType.Int;
+                case TermType.DecimalFixedPointNumber:
+                    return TermType.Double;
                 default:
                     return type;
             }

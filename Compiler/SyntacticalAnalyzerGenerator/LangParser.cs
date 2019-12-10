@@ -19,7 +19,8 @@ namespace SyntacticalAnalyzerGenerator
         {
             { Word.Identifier, TermType.Identifier },
             { Word.DecimalWholeNumber, TermType.DecimalWholeNumber },
-            { Word.BinaryWholeNumber, TermType.BinaryWholeNumber }
+            { Word.BinaryWholeNumber, TermType.BinaryWholeNumber },
+            { Word.DecimalFixedPointNumber, TermType.DecimalFixedPointNumber }
         };
 
         public static void ConvertToLlOneTable( string sourceLangPath, string llOneTablePath )

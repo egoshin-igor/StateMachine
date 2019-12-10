@@ -62,17 +62,6 @@ namespace Lekser
              { "main", TermType.Main },
              { "@@@", TermType.DEnd },
              { "Array", TermType.Array },
-             { "I", TermType.I },
-             { "E", TermType.E },
-             { "step", TermType.Step },
-             { "to", TermType.To },
-             { "a", TermType.a },
-             { "b", TermType.b },
-             { "program", TermType.program },
-             { "end", TermType.end },
-             { "label", TermType.label },
-             { "goto", TermType.Goto },
-             { "begin", TermType.Goto },
              { "IntArray", TermType.IntArray },
              { "div", TermType.Division },
              { "Print", TermType.Print },
@@ -83,6 +72,7 @@ namespace Lekser
             { "!=", TermType.NotEqual },
             { ">=", TermType.MoreEqual },
             { "<=", TermType.LessEqual },
+            { "|", TermType.BExp }
         };
 
         public static readonly Dictionary<string, TermType> DelimeterTypeByString = new Dictionary<string, TermType>
@@ -171,7 +161,7 @@ namespace Lekser
             return true;
         }
 
-        public static HashSet<char> Delimeters = new HashSet<char> { '(', ')', '{', '}', ';', ' ', '\t', '+', '-', ':', ',', '*', '$', '=', '>', '<', '.', '[', ']', '!', '`' };
+        public static HashSet<char> Delimeters = new HashSet<char> { '(', ')', '{', '}', ';', ' ', '\t', '+', '-', ':', ',', '*', '$', '[', ']', '!', '`' };
 
 
 
@@ -226,6 +216,15 @@ namespace Lekser
             return DigitType.Error;
         }
 
+        private static int GetDigitBegining( string termString )
+        {
+            List<string> beginings = new List<string> { "0B", "0O", "0H" };
+            if ( beginings.Contains( new string( termString.Take( 2 ).ToArray() ) ) )
+                return 2;
+
+            return 0;
+        }
+
         private static NumberSystemType GetNumberSystemType( string termString )
         {
             Dictionary<char, NumberSystemType> systemTypeByLetter = new Dictionary<char, NumberSystemType>
@@ -246,6 +245,8 @@ namespace Lekser
                 return systemTypeByLetter[ letter ];
             }
 
+            int i = GetDigitBegining( termString );
+            letter = termString[ i ];
             if ( char.IsDigit( letter ) )
                 return NumberSystemType.Decimal;
 
@@ -259,7 +260,7 @@ namespace Lekser
             var state = NumberState.Digit;
 
             var eValue = "";
-            for ( int i = 2; i < termString.Length; i++ )
+            for ( int i = GetDigitBegining( termString ); i < termString.Length; i++ )
             {
                 char letter = termString[ i ];
                 DigitType digitType = LetterToDigitType( letter, IsDigit );

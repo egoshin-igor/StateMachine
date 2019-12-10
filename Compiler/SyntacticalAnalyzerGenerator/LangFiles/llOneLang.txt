@@ -1,62 +1,77 @@
 <PROG> -> void main {~VTC.CreateTable <body> }~VTC.DestroyLastTable / void
+
 <body> -> <declarations> <body___10000> / @@@,bool,char,float,int,IntArray,string
 <body___10000> -> [EPS] / }
-<body___10000> -> <operators> / #DecimalWholeNumber#,#BinaryWholeNumber#,for,if,#IDENTIFIER#,-,(,Print,Println
-<declarations> -> <declarations_0> @@@ / @@@,bool,char,float,int,IntArray,string
+<body___10000> -> <operators> / #IDENTIFIER#,Print,Println
+
+<declarations> -> <declarations_0> @@@ / @@@,bool,char,float,int,IntArray,string,double
 <declarations_0> -> [EPS] / @@@
-<declarations_0> -> <declaration> `~AO.Clear <declarations_0> / bool,char,float,int,IntArray,string
-<declaration> -> <type> #IDENTIFIER#~VTC.DefineIdentifier / bool,char,float,int,IntArray,string
+<declarations_0> -> <declaration> `~AO.Clear <declarations_0> / bool,char,float,int,IntArray,string,double
+<declaration> -> <type> #IDENTIFIER#~VTC.DefineIdentifier / bool,char,float,int,IntArray,string,double
+
 <type> -> bool~VTC.DefineNewType / bool
 <type> -> char~VTC.DefineNewType / char
 <type> -> float~VTC.DefineNewType / float
 <type> -> int~VTC.DefineNewType / int
 <type> -> IntArray~VTC.DefineNewType / IntArray
 <type> -> string~VTC.DefineNewType / string
-<operators> -> <operator> <operators___10000> / for,if,#IDENTIFIER#,#DecimalWholeNumber#,#BinaryWholeNumber#,-,(,Print,Println
+<type> -> double~VTC.DefineNewType / double
+
+<operators> -> <operator> <operators___10000> / #IDENTIFIER#,Print,Println
+
 <operators___10000> -> [EPS] / }
-<operators___10000> -> <operators> / #DecimalWholeNumber#,#BinaryWholeNumber#,for,if,#IDENTIFIER#,-,(,Print,Println
-<operator> -> <leftValue> = <rightValue> `~TC.CheckLeftRight  / #IDENTIFIER#
-<operator> -> <ariphmeticalOperation> `~AO.Clear / #DecimalWholeNumber#,#BinaryWholeNumber#,-,(,#IDENTIFIER#
+<operators___10000> -> <operators> / #IDENTIFIER#,Print,Println
+
+<operator> -> <leftValue> = <rightValue> `~TC.CheckLeftRight / #IDENTIFIER#
 <operator> -> <print> `~AO.Clear / Print,Println
 
 <print> -> Print~Print.Save ( <printValue> )~Print.GenerateNode / Print
 <print> -> Println~Print.Save ( <printValue> )~Print.GenerateNode / Println
+
 <printValue> -> #DecimalWholeNumber#~Print.Save / #DecimalWholeNumber#
 <printValue> -> #IDENTIFIER#~Print.Save / #IDENTIFIER#
 <printValue> -> [EPS] / )
 
-<ariphmeticalOperation> -> <ariphmeticalOperation_0> <ariphmeticalOperation_1> / #DecimalWholeNumber#,#BinaryWholeNumber#,-,(,#IDENTIFIER#
-<ariphmeticalOperation_0> -> <number> <mulArOp>~AO.ActionCreateUnaryMinusNode / #DecimalWholeNumber#,#BinaryWholeNumber#,-,(,#IDENTIFIER#
+<ariphmeticalOperation> -> <ariphmeticalOperation_0> <ariphmeticalOperation_1> / -,(,#BinaryWholeNumber#,#DecimalWholeNumber#,#IDENTIFIER#,#DecimalFixedPointNumber#
+<ariphmeticalOperation_0> -> <number> <mulArOp>~AO.ActionCreateUnaryMinusNode / -,(,#BinaryWholeNumber#,#DecimalWholeNumber#,#IDENTIFIER#,#DecimalFixedPointNumber#
+
 <mulArOp> -> *~AO.ActionAfterSign <number> <mulArOp>~AO.ActionAfterOperation / *
 <mulArOp> -> div~AO.ActionAfterSign <number> <mulArOp>~AO.ActionAfterOperation / div
-<mulArOp> -> [EPS] / +,`,-,)
-<ariphmeticalOperation_1> -> +~AO.ActionAfterSign <ariphmeticalOperation_0> <ariphmeticalOperation_1>~AO.ActionAfterOperation / +
+<mulArOp> -> [EPS] / -,),`,+
+
 <ariphmeticalOperation_1> -> -~AO.ActionAfterSign <ariphmeticalOperation_0> <ariphmeticalOperation_1>~AO.ActionAfterOperation / -
-<ariphmeticalOperation_1> -> [EPS] / `,)
-<number> -> <number2> / #DecimalWholeNumber#,#BinaryWholeNumber#,#IDENTIFIER#
-<number> -> (~AO.OpenBracketFound <ariphmeticalOperation> )~AO.ClosedBracketFound / (
+<ariphmeticalOperation_1> -> +~AO.ActionAfterSign <ariphmeticalOperation_0> <ariphmeticalOperation_1>~AO.ActionAfterOperation / +
+<ariphmeticalOperation_1> -> [EPS] / ),`
+
 <number> -> -~AO.UnaryMinusFoundAction <number> / -
-<number2> -> #DecimalWholeNumber#~AO.ActionAfterNumber / #DecimalWholeNumber#
+<number> -> (~AO.OpenBracketFound <ariphmeticalOperation> )~AO.ClosedBracketFound / (
+<number> -> <number2> / #BinaryWholeNumber#,#DecimalWholeNumber#,#IDENTIFIER#,#DecimalFixedPointNumber#
 <number2> -> #BinaryWholeNumber#~AO.ActionAfterNumber / #BinaryWholeNumber#
+<number2> -> #DecimalWholeNumber#~AO.ActionAfterNumber / #DecimalWholeNumber#
+<number2> -> #DecimalFixedPointNumber#~AO.ActionAfterNumber / #DecimalFixedPointNumber#
 <number2> -> #IDENTIFIER#~AO.ActionAfterNumber / #IDENTIFIER#
 
 <leftValue> -> #IDENTIFIER#~TC.SaveLeftTerm / #IDENTIFIER#
-<rightValue> -> <ariphmeticalOperation> / #DecimalWholeNumber#,#BinaryWholeNumber#,-,(,#IDENTIFIER#
 
-<rightValue> -> ! <boolExpression> / !
-<rightValue> -> <boolExpression> / #IDENTIFIER#,false,true
-<boolExpression> -> <boolOperations> <boolExpression___10000> / #IDENTIFIER#,false,true
+<rightValue> -> <ariphmeticalOperation> / -,(,#BinaryWholeNumber#,#DecimalWholeNumber#,#IDENTIFIER#,#DecimalFixedPointNumber#
+<rightValue> -> <boolExpression_0> / |
+
+<boolExpression_0> -> | <boolExpression> / |
+<boolExpression> -> <boolOperations> <boolExpression___10000> / !,(,#IDENTIFIER#,false,true
 <boolExpression___10000> -> && <boolExpression> / &&
-<boolExpression___10000> -> [EPS] / [END]
+<boolExpression___10000> -> [EPS] / `,)
 <boolExpression___10000> -> || <boolExpression> / ||
-<boolOperations> -> <boolValue> <boolOperations___10000> / #IDENTIFIER#,false,true
+<boolOperations> -> <boolValue> <boolOperations___10000> / !,(,#IDENTIFIER#,false,true
 <boolOperations___10000> -> != <boolValue> / !=
-<boolOperations___10000> -> [EPS] / &&,[END],||
+<boolOperations___10000> -> [EPS] / &&,`,),||
 <boolOperations___10000> -> < <boolValue> / <
 <boolOperations___10000> -> <= <boolValue> / <=
 <boolOperations___10000> -> == <boolValue> / ==
 <boolOperations___10000> -> > <boolValue> / >
 <boolOperations___10000> -> >= <boolValue> / >=
-<boolValue> -> #IDENTIFIER# / #IDENTIFIER#
-<boolValue> -> false / false
-<boolValue> -> true / true
+<boolValue> -> ! <boolValue> / !
+<boolValue> -> ( <boolExpression> ) / (
+<boolValue> -> <boolValue2> / #IDENTIFIER#,false,true
+<boolValue2> -> #IDENTIFIER#~BO.ActonAfterBoolValue / #IDENTIFIER#
+<boolValue2> -> false~BO.ActonAfterBoolValue / false
+<boolValue2> -> true~BO.ActonAfterBoolValue / true

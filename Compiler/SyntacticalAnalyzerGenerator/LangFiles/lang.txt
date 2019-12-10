@@ -1,17 +1,66 @@
-﻿<rightValue> -> <boolExpression>
-<rightValue> -> ! <boolExpression>
-<boolExpression> -> <boolOperations> && <boolExpression>
-<boolExpression> -> <boolOperations> || <boolExpression>
-<boolExpression> -> <boolOperations>
+﻿<PROG> -> void main { <body> }
+<body> -> <declarations> <body___10000>
+<body___10000> -> [EPS]
+<body___10000> -> <operators>
+<declarations> -> <declarations_0> @@@
+<declarations_0> -> [EPS]
+<declarations_0> -> <declaration> ` <declarations_0>
+<declaration> -> <type> #IDENTIFIER#
+<type> -> bool
+<type> -> char
+<type> -> float
+<type> -> int
+<type> -> IntArray
+<type> -> string
+<operators> -> <operator> <operators___10000>
+<operators___10000> -> [EPS]
+<operators___10000> -> <operators>
+<operator> -> <leftValue> = <rightValue> `
+<operator> -> <print> `
 
-<boolOperations> -> <boolValue> < <boolValue>
-<boolOperations> -> <boolValue> <= <boolValue>
-<boolOperations> -> <boolValue> > <boolValue>
-<boolOperations> -> <boolValue> >= <boolValue>
-<boolOperations> -> <boolValue> == <boolValue>
-<boolOperations> -> <boolValue> != <boolValue>
-<boolOperations> -> <boolValue>
+<print> -> Print ( <printValue> )
+<print> -> Println ( <printValue> )
+<printValue> -> #DecimalWholeNumber#
+<printValue> -> #IDENTIFIER#
+<printValue> -> [EPS]
 
-<boolValue> -> #IDENTIFIER#
-<boolValue> -> true
-<boolValue> -> false
+<ariphmeticalOperation> -> <ariphmeticalOperation_0> <ariphmeticalOperation_1>
+<ariphmeticalOperation_0> -> <number> <mulArOp>
+<mulArOp> -> * <number> <mulArOp>
+<mulArOp> -> div <number> <mulArOp>
+<mulArOp> -> [EPS]
+<ariphmeticalOperation_1> -> + <ariphmeticalOperation_0> <ariphmeticalOperation_1>
+<ariphmeticalOperation_1> -> - <ariphmeticalOperation_0> <ariphmeticalOperation_1>
+<ariphmeticalOperation_1> -> [EPS]
+<number> -> <number2>
+<number> -> ( <ariphmeticalOperation> )
+<number> -> - <number>
+<number2> -> #DecimalWholeNumber#
+<number2> -> #BinaryWholeNumber#
+<number2> -> #IDENTIFIER#
+
+<leftValue> -> #IDENTIFIER#
+<rightValue> -> <ariphmeticalOperation>
+<rightValue> -> <boolExpression>
+
+<boolExpression> -> | <boolOperations> <boolExpression___10000>
+<boolExpression___10000> -> && <boolExpression>
+<boolExpression___10000> -> || <boolExpression>
+<boolExpression___10000> -> [EPS]
+
+<boolOperations> -> <boolValue> <boolOperations___10000>
+<boolOperations___10000> -> != <boolValue>
+<boolOperations___10000> -> == <boolValue>
+<boolOperations___10000> -> < <boolValue>
+<boolOperations___10000> -> <= <boolValue>
+<boolOperations___10000> -> > <boolValue>
+<boolOperations___10000> -> >= <boolValue>
+<boolOperations___10000> -> [EPS]
+
+<boolValue> -> <boolValue2>
+<boolValue> -> ! <boolValue>
+<boolValue> -> ( <boolExpression> )
+
+<boolValue2> -> #IDENTIFIER#
+<boolValue2> -> false
+<boolValue2> -> true

@@ -39,6 +39,8 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
                 case Lekser.Enums.TermType.BinaryWholeNumber:
                 case Lekser.Enums.TermType.DecimalWholeNumber:
                     return Lekser.Enums.TermType.Int;
+                case TermType.DecimalFixedPointNumber:
+                    return TermType.Double;
                 default:
                     throw new NotImplementedException();
             }
