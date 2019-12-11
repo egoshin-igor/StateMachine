@@ -59,7 +59,7 @@
 <boolExpression_0> -> | <boolExpression> / |
 <boolExpression> -> <boolOperations> <boolExpression___10000>~BO.ActionAfterCompOperation / !,(,#IDENTIFIER#,false,true
 <boolExpression___10000> -> &&~BO.ActionAfterLogicSign <boolExpression> / &&
-<boolExpression___10000> -> [EPS] / `,)
+<boolExpression___10000> -> [EPS]~BO.ActionAfterCompOperation / `,)
 <boolExpression___10000> -> ||~BO.ActionAfterLogicSign <boolExpression> / ||
 <boolOperations> -> <boolValue> <boolOperations___10000> / !,(,#IDENTIFIER#,false,true
 <boolOperations___10000> -> !=~BO.ActionAfterCompSign <boolValue> / !=

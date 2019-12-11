@@ -307,6 +307,8 @@ namespace SyntacticalAnalyzerGenerator
 					_aSTGenerator.AddSign( _currentTerm );
 					break;
 				case SourceActionName.BoActionAfterLogicSign:
+					_aSTGenerator.CreateNotSignNode();
+					_aSTGenerator.CreateBoolOperationNode(_currentTerm);
 					_aSTGenerator.AddSign( _currentTerm );
 					break;
 				case SourceActionName.BoUnaryNotSignFound:
