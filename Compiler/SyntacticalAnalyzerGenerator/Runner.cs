@@ -313,9 +313,11 @@ namespace SyntacticalAnalyzerGenerator
 					_aSTGenerator.UnaryNotSignFound();
 					break;
 				case SourceActionName.BoClosedBracketFound:
+					_aSTGenerator.RemoveSign(_currentTerm);
 					_aSTGenerator.CloseBracketInBoolOpFound();
 					break;
 				case SourceActionName.BoOpenBracketFound:
+					_aSTGenerator.AddSign(_currentTerm);
 					_aSTGenerator.OpenBracketInBoolOpFound();
 					break;
 				default:

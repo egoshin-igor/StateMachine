@@ -16,7 +16,7 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
         private int _predictedUnaryMinusesCount = 0;
         private int _minusesWithBracketsCount = 0;
 
-		private int _predictedUnaryNotSignCount = 0;
+		private int _predictedNotSignCount = 0;
 		private int _notSignsWithBracketsCount = 0;
 
         public IASTNode RootNode => _nodesStack.Peek();
@@ -40,7 +40,7 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
             _signStack.Clear();
             _predictedUnaryMinusesCount = 0;
             _minusesWithBracketsCount = 0;
-			_predictedUnaryNotSignCount = 0;
+			_predictedNotSignCount = 0;
 			_notSignsWithBracketsCount = 0;
         }
 
@@ -96,7 +96,7 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 
 		public bool CreateBoolOperationNode(Term number)
 		{
-			if (_signStack.Count == 0)
+			if (_signStack.Count == 0 || _signStack.Peek() == TermType.OpeningRoundBracket)
 				return true;
 
 			IASTNode rightNode;
@@ -182,10 +182,10 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 
 		public void CreateNotSignNode()
 		{
-			int notSignsCountWithSingleNumber = _predictedUnaryNotSignCount - _notSignsWithBracketsCount;
-			if (notSignsCountWithSingleNumber > 0)
+			int notSignsCountWithSingleNumber = _predictedNotSignCount - _notSignsWithBracketsCount;
+			if ( notSignsCountWithSingleNumber > 0 )
 			{
-				_predictedUnaryNotSignCount--;
+				_predictedNotSignCount--;
 				var nodes = new List<IASTNode>();
 				nodes.Add(_nodesStack.Pop());
 
@@ -195,12 +195,12 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 
 		public void UnaryNotSignFound()
 		{
-			_predictedUnaryNotSignCount++;
+			_predictedNotSignCount++;
 		}
 
 		public void OpenBracketInBoolOpFound()
 		{
-			if (_predictedUnaryNotSignCount > 0)
+			if (_predictedNotSignCount > 0)
 			{
 				_notSignsWithBracketsCount++;
 			}
@@ -211,7 +211,7 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
 			if (_notSignsWithBracketsCount > 0)
 			{
 				_notSignsWithBracketsCount--;
-				_predictedUnaryNotSignCount--;
+				_predictedNotSignCount--;
 				var nodes = new List<IASTNode>();
 				nodes.Add(_nodesStack.Pop());
 
@@ -293,12 +293,28 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
             _predictedUnaryMinusesCount++;
         }
 
-        public void AddSign( Term number )
+        public void AddSign( Term sign )
         {
-            _signStack.Push( number.Type );
+            _signStack.Push( sign.Type );
         }
 
-        public void OpenBracketFound()
+		public void RemoveSign( Term sign)
+		{
+			if (sign.Type == TermType.ClosingRoundBracket)
+			{
+				if (_signStack.Peek() == TermType.OpeningRoundBracket)
+				{
+					_signStack.Pop();
+				}
+				else
+				{
+					throw new ApplicationException($"Found wrong term. when generating AST, After: { sign.Value } in row { sign.RowPosition }.");
+				}
+			}
+		}
+
+
+		public void OpenBracketFound()
         {
             if ( _predictedUnaryMinusesCount > 0 )
             {
