@@ -11,6 +11,15 @@
         DefineNewType,
         Equality,
         Print,
-        Println
+        Println,
+		NotEqual,
+		MoreEqual,
+		LessEqual,
+		Equal,
+		Less,
+		More,
+		LogicNot,
+		LogicAnd,
+		LogicOr,
     }
 }

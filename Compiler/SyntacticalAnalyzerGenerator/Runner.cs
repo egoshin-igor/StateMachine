@@ -286,7 +286,7 @@ namespace SyntacticalAnalyzerGenerator
         {
             switch ( actionName )
             {
-                case SourceActionName.BoActonAfterBoolValue:
+                case SourceActionName.BoActionAfterBoolValue:
                     if ( _currentTerm.Type == TermType.Identifier )
                     {
                         var variable = _variablesTableController.GetVariable( _currentTerm.Id );
@@ -299,8 +299,27 @@ namespace SyntacticalAnalyzerGenerator
 
                     _aSTGenerator.CreateLeafNode( _currentTerm );
                     break;
-                default:
-                    throw new NotImplementedException( $"action: {actionName} not found" );
+				case SourceActionName.BoActionAfterCompOperation:
+					_aSTGenerator.CreateNotSignNode();
+					_aSTGenerator.CreateBoolOperationNode( _currentTerm );
+					break;
+				case SourceActionName.BoActionAfterCompSign:
+					_aSTGenerator.AddSign( _currentTerm );
+					break;
+				case SourceActionName.BoActionAfterLogicSign:
+					_aSTGenerator.AddSign( _currentTerm );
+					break;
+				case SourceActionName.BoUnaryNotSignFound:
+					_aSTGenerator.UnaryNotSignFound();
+					break;
+				case SourceActionName.BoClosedBracketFound:
+					_aSTGenerator.CloseBracketInBoolOpFound();
+					break;
+				case SourceActionName.BoOpenBracketFound:
+					_aSTGenerator.OpenBracketInBoolOpFound();
+					break;
+				default:
+                    throw new NotImplementedException( $"action: { actionName } not found" );
             }
         }
     }

@@ -57,21 +57,21 @@
 <rightValue> -> <boolExpression_0> / |
 
 <boolExpression_0> -> | <boolExpression> / |
-<boolExpression> -> <boolOperations> <boolExpression___10000> / !,(,#IDENTIFIER#,false,true
-<boolExpression___10000> -> && <boolExpression> / &&
+<boolExpression> -> <boolOperations> <boolExpression___10000>~BO.ActionAfterCompOperation / !,(,#IDENTIFIER#,false,true
+<boolExpression___10000> -> &&~BO.ActionAfterLogicSign <boolExpression> / &&
 <boolExpression___10000> -> [EPS] / `,)
-<boolExpression___10000> -> || <boolExpression> / ||
+<boolExpression___10000> -> ||~BO.ActionAfterLogicSign <boolExpression> / ||
 <boolOperations> -> <boolValue> <boolOperations___10000> / !,(,#IDENTIFIER#,false,true
-<boolOperations___10000> -> != <boolValue> / !=
+<boolOperations___10000> -> !=~BO.ActionAfterCompSign <boolValue> / !=
 <boolOperations___10000> -> [EPS] / &&,`,),||
-<boolOperations___10000> -> < <boolValue> / <
-<boolOperations___10000> -> <= <boolValue> / <=
-<boolOperations___10000> -> == <boolValue> / ==
-<boolOperations___10000> -> > <boolValue> / >
-<boolOperations___10000> -> >= <boolValue> / >=
-<boolValue> -> ! <boolValue> / !
-<boolValue> -> ( <boolExpression> ) / (
+<boolOperations___10000> -> <~BO.ActionAfterCompSign <boolValue> / <
+<boolOperations___10000> -> <=~BO.ActionAfterCompSign <boolValue> / <=
+<boolOperations___10000> -> ==~BO.ActionAfterCompSign <boolValue> / ==
+<boolOperations___10000> -> >~BO.ActionAfterCompSign <boolValue> / >
+<boolOperations___10000> -> >=~BO.ActionAfterCompSign <boolValue> / >=
+<boolValue> -> !~BO.UnaryNotSignFound <boolValue> / !
+<boolValue> -> (~BO.OpenBracketFound <boolExpression> )~BO.ClosedBracketFound / (
 <boolValue> -> <boolValue2> / #IDENTIFIER#,false,true
-<boolValue2> -> #IDENTIFIER#~BO.ActonAfterBoolValue / #IDENTIFIER#
-<boolValue2> -> false~BO.ActonAfterBoolValue / false
-<boolValue2> -> true~BO.ActonAfterBoolValue / true
+<boolValue2> -> #IDENTIFIER#~BO.ActionAfterBoolValue / #IDENTIFIER#
+<boolValue2> -> false~BO.ActionAfterBoolValue / false
+<boolValue2> -> true~BO.ActionAfterBoolValue / true

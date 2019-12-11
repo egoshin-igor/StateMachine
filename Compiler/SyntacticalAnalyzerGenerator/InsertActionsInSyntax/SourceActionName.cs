@@ -29,6 +29,12 @@
         public const string PrintGenerateNode = "GenerateNode";
         public const string PrintSave = "Save";
 
-        public const string BoActonAfterBoolValue = "ActonAfterBoolValue";
+        public const string BoActionAfterBoolValue = "ActionAfterBoolValue";
+        public const string BoActionAfterCompOperation = "ActionAfterCompOperation";
+        public const string BoActionAfterCompSign = "ActionAfterCompSign";
+        public const string BoActionAfterLogicSign = "ActionAfterLogicSign";
+        public const string BoUnaryNotSignFound = "UnaryNotSignFound";
+        public const string BoOpenBracketFound = "OpenBracketFound";
+        public const string BoClosedBracketFound = "ClosedBracketFound";
     }
 }
