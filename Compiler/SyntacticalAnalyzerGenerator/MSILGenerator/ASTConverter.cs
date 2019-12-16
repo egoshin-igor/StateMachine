@@ -61,6 +61,8 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
             {
                 case NodeType.PlusNode:
                     return CreatePlusOperator( node );
+                case NodeType.UnaryMinusNode:
+                    return CreateUnaryMinusNode( node );
                 case NodeType.DivisionNode:
                     return CreateDivOperation( node );
                 case NodeType.MultipleNode:
@@ -77,6 +79,31 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
                     return null;
             }
 
+        }
+
+        private IMSILConstruction CreateUnaryMinusNode(IASTNode node)
+        {
+            var mulOperator = new MulOperator();
+            if ( node.Nodes [ 0 ].NodeType == NodeType.Leaf )
+            {
+                if ( IsValue( node.Nodes [ 0 ] ) )
+                {
+                    if ( IsInt( node.Nodes [ 0 ] ) )
+                    {
+                        mulOperator.FirstIntValue = Convert.ToInt32( node.Nodes [ 0 ].Value );
+                    }
+                    else if ( IsDouble( node.Nodes [ 0 ] ) )
+                    {
+                        mulOperator.FirstDoubleValue = Convert.ToDouble( node.Nodes [ 0 ].Value );
+                    }
+                }
+                else if ( IsVariable( node.Nodes [ 0 ] ) )
+                {
+                    mulOperator.FirstVariableName = node.Nodes [ 0 ].Value;
+                }
+                mulOperator.SecondIntValue = -1;
+            }
+            return mulOperator;
         }
 
         private IMSILConstruction CreateDivOperation( IASTNode node )

@@ -1,7 +1,10 @@
 void main 
 {
-	bool a`
-	bool b`
+	int c`
+	int v`
 	@@@
-	a = | ! true`
+	c = -1`
+	v = -c * 10 + (-5)`
+	Print(c)`
+	Print(v)`
 }

@@ -1,1 +1,1 @@
-digraph G{"bool:DefineNewType(Id:1)" [shape = box];"bool:DefineNewType(Id:1)"->"a:Leaf(Id:2)";}
+digraph G{"int:DefineNewType(Id:1)" [shape = box];"int:DefineNewType(Id:1)"->"c:Leaf(Id:2)";}
