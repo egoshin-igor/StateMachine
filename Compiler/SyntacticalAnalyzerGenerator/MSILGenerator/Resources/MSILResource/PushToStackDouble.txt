@@ -1,0 +1,1 @@
+ldc.r8 {VALUE}

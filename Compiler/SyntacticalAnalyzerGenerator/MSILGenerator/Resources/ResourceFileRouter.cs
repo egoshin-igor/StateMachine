@@ -20,5 +20,6 @@
         public static readonly string GET_FROM_STACK_ROUTE = $"{RESOURCE_DIRECTORY}\\GetFromStack.txt";
         public static readonly string SUB_OPERATION_ROUTE = $"{RESOURCE_DIRECTORY}\\SubOperation.txt";
         public static readonly string DIV_OPEARTION_ROUTE = $"{RESOURCE_DIRECTORY}\\Divoperation.txt";
+        public static readonly string PUSH_TO_STACK_DOUBLE_ROUTE = $"{RESOURCE_DIRECTORY}\\PushToStackDouble.txt";
     }
 }
