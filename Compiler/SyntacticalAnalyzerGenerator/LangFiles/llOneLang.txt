@@ -22,7 +22,7 @@
 <operators___10000> -> [EPS] / }
 <operators___10000> -> <operators> / #IDENTIFIER#,Print,Println
 
-<operator> -> <leftValue> = <rightValue> `~TC.CheckLeftRight / #IDENTIFIER#
+<operator> -> <leftValue> = <rightValue>~Common.CheckRightValueDestination `~TC.CheckLeftRight / #IDENTIFIER#
 <operator> -> <print> `~AO.Clear / Print,Println
 
 <print> -> Print~Print.Save ( <printValue> )~Print.GenerateNode / Print
@@ -53,10 +53,11 @@
 
 <leftValue> -> #IDENTIFIER#~TC.SaveLeftTerm / #IDENTIFIER#
 
-<rightValue> -> <ariphmeticalOperation> / -,(,#BinaryWholeNumber#,#DecimalWholeNumber#,#IDENTIFIER#,#DecimalFixedPointNumber#
-<rightValue> -> <boolExpression_0> / |
+<ariphmeticalOperation_rv> -> <ariphmeticalOperation> / -,(,#BinaryWholeNumber#,#DecimalWholeNumber#,#IDENTIFIER#,#DecimalFixedPointNumber#
+<rightValue> -> <ariphmeticalOperation_rv> / -,(,#BinaryWholeNumber#,#DecimalWholeNumber#,#IDENTIFIER#,#DecimalFixedPointNumber#
+<rightValue> -> <boolExpression_0> / !,(,#IDENTIFIER#,false,true
 
-<boolExpression_0> -> | <boolExpression> / |
+<boolExpression_0> -> <boolExpression> / !,(,#IDENTIFIER#,false,true
 <boolExpression> -> <boolOperations> <boolExpression___10000>~BO.ActionAfterCompOperation / !,(,#IDENTIFIER#,false,true
 <boolExpression___10000> -> &&~BO.ActionAfterLogicSign <boolExpression> / &&
 <boolExpression___10000> -> [EPS]~BO.ActionAfterCompOperation / `,)

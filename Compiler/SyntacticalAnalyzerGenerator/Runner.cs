@@ -26,6 +26,7 @@ namespace SyntacticalAnalyzerGenerator
         private Term _currentTerm;
         private List<IASTNode> _trees;
         private bool _isIncorrectTerms = false;
+        private int? _tempGoTo = null;
 
         public Runner(
             ProgramLekser programLekser,
@@ -84,7 +85,11 @@ namespace SyntacticalAnalyzerGenerator
                 }
                 if ( table[ _currentTableIndex ].GoTo != -1 )  // переходим по goto
                 {
-                    _currentTableIndex = table[ _currentTableIndex ].GoTo;
+                    _currentTableIndex = _tempGoTo ?? table[ _currentTableIndex ].GoTo;
+                    if ( _tempGoTo.HasValue )
+                    {
+                        _tempGoTo = null;
+                    }
                     return await CheckWordsAsync( table );
                 }
 
@@ -153,8 +158,33 @@ namespace SyntacticalAnalyzerGenerator
                 case ActionSourceType.BoolOperation:
                     DoBoAction( actionNameData[ 1 ] );
                     break;
+                case ActionSourceType.Common:
+                    DoCommonAction( actionNameData[ 1 ] );
+                    break;
                 default:
                     throw new NotImplementedException();
+            }
+        }
+
+        private void DoCommonAction( string actionName )
+        {
+            const string boolRuleNameSubstring = "boolExpression_0";
+            const string aoRuleSubstring = "ariphmeticalOperation_rv";
+
+            switch ( actionName )
+            {
+                case SourceActionName.CommonCheckRightValueDestination:
+                    if ( _typeController.LeftTerm.Type == TermType.Bool )
+                    {
+                        _tempGoTo = _table.First( t => t.Name.Contains( boolRuleNameSubstring ) ).GoTo;
+                    }
+                    else if ( _typeController.LeftTerm.Type == TermType.Int )
+                    {
+                        _tempGoTo = _table.First( t => t.Name.Contains( aoRuleSubstring ) ).GoTo;
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -299,30 +329,30 @@ namespace SyntacticalAnalyzerGenerator
 
                     _aSTGenerator.CreateLeafNode( _currentTerm );
                     break;
-				case SourceActionName.BoActionAfterCompOperation:
-					_aSTGenerator.CreateNotSignNode();
-					_aSTGenerator.CreateBoolOperationNode( _currentTerm );
-					break;
-				case SourceActionName.BoActionAfterCompSign:
-					_aSTGenerator.AddSign( _currentTerm );
-					break;
-				case SourceActionName.BoActionAfterLogicSign:
-					_aSTGenerator.CreateNotSignNode();
-					_aSTGenerator.CreateBoolOperationNode(_currentTerm);
-					_aSTGenerator.AddSign( _currentTerm );
-					break;
-				case SourceActionName.BoUnaryNotSignFound:
-					_aSTGenerator.UnaryNotSignFound();
-					break;
-				case SourceActionName.BoClosedBracketFound:
-					_aSTGenerator.RemoveSign(_currentTerm);
-					_aSTGenerator.CloseBracketInBoolOpFound();
-					break;
-				case SourceActionName.BoOpenBracketFound:
-					_aSTGenerator.AddSign(_currentTerm);
-					_aSTGenerator.OpenBracketInBoolOpFound();
-					break;
-				default:
+                case SourceActionName.BoActionAfterCompOperation:
+                    _aSTGenerator.CreateNotSignNode();
+                    _aSTGenerator.CreateBoolOperationNode( _currentTerm );
+                    break;
+                case SourceActionName.BoActionAfterCompSign:
+                    _aSTGenerator.AddSign( _currentTerm );
+                    break;
+                case SourceActionName.BoActionAfterLogicSign:
+                    _aSTGenerator.CreateNotSignNode();
+                    _aSTGenerator.CreateBoolOperationNode( _currentTerm );
+                    _aSTGenerator.AddSign( _currentTerm );
+                    break;
+                case SourceActionName.BoUnaryNotSignFound:
+                    _aSTGenerator.UnaryNotSignFound();
+                    break;
+                case SourceActionName.BoClosedBracketFound:
+                    _aSTGenerator.RemoveSign( _currentTerm );
+                    _aSTGenerator.CloseBracketInBoolOpFound();
+                    break;
+                case SourceActionName.BoOpenBracketFound:
+                    _aSTGenerator.AddSign( _currentTerm );
+                    _aSTGenerator.OpenBracketInBoolOpFound();
+                    break;
+                default:
                     throw new NotImplementedException( $"action: { actionName } not found" );
             }
         }
