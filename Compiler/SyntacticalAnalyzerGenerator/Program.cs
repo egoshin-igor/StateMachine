@@ -20,14 +20,13 @@ namespace SyntacticalAnalyzerGenerator
 
         static void Main( string[] args )
         {
-            RunAsync( args ).Wait();
             try
             {
-
+                RunAsync( args ).Wait();
             }
             catch ( Exception ex )
             {
-                Console.WriteLine( ex.Message );
+                Console.WriteLine( ex.InnerException.Message );
             }
         }
 
@@ -67,7 +66,7 @@ namespace SyntacticalAnalyzerGenerator
                 await AstTreeVisualizer.VisualizeAsync( astTrees[ 2 ], $"{PathToLangFiles}/astTree.dot" );
                 var msilConstructions = aSTConverter.GenerateMSILConstructions( astTrees );
                 msilGenerator.Generate( msilConstructions );
-                Console.WriteLine( astTrees.Count != 0 ? "Success" : "Error" );
+                Console.WriteLine( "Success" );
             }
 
             using ( TextWriter tw = new StreamWriter( $"{PathToLangFiles}/table.txt" ) )
