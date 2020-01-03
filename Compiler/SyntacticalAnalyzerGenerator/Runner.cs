@@ -317,15 +317,26 @@ namespace SyntacticalAnalyzerGenerator
             switch ( actionName )
             {
                 case SourceActionName.BoActionAfterBoolValue:
+                    Term term;
                     if ( _currentTerm.Type == TermType.Identifier )
                     {
                         var variable = _variablesTableController.GetVariable( _currentTerm.Id );
-                        _typeController.SaveRightType( variable.Type );
+                        term = variable.Type;
                     }
                     else
                     {
-                        _typeController.SaveRightType( _currentTerm );
+                        term = _currentTerm;
                     }
+                    var type = TypeController.ConvertToSimpleType( term.Type );
+                    if ( type == TermType.Bool || type == TermType.Int || type == TermType.Double )
+                    {
+                        _typeController.SaveRightType( _typeController.LeftTerm );
+                    }
+                    else
+                    {
+                        _typeController.SaveRightType( term );
+                    }
+
 
                     _aSTGenerator.CreateLeafNode( _currentTerm );
                     break;

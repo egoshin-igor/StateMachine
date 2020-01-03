@@ -55,14 +55,14 @@
 
 <ariphmeticalOperation_rv> -> <ariphmeticalOperation> / -,(,#BinaryWholeNumber#,#DecimalWholeNumber#,#IDENTIFIER#,#DecimalFixedPointNumber#
 <rightValue> -> <ariphmeticalOperation_rv> / -,(,#BinaryWholeNumber#,#DecimalWholeNumber#,#IDENTIFIER#,#DecimalFixedPointNumber#
-<rightValue> -> <boolExpression_0> / !,(,#IDENTIFIER#,false,true
+<rightValue> -> <boolExpression_0> / !,(,#IDENTIFIER#,false,true,#DecimalWholeNumber#
 
-<boolExpression_0> -> <boolExpression> / !,(,#IDENTIFIER#,false,true
-<boolExpression> -> <boolOperations> <boolExpression___10000>~BO.ActionAfterCompOperation / !,(,#IDENTIFIER#,false,true
+<boolExpression_0> -> <boolExpression> / !,(,#IDENTIFIER#,false,true,#DecimalWholeNumber#
+<boolExpression> -> <boolOperations> <boolExpression___10000>~BO.ActionAfterCompOperation / !,(,#IDENTIFIER#,false,true,#DecimalWholeNumber#
 <boolExpression___10000> -> &&~BO.ActionAfterLogicSign <boolExpression> / &&
 <boolExpression___10000> -> [EPS]~BO.ActionAfterCompOperation / `,)
 <boolExpression___10000> -> ||~BO.ActionAfterLogicSign <boolExpression> / ||
-<boolOperations> -> <boolValue> <boolOperations___10000> / !,(,#IDENTIFIER#,false,true
+<boolOperations> -> <boolValue> <boolOperations___10000> / !,(,#IDENTIFIER#,false,true,#DecimalWholeNumber#
 <boolOperations___10000> -> !=~BO.ActionAfterCompSign <boolValue> / !=
 <boolOperations___10000> -> [EPS] / &&,`,),||
 <boolOperations___10000> -> <~BO.ActionAfterCompSign <boolValue> / <
@@ -72,7 +72,8 @@
 <boolOperations___10000> -> >=~BO.ActionAfterCompSign <boolValue> / >=
 <boolValue> -> !~BO.UnaryNotSignFound <boolValue> / !
 <boolValue> -> (~BO.OpenBracketFound <boolExpression> )~BO.ClosedBracketFound / (
-<boolValue> -> <boolValue2> / #IDENTIFIER#,false,true
+<boolValue> -> <boolValue2> / #IDENTIFIER#,false,true,#DecimalWholeNumber#
 <boolValue2> -> #IDENTIFIER#~BO.ActionAfterBoolValue / #IDENTIFIER#
 <boolValue2> -> false~BO.ActionAfterBoolValue / false
 <boolValue2> -> true~BO.ActionAfterBoolValue / true
+<boolValue2> -> #DecimalWholeNumber#~BO.ActionAfterBoolValue / #DecimalWholeNumber#
