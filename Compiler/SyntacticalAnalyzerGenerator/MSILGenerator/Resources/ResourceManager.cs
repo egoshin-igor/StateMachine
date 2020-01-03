@@ -80,7 +80,7 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.Resources
             return ReadResourceFromFile( ResourceFileRouter.SUB_OPERATION_ROUTE );
         }
 
-        public static string GetDivOperation()
+        public static string GetDivOperationResource()
         {
             return ReadResourceFromFile( ResourceFileRouter.DIV_OPEARTION_ROUTE );
         }
@@ -88,6 +88,21 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.Resources
         public static string GetPushToStackDoubleResource()
         {
             return ReadResourceFromFile( ResourceFileRouter.PUSH_TO_STACK_DOUBLE_ROUTE );
+        }
+
+        public static string GetCeqOperationResource()
+        {
+            return ReadResourceFromFile( ResourceFileRouter.CEQ_OPERATION_ROUTE );
+        }
+
+        public static string GetAndOperationResource()
+        {
+            return ReadResourceFromFile( ResourceFileRouter.AND_OPERATION_ROUTE );
+        }
+
+        public static string GetOrOperationResource()
+        {
+            return ReadResourceFromFile( ResourceFileRouter.OR_OPERATION_ROUTE );
         }
 
         private static string ReadResourceFromFile( string path )

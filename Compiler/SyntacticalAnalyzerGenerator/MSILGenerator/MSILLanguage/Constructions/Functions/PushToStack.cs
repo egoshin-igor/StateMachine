@@ -7,6 +7,7 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.
     {
         public int? IntValue { get; set; }
         public double? DoubleValue { get; set; }
+        public string BoolValue { get; set; }
         public string VariableName { get; set; }
 
         public string ToMSILCode()
@@ -49,6 +50,11 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.
             if ( !string.IsNullOrEmpty( VariableName ) )
             {
                 return VariableName;
+            }
+
+            if ( !string.IsNullOrEmpty( BoolValue ) )
+            {
+                return ( BoolValue == Constants.TRUE_VALUE ? 1 : 0 ).ToString();
             }
             return "";
         }

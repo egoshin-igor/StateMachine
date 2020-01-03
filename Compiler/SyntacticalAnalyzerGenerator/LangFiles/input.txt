@@ -1,17 +1,14 @@
 void main 
 {
-	int c`
-	int v`
-	int b`
+	bool a`
+	bool b`
+	bool c`
 	@@@
-	c = 1 - (- 1)`
-	b = (c - (-c)) * (- (10 + c))`
-	v = 10 * 2 - (-c) + ( - 180) * ( - 37)`
-	Print(c)`
-	Print(v)`
-	Print(b)`
-	v = (- v + c) div b`
-	Print(v)`
-	b = ((c + (-c)) * v - 1237 * c) div (123 * 26 div 35)`
-	Print(b)`
+	a = true`
+	b = false`
+	c = true`
+	a = a && b || a && c`
+	Print(a)`
+	a = c == !a`
+	Print(a)`
 }

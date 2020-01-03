@@ -9,7 +9,7 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.Utils
             switch ( type )
             {
                 case VariableType.Bool:
-                    return "bool";
+                    return "int32";
                 case VariableType.String:
                     return "string";
                 case VariableType.Integer:

@@ -79,6 +79,8 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
                 case TermType.DecimalFixedPointNumber:
                 case TermType.Double:
                     return CreatePushDoubleToStack( node );
+                case TermType.Bool:
+                    return CreatePushBoolToStack( node );
                 default:
                     throw new Exception( "Шэф всё пропало, непонятный тип переменной" );
             }
@@ -151,6 +153,15 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
             return pushToStackFun;
         }
 
+        private IMSILConstruction CreatePushBoolToStack( IASTNode node )
+        {
+            var pushToStackFun = new PushToStack
+            {
+                BoolValue = node.Value
+            };
+            return pushToStackFun;
+        }
+
         private bool IsSimpleNode( IASTNode node )
         {
             return node.Nodes.All( childNode => childNode.NodeType == NodeType.Leaf );
@@ -177,10 +188,38 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
                     return CreateVariableDeclarationOperator( node );
                 case NodeType.Equality:
                     return CreateAssignmentOperator( node );
+                case NodeType.Equal:
+                    return CreateComparisonOperator( node );
+                case NodeType.LogicAnd:
+                    return CreateAndOperator( node );
+                case NodeType.LogicOr:
+                    return CreateOrOperator( node );
+                case NodeType.LogicNot:
+                    return CreateNotOperator( node );
                 default:
                     return null;
             }
 
+        }
+
+        private IMSILConstruction CreateNotOperator( IASTNode node )
+        {
+            return new NotBoolOperation();
+        }
+
+        private IMSILConstruction CreateAndOperator( IASTNode node )
+        {
+            return new AndOperation();
+        }
+
+        private IMSILConstruction CreateOrOperator( IASTNode node )
+        {
+            return new OrOperation();
+        }
+
+        private IMSILConstruction CreateComparisonOperator( IASTNode node )
+        {
+            return new ComparisonOperator();
         }
 
         private IMSILConstruction CreateUnaryMinusNode( IASTNode node )
@@ -357,6 +396,10 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
         {
             if ( IsValue( node.Nodes [ 1 ] ) )
             {
+                if ( node.Nodes [ 1 ].TermType == TermType.Bool || node.Nodes [ 1 ].TermType == TermType.String )
+                {
+                    return new AssignmentOperator( node.Nodes [ 0 ].Value, node.Nodes [ 1 ].Value );
+                }
                 return new AssignmentOperator( node.Nodes [ 0 ].Value, int.Parse( node.Nodes [ 1 ].Value ) );
             }
             else

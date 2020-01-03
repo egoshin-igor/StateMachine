@@ -9,5 +9,7 @@
         public const string RESOURCE_RESULT = "{RESULT}";
         public const string RESOURCE_TYPE = "{TYPE}";
         public const string RESOURCE_COMMAND = "{COMMAND}";
+        public const string TRUE_VALUE = "true";
+        public const string FALSE_VALUE = "false";
     }
 }

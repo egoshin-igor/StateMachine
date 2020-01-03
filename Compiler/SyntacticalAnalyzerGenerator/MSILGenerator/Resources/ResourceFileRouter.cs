@@ -21,5 +21,8 @@
         public static readonly string SUB_OPERATION_ROUTE = $"{RESOURCE_DIRECTORY}\\SubOperation.txt";
         public static readonly string DIV_OPEARTION_ROUTE = $"{RESOURCE_DIRECTORY}\\Divoperation.txt";
         public static readonly string PUSH_TO_STACK_DOUBLE_ROUTE = $"{RESOURCE_DIRECTORY}\\PushToStackDouble.txt";
+        public static readonly string CEQ_OPERATION_ROUTE = $"{RESOURCE_DIRECTORY}\\CeqOperation.txt";
+        public static readonly string AND_OPERATION_ROUTE = $"{RESOURCE_DIRECTORY}\\AndOperation.txt";
+        public static readonly string OR_OPERATION_ROUTE = $"{RESOURCE_DIRECTORY}\\OrOperation.txt";
     }
 }

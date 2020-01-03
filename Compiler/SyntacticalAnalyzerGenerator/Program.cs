@@ -20,6 +20,8 @@ namespace SyntacticalAnalyzerGenerator
 
         static void Main( string[] args )
         {
+        //    RunAsync( args ).Wait();
+
             try
             {
                 RunAsync( args ).Wait();
