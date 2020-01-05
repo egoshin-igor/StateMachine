@@ -24,5 +24,7 @@
         public static readonly string CEQ_OPERATION_ROUTE = $"{RESOURCE_DIRECTORY}\\CeqOperation.txt";
         public static readonly string AND_OPERATION_ROUTE = $"{RESOURCE_DIRECTORY}\\AndOperation.txt";
         public static readonly string OR_OPERATION_ROUTE = $"{RESOURCE_DIRECTORY}\\OrOperation.txt";
+        public static readonly string BIGGER_OPERATION_ROUTE = $"{RESOURCE_DIRECTORY}\\CgtOperation.txt";
+        public static readonly string SMALLER_OPERATION_ROUTE = $"{RESOURCE_DIRECTORY}\\CltOperation.txt";
     }
 }

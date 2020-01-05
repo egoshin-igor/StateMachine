@@ -105,6 +105,16 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.Resources
             return ReadResourceFromFile( ResourceFileRouter.OR_OPERATION_ROUTE );
         }
 
+        public static string GetBiggerOperationResource()
+        {
+            return ReadResourceFromFile( ResourceFileRouter.BIGGER_OPERATION_ROUTE );
+        }
+
+        public static string GetSmallerOperationResource()
+        {
+            return ReadResourceFromFile( ResourceFileRouter.SMALLER_OPERATION_ROUTE );
+        }
+
         private static string ReadResourceFromFile( string path )
         {
             if ( !File.Exists( path ) )

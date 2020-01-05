@@ -3,12 +3,19 @@ void main
 	bool a`
 	bool b`
 	bool c`
+	int q`
+	int w`
+	int e`
 	@@@
+	q = 10`
+	w = 12`
 	a = true`
 	b = false`
 	c = true`
 	a = a && b || a && c`
 	Print(a)`
 	a = c == !a`
+	Print(a)`
+	a = q < w`
 	Print(a)`
 }
