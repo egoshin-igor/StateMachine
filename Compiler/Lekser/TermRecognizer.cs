@@ -161,7 +161,7 @@ namespace Lekser
             return true;
         }
 
-        public static HashSet<char> Delimeters = new HashSet<char> { '(', ')', '{', '}', ';', ' ', '\t', '+', '-', ':', ',', '*', '$', '[', ']', '!', '`' };
+        public static HashSet<char> Delimeters = new HashSet<char> { '(', ')', '{', '}', ';', ' ', '\t', '+', '-', ':', ',', '*', '$', '[', ']', '`' };
 
 
 
