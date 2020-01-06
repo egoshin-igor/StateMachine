@@ -16,8 +16,8 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
         private int _predictedUnaryMinusesCount = 0;
         private int _minusesWithBracketsCount = 0;
 
-		private int _predictedNotSignCount = 0;
-		private int _notSignsWithBracketsCount = 0;
+        private int _predictedNotSignCount = 0;
+        private int _notSignsWithBracketsCount = 0;
 
         public IASTNode RootNode => _nodesStack.Peek();
 
@@ -40,8 +40,8 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
             _signStack.Clear();
             _predictedUnaryMinusesCount = 0;
             _minusesWithBracketsCount = 0;
-			_predictedNotSignCount = 0;
-			_notSignsWithBracketsCount = 0;
+            _predictedNotSignCount = 0;
+            _notSignsWithBracketsCount = 0;
         }
 
         public void CreateLeafNode( Term number )
@@ -87,85 +87,85 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
                     nodes.Add( rightNode );
                     _nodesStack.Push( new TreeNode( NodeType.DivisionNode, TermType.Division, nodes ) );
                     break;
-				default:
+                default:
                     throw new ApplicationException( $"Operation not recognized. After:{ number.Value } in row { number.RowPosition }." );
             }
 
             return true;
         }
 
-		public bool CreateBoolOperationNode(Term number)
-		{
-			if (_signStack.Count == 0 || _signStack.Peek() == TermType.OpeningRoundBracket)
-				return true;
+        public bool CreateBoolOperationNode( Term number )
+        {
+            if ( _signStack.Count == 0 || _signStack.Peek() == TermType.OpeningRoundBracket )
+                return true;
 
-			IASTNode rightNode;
-			IASTNode leftNode;
-			var nodes = new List<IASTNode>();
-			switch (_signStack.Pop())
-			{
-				case TermType.Equal:
-					rightNode = _nodesStack.Pop();
-					leftNode = _nodesStack.Pop();
-					nodes.Add(leftNode);
-					nodes.Add(rightNode);
-					_nodesStack.Push(new TreeNode(NodeType.Equal, TermType.Equal, nodes));
-					break;
-				case TermType.NotEqual:
-					rightNode = _nodesStack.Pop();
-					leftNode = _nodesStack.Pop();
-					nodes.Add(leftNode);
-					nodes.Add(rightNode);
-					_nodesStack.Push(new TreeNode(NodeType.NotEqual, TermType.NotEqual, nodes));
-					break;
-				case TermType.Less:
-					rightNode = _nodesStack.Pop();
-					leftNode = _nodesStack.Pop();
-					nodes.Add(leftNode);
-					nodes.Add(rightNode);
-					_nodesStack.Push(new TreeNode(NodeType.Less, TermType.Less, nodes));
-					break;
-				case TermType.More:
-					rightNode = _nodesStack.Pop();
-					leftNode = _nodesStack.Pop();
-					nodes.Add(leftNode);
-					nodes.Add(rightNode);
-					_nodesStack.Push(new TreeNode(NodeType.More, TermType.More, nodes));
-					break;
-				case TermType.LessEqual:
-					rightNode = _nodesStack.Pop();
-					leftNode = _nodesStack.Pop();
-					nodes.Add(leftNode);
-					nodes.Add(rightNode);
-					_nodesStack.Push(new TreeNode(NodeType.LessEqual, TermType.LessEqual, nodes));
-					break;
-				case TermType.MoreEqual:
-					rightNode = _nodesStack.Pop();
-					leftNode = _nodesStack.Pop();
-					nodes.Add(leftNode);
-					nodes.Add(rightNode);
-					_nodesStack.Push(new TreeNode(NodeType.MoreEqual, TermType.MoreEqual, nodes));
-					break;
-				case TermType.And:
-					rightNode = _nodesStack.Pop();
-					leftNode = _nodesStack.Pop();
-					nodes.Add(leftNode);
-					nodes.Add(rightNode);
-					_nodesStack.Push(new TreeNode(NodeType.LogicAnd, TermType.And, nodes));
-					break;
-				case TermType.Or:
-					rightNode = _nodesStack.Pop();
-					leftNode = _nodesStack.Pop();
-					nodes.Add(leftNode);
-					nodes.Add(rightNode);
-					_nodesStack.Push(new TreeNode(NodeType.LogicOr, TermType.Or, nodes));
-					break;
-				default:
-					throw new ApplicationException($"Operation not recognized. After:{ number.Value } in row { number.RowPosition }.");
-			}
+            IASTNode rightNode;
+            IASTNode leftNode;
+            var nodes = new List<IASTNode>();
+            switch ( _signStack.Pop() )
+            {
+                case TermType.Equal:
+                    rightNode = _nodesStack.Pop();
+                    leftNode = _nodesStack.Pop();
+                    nodes.Add( leftNode );
+                    nodes.Add( rightNode );
+                    _nodesStack.Push( new TreeNode( NodeType.Equal, TermType.Equal, nodes ) );
+                    break;
+                case TermType.NotEqual:
+                    rightNode = _nodesStack.Pop();
+                    leftNode = _nodesStack.Pop();
+                    nodes.Add( leftNode );
+                    nodes.Add( rightNode );
+                    _nodesStack.Push( new TreeNode( NodeType.NotEqual, TermType.NotEqual, nodes ) );
+                    break;
+                case TermType.Less:
+                    rightNode = _nodesStack.Pop();
+                    leftNode = _nodesStack.Pop();
+                    nodes.Add( leftNode );
+                    nodes.Add( rightNode );
+                    _nodesStack.Push( new TreeNode( NodeType.Less, TermType.Less, nodes ) );
+                    break;
+                case TermType.More:
+                    rightNode = _nodesStack.Pop();
+                    leftNode = _nodesStack.Pop();
+                    nodes.Add( leftNode );
+                    nodes.Add( rightNode );
+                    _nodesStack.Push( new TreeNode( NodeType.More, TermType.More, nodes ) );
+                    break;
+                case TermType.LessEqual:
+                    rightNode = _nodesStack.Pop();
+                    leftNode = _nodesStack.Pop();
+                    nodes.Add( leftNode );
+                    nodes.Add( rightNode );
+                    _nodesStack.Push( new TreeNode( NodeType.LessEqual, TermType.LessEqual, nodes ) );
+                    break;
+                case TermType.MoreEqual:
+                    rightNode = _nodesStack.Pop();
+                    leftNode = _nodesStack.Pop();
+                    nodes.Add( leftNode );
+                    nodes.Add( rightNode );
+                    _nodesStack.Push( new TreeNode( NodeType.MoreEqual, TermType.MoreEqual, nodes ) );
+                    break;
+                case TermType.And:
+                    rightNode = _nodesStack.Pop();
+                    leftNode = _nodesStack.Pop();
+                    nodes.Add( leftNode );
+                    nodes.Add( rightNode );
+                    _nodesStack.Push( new TreeNode( NodeType.LogicAnd, TermType.And, nodes ) );
+                    break;
+                case TermType.Or:
+                    rightNode = _nodesStack.Pop();
+                    leftNode = _nodesStack.Pop();
+                    nodes.Add( leftNode );
+                    nodes.Add( rightNode );
+                    _nodesStack.Push( new TreeNode( NodeType.LogicOr, TermType.Or, nodes ) );
+                    break;
+                default:
+                    throw new ApplicationException( $"Operation not recognized. After:{ number.Value } in row { number.RowPosition }." );
+            }
 
-			return true;
-		}
+            return true;
+        }
 
         public void CreateUnaryMinusNode()
         {
@@ -180,47 +180,47 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
             }
         }
 
-		public void CreateNotSignNode()
-		{
-			int notSignsCountWithSingleNumber = _predictedNotSignCount - _notSignsWithBracketsCount;
-			if ( notSignsCountWithSingleNumber > 0 )
-			{
-				_predictedNotSignCount--;
-				var nodes = new List<IASTNode>();
-				nodes.Add(_nodesStack.Pop());
+        public void CreateNotSignNode()
+        {
+            int notSignsCountWithSingleNumber = _predictedNotSignCount - _notSignsWithBracketsCount;
+            if ( notSignsCountWithSingleNumber > 0 )
+            {
+                _predictedNotSignCount--;
+                var nodes = new List<IASTNode>();
+                nodes.Add( _nodesStack.Pop() );
 
-				_nodesStack.Push(new TreeNode(NodeType.LogicNot, TermType.Not, nodes, "!"));
-			}
-		}
+                _nodesStack.Push( new TreeNode( NodeType.LogicNot, TermType.Not, nodes, "!" ) );
+            }
+        }
 
-		public void UnaryNotSignFound()
-		{
-			_predictedNotSignCount++;
-		}
+        public void UnaryNotSignFound()
+        {
+            _predictedNotSignCount++;
+        }
 
-		public void OpenBracketInBoolOpFound()
-		{
-			if (_predictedNotSignCount > 0)
-			{
-				_notSignsWithBracketsCount++;
-			}
-		}
+        public void OpenBracketInBoolOpFound()
+        {
+            if ( _predictedNotSignCount > 0 )
+            {
+                _notSignsWithBracketsCount++;
+            }
+        }
 
-		public void CloseBracketInBoolOpFound()
-		{
-			if (_notSignsWithBracketsCount > 0)
-			{
-				_notSignsWithBracketsCount--;
-				_predictedNotSignCount--;
-				var nodes = new List<IASTNode>();
-				nodes.Add(_nodesStack.Pop());
+        public void CloseBracketInBoolOpFound()
+        {
+            if ( _notSignsWithBracketsCount > 0 )
+            {
+                _notSignsWithBracketsCount--;
+                _predictedNotSignCount--;
+                var nodes = new List<IASTNode>();
+                nodes.Add( _nodesStack.Pop() );
 
-				_nodesStack.Push(new TreeNode(NodeType.LogicNot, TermType.Not, nodes, "!"));
-			}
-		}
+                _nodesStack.Push( new TreeNode( NodeType.LogicNot, TermType.Not, nodes, "!" ) );
+            }
+        }
 
 
-		public void AddDeclarationNode( Term term )
+        public void AddDeclarationNode( Term term )
         {
             switch ( term.Type )
             {
@@ -244,6 +244,21 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
         public void AddLeafNode( Term term )
         {
             _nodesStack.Push( new LeafNode( term.Type, term.Value ) );
+        }
+
+        public void AddIfNode()
+        {
+            var nodes = new List<IASTNode>();
+            while ( _nodesStack.Any() )
+            {
+                nodes.Add( _nodesStack.Pop() );
+            }
+            _nodesStack.Push( new TreeNode( NodeType.IfTerm, TermType.If, nodes ) );
+        }
+
+        public void AddNode( IASTNode aSTNode )
+        {
+            _nodesStack.Push( aSTNode );
         }
 
         public void AddPrintNode()
@@ -298,23 +313,23 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
             _signStack.Push( sign.Type );
         }
 
-		public void RemoveSign( Term sign)
-		{
-			if (sign.Type == TermType.ClosingRoundBracket)
-			{
-				if (_signStack.Peek() == TermType.OpeningRoundBracket)
-				{
-					_signStack.Pop();
-				}
-				else
-				{
-					throw new ApplicationException($"Found wrong term. when generating AST, After: { sign.Value } in row { sign.RowPosition }.");
-				}
-			}
-		}
+        public void RemoveSign( Term sign )
+        {
+            if ( sign.Type == TermType.ClosingRoundBracket )
+            {
+                if ( _signStack.Peek() == TermType.OpeningRoundBracket )
+                {
+                    _signStack.Pop();
+                }
+                else
+                {
+                    throw new ApplicationException( $"Found wrong term. when generating AST, After: { sign.Value } in row { sign.RowPosition }." );
+                }
+            }
+        }
 
 
-		public void OpenBracketFound()
+        public void OpenBracketFound()
         {
             if ( _predictedUnaryMinusesCount > 0 )
             {

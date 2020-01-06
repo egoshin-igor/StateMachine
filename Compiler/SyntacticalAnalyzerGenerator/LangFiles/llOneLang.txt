@@ -2,7 +2,7 @@
 
 <body> -> <declarations> <body___10000> / @@@,bool,char,float,int,IntArray,string
 <body___10000> -> [EPS] / }
-<body___10000> -> <operators> / #IDENTIFIER#,Print,Println
+<body___10000> -> <operators> / #IDENTIFIER#,Print,Println,if
 
 <declarations> -> <declarations_0> @@@ / @@@,bool,char,float,int,IntArray,string,double
 <declarations_0> -> [EPS] / @@@
@@ -17,13 +17,14 @@
 <type> -> string~VTC.DefineNewType / string
 <type> -> double~VTC.DefineNewType / double
 
-<operators> -> <operator> <operators___10000> / #IDENTIFIER#,Print,Println
+<operators> -> <operator> <operators___10000> / #IDENTIFIER#,Print,Println,if
 
 <operators___10000> -> [EPS] / }
-<operators___10000> -> <operators> / #IDENTIFIER#,Print,Println
+<operators___10000> -> <operators> / #IDENTIFIER#,Print,Println,if
 
 <operator> -> <leftValue> = <rightValue>~Common.CheckRightValueDestination `~TC.CheckLeftRight / #IDENTIFIER#
 <operator> -> <print> `~AO.Clear / Print,Println
+<operator> -> <ifExpression> / if
 
 <print> -> Print~Print.Save ( <printValue> )~Print.GenerateNode / Print
 <print> -> Println~Print.Save ( <printValue> )~Print.GenerateNode / Println
@@ -77,3 +78,7 @@
 <boolValue2> -> false~BO.ActionAfterBoolValue / false
 <boolValue2> -> true~BO.ActionAfterBoolValue / true
 <boolValue2> -> #DecimalWholeNumber#~BO.ActionAfterBoolValue / #DecimalWholeNumber#
+
+<ifExpression> -> if ( <boolExpression_0> )~IF.AddIf {~IF.AddThenBegin <operators> }~IF.AddThenEnd <ifExpression_else> / if
+<ifExpression_else> -> [EPS] / #IDENTIFIER#,Print,Println,if,}
+<ifExpression_else> -> else {~IF.AddElseBegin <operators> }~IF.AddElseEnd / else

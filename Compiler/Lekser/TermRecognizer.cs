@@ -44,6 +44,7 @@ namespace Lekser
              { "private", TermType.Modificator },
              { "protected", TermType.Modificator },
              { "if", TermType.If },
+             { "else", TermType.Else },
              { "while", TermType.While },
              { "do", TermType.Do },
              { "for", TermType.For },

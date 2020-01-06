@@ -7,9 +7,12 @@ void main
 	int w`
 	int e`
 	@@@
-	q = 10 + 2`
-	w = 12`
-	
-	a = q != w`
-	Print(a)`
+	if ( a == b && q != w )
+	{
+		Print(q)`
+	}
+	else
+	{
+		Print(q)`
+	}
 }

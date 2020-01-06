@@ -37,5 +37,11 @@
         public const string BoUnaryNotSignFound = "UnaryNotSignFound";
         public const string BoOpenBracketFound = "OpenBracketFound";
         public const string BoClosedBracketFound = "ClosedBracketFound";
+
+        public const string IFAddIfTerm = "AddIf";
+        public const string IFAddThenBegin = "AddThenBegin";
+        public const string IFAddThenEnd = "AddThenEnd";
+        public const string IFAddElseBegin = "AddElseBegin";
+        public const string IFAddElseEnd = "AddElseEnd";
     }
 }

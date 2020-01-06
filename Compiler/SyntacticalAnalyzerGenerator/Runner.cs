@@ -2,6 +2,7 @@
 using Lekser.Enums;
 using SyntacticalAnalyzerGenerator.InsertActionsInSyntax;
 using SyntacticalAnalyzerGenerator.InsertActionsInSyntax.ASTNodes;
+using SyntacticalAnalyzerGenerator.InsertActionsInSyntax.ASTNodes.Enums;
 using SyntacticalAnalyzerGenerator.Words;
 using System;
 using System.Collections.Generic;
@@ -160,6 +161,9 @@ namespace SyntacticalAnalyzerGenerator
                     break;
                 case ActionSourceType.Common:
                     DoCommonAction( actionNameData[ 1 ] );
+                    break;
+                case ActionSourceType.IfOperation:
+                    DoIfAction( actionNameData[ 1 ] );
                     break;
                 default:
                     throw new NotImplementedException();
@@ -365,6 +369,35 @@ namespace SyntacticalAnalyzerGenerator
                     break;
                 default:
                     throw new NotImplementedException( $"action: { actionName } not found" );
+            }
+        }
+
+        private void DoIfAction( string actionName )
+        {
+            switch ( actionName )
+            {
+                case SourceActionName.IFAddIfTerm:
+                    _aSTGenerator.AddIfNode();
+                    _aSTGenerator.SaveAndClear();
+                    break;
+                case SourceActionName.IFAddThenBegin:
+                    _aSTGenerator.AddNode( new TreeNode( NodeType.IfThenBegin, TermType.If, new List<IASTNode>() ) );
+                    _aSTGenerator.SaveAndClear();
+                    break;
+                case SourceActionName.IFAddThenEnd:
+                    _aSTGenerator.AddNode( new TreeNode( NodeType.IfThenEnd, TermType.If, new List<IASTNode>() ) );
+                    _aSTGenerator.SaveAndClear();
+                    break;
+                case SourceActionName.IFAddElseBegin:
+                    _aSTGenerator.AddNode( new TreeNode( NodeType.IfElseBegin, TermType.If, new List<IASTNode>() ) );
+                    _aSTGenerator.SaveAndClear();
+                    break;
+                case SourceActionName.IFAddElseEnd:
+                    _aSTGenerator.AddNode( new TreeNode( NodeType.IfElseEnd, TermType.If, new List<IASTNode>() ) );
+                    _aSTGenerator.SaveAndClear();
+                    break;
+                default:
+                    throw new NotImplementedException( $"action: {actionName} not found" );
             }
         }
     }
