@@ -11,5 +11,7 @@
         public const string RESOURCE_COMMAND = "{COMMAND}";
         public const string TRUE_VALUE = "true";
         public const string FALSE_VALUE = "false";
+        public const string RESOURCE_METKA = "{METKA}";
+        public const string METKA = "METKA";
     }
 }

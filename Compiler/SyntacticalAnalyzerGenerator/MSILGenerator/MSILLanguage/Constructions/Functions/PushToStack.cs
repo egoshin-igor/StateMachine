@@ -18,7 +18,7 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.
 
         private string GetResource()
         {
-            if ( IntValue.HasValue )
+            if ( IntValue.HasValue || !string.IsNullOrEmpty( BoolValue ) )
             {
                 return ResourceManager.GetPushToStackIntegerResource();
             }

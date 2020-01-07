@@ -4,7 +4,9 @@ using SyntacticalAnalyzerGenerator.InsertActionsInSyntax.ASTNodes.Enums;
 using SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions;
 using SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.Functions;
 using SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.Operators;
+using SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.Operators.IfOperator;
 using SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.Utils;
+using SyntacticalAnalyzerGenerator.MSILGenerator.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,19 +17,27 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
     {
         private List<IMSILConstruction> _mSILConstructions;
         private List<IMSILConstruction> _body;
+        private List<IASTNode> _nodes;
+        private int _nodeCounter;
+        private int _metkaCounter;
+        private List<string> _metkaList;
+        private string _beginElseMetka;
 
         public ASTConverter()
         {
             _mSILConstructions = new List<IMSILConstruction>();
             _body = new List<IMSILConstruction>();
+            _metkaList = new List<string>();
+            _metkaCounter = 0;
         }
 
         public List<IMSILConstruction> GenerateMSILConstructions( List<IASTNode> nodes )
         {
+            _nodes = nodes;
             _mSILConstructions.Add( new Initializator() );
-            foreach ( var node in nodes )
+            for ( _nodeCounter = 0; _nodeCounter < _nodes.Count; _nodeCounter++ )
             {
-                ProccessASTNode( node );
+                ProccessASTNode( _nodes [ _nodeCounter ] );
             }
             _mSILConstructions.Add( new MainFunction( _body ) );
             return _mSILConstructions;
@@ -35,11 +45,11 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
 
         private void ProccessASTNode( IASTNode node )
         {
-            if ( node.Nodes [ 0 ].NodeType != NodeType.Leaf )
+            if ( node.Nodes.Count >= 1 && node.Nodes [ 0 ].NodeType != NodeType.Leaf )
             {
                 ProccessASTNode( node.Nodes [ 0 ] );
             }
-            else if ( IsOperationNeedToPushStack( node ) )
+            else if ( node.Nodes.Count >= 1 && IsOperationNeedToPushStack( node ) )
             {
                 _body.Add( CreateMSILCodeForLeaf( node.Nodes [ 0 ] ) );
             }
@@ -54,7 +64,6 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
             }
 
             _body.Add( CreateMSILConstruction( node ) );
-
         }
 
         private IMSILConstruction CreateMSILCodeForLeaf( IASTNode node )
@@ -157,10 +166,54 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
                     return CreateBiggerOperation( node );
                 case NodeType.NotEqual:
                     return CreateNotComparisionOperation( node );
+                case NodeType.IfTerm:
+                    return CreateIfBegin( node );
+                case NodeType.IfThenEnd:
+                    return CreateEndIf( node );
+                case NodeType.IfElseBegin:
+                    return CreateElseBegin( node );
+                case NodeType.IfElseEnd:
+                    return CreateEndElse( node );
                 default:
                     return null;
             }
+        }
 
+        private IMSILConstruction CreateIfBegin( IASTNode node )
+        {
+            _metkaList.Add( GetMetkaName() );
+            return new BeginIf( _metkaList.Last() );
+        }
+
+        private IMSILConstruction CreateEndIf( IASTNode node )
+        {
+            bool isIfElseOperator = ( _nodeCounter < _nodes.Count - 1 ) && isElseBegin( _nodes [ _nodeCounter + 1 ] );
+            if ( isIfElseOperator )
+            {
+                _beginElseMetka = _metkaList.Last();
+                _metkaList.RemoveAt( _metkaList.Count - 1 );
+                _metkaList.Add( GetMetkaName() );
+                return new EndIf( _metkaList.Last(), true );
+            }
+            var result = new EndIf( _metkaList.Last() );
+            _metkaList.RemoveAt( _metkaList.Count - 1 );
+            return result;
+        }
+
+        private IMSILConstruction CreateElseBegin( IASTNode node )
+        {
+            if ( string.IsNullOrEmpty( _beginElseMetka ) )
+            {
+                throw new Exception( "Шэф, всё пропало у начала else название метки нет" );
+            }
+            return new BeginElse( _beginElseMetka );
+        }
+
+        private IMSILConstruction CreateEndElse( IASTNode node )
+        {
+            var result = new EndElse( _metkaList.Last() );
+            _metkaList.RemoveAt( _metkaList.Count - 1 );
+            return result;
         }
 
         private IMSILConstruction CreateNotComparisionOperation( IASTNode node )
@@ -327,6 +380,16 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
                 default:
                     return true;
             }
+        }
+
+        private string GetMetkaName()
+        {
+            return $"{Constants.METKA}_{_metkaCounter++}";
+        }
+
+        private bool isElseBegin( IASTNode node )
+        {
+            return node.NodeType == NodeType.IfElseBegin;
         }
     }
 }

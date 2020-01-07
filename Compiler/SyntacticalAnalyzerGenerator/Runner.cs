@@ -381,8 +381,8 @@ namespace SyntacticalAnalyzerGenerator
                     _aSTGenerator.SaveAndClear();
                     break;
                 case SourceActionName.IFAddThenBegin:
-                    _aSTGenerator.AddNode( new TreeNode( NodeType.IfThenBegin, TermType.If, new List<IASTNode>() ) );
-                    _aSTGenerator.SaveAndClear();
+                  //  _aSTGenerator.AddNode( new TreeNode( NodeType.IfThenBegin, TermType.If, new List<IASTNode>() ) );
+                  //  _aSTGenerator.SaveAndClear();
                     break;
                 case SourceActionName.IFAddThenEnd:
                     _aSTGenerator.AddNode( new TreeNode( NodeType.IfThenEnd, TermType.If, new List<IASTNode>() ) );

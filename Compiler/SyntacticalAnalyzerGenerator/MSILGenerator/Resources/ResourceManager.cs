@@ -115,6 +115,21 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.Resources
             return ReadResourceFromFile( ResourceFileRouter.SMALLER_OPERATION_ROUTE );
         }
 
+        public static string GetIfOperationResource()
+        {
+            return ReadResourceFromFile( ResourceFileRouter.IF_OPERATION_ROUTE );
+        }
+
+        public static string GetGotoOperationResource()
+        {
+            return ReadResourceFromFile( ResourceFileRouter.GOTO_OPERATION );
+        }
+
+        public static string GetDeclareMetkaResource()
+        {
+            return ReadResourceFromFile( ResourceFileRouter.DECLARE_METKA_ROUTE );
+        }
+
         private static string ReadResourceFromFile( string path )
         {
             if ( !File.Exists( path ) )
