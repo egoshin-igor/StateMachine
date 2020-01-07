@@ -256,6 +256,16 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
             _nodesStack.Push( new TreeNode( NodeType.IfTerm, TermType.If, nodes ) );
         }
 
+        public void AddWhileNode()
+        {
+            var nodes = new List<IASTNode>();
+            while ( _nodesStack.Any() )
+            {
+                nodes.Add( _nodesStack.Pop() );
+            }
+            _nodesStack.Push( new TreeNode( NodeType.WhileTerm, TermType.While, nodes ) );
+        }
+
         public void AddNode( IASTNode aSTNode )
         {
             _nodesStack.Push( aSTNode );

@@ -43,5 +43,8 @@
         public const string IFAddThenEnd = "AddThenEnd";
         public const string IFAddElseBegin = "AddElseBegin";
         public const string IFAddElseEnd = "AddElseEnd";
+
+        public const string WhileAddWhile = "AddWhile";
+        public const string WhileAddWhileEnd = "AddWhileEnd";
     }
 }

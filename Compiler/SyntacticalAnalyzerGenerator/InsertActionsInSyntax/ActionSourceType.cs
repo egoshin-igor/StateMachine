@@ -9,5 +9,6 @@
         public const string PrintOperation = "Print";
         public const string BoolOperation = "BO";
         public const string IfOperation = "IF";
+        public const string WhileOperation = "While";
     }
 }

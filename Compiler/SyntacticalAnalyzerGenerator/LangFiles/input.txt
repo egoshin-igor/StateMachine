@@ -7,13 +7,29 @@ void main
 	int w`
 	int e`
 	@@@
+	q = 0`
+	while( q != 10 )
+	{
+		q = q + 1`
+	}
 	a = false`
-	if (a == false)
+	if ( ! a )
 	{
 		q = 10`
-		if (a == false)
+		b = true`
+		w = 12 + 4`
+		e = 13 + 1`
+		if ( w < e )
 		{
-			q = q + 10`
+			q = q + 11`
+		}
+		else
+		{
+			q = 100`
+			if ( q == 100 )
+			{
+				q = -2`
+			}
 		}
 	}
 	else

@@ -165,6 +165,9 @@ namespace SyntacticalAnalyzerGenerator
                 case ActionSourceType.IfOperation:
                     DoIfAction( actionNameData[ 1 ] );
                     break;
+                case ActionSourceType.WhileOperation:
+                    DoWhileAction( actionNameData[ 1 ] );
+                    break;
                 default:
                     throw new NotImplementedException();
             }
@@ -380,10 +383,6 @@ namespace SyntacticalAnalyzerGenerator
                     _aSTGenerator.AddIfNode();
                     _aSTGenerator.SaveAndClear();
                     break;
-                case SourceActionName.IFAddThenBegin:
-                  //  _aSTGenerator.AddNode( new TreeNode( NodeType.IfThenBegin, TermType.If, new List<IASTNode>() ) );
-                  //  _aSTGenerator.SaveAndClear();
-                    break;
                 case SourceActionName.IFAddThenEnd:
                     _aSTGenerator.AddNode( new TreeNode( NodeType.IfThenEnd, TermType.If, new List<IASTNode>() ) );
                     _aSTGenerator.SaveAndClear();
@@ -394,6 +393,23 @@ namespace SyntacticalAnalyzerGenerator
                     break;
                 case SourceActionName.IFAddElseEnd:
                     _aSTGenerator.AddNode( new TreeNode( NodeType.IfElseEnd, TermType.If, new List<IASTNode>() ) );
+                    _aSTGenerator.SaveAndClear();
+                    break;
+                default:
+                    throw new NotImplementedException( $"action: {actionName} not found" );
+            }
+        }
+
+        private void DoWhileAction( string actionName )
+        {
+            switch ( actionName )
+            {
+                case SourceActionName.WhileAddWhile:
+                    _aSTGenerator.AddWhileNode();
+                    _aSTGenerator.SaveAndClear();
+                    break;
+                case SourceActionName.WhileAddWhileEnd:
+                    _aSTGenerator.AddNode( new TreeNode( NodeType.WhileEnd, TermType.While, new List<IASTNode>() ) );
                     _aSTGenerator.SaveAndClear();
                     break;
                 default:

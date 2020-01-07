@@ -25,6 +25,8 @@
         IfThenBegin,
         IfThenEnd,
         IfElseBegin,
-        IfElseEnd
+        IfElseEnd,
+        WhileTerm,
+        WhileEnd
     }
 }

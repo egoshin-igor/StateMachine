@@ -1,1 +1,1 @@
-digraph G{":IfTerm(Id:1)" [shape = box];":IfTerm(Id:1)"->":Equal(Id:2)";":Equal(Id:2)"->"a:Leaf(Id:3)";":Equal(Id:2)"->"false:Leaf(Id:4)";}
+digraph G{":WhileEnd(Id:1)" [shape = box];}

@@ -20,7 +20,7 @@ namespace SyntacticalAnalyzerGenerator
 
         static void Main( string[] args )
         {
-               // RunAsync( args ).Wait();
+            // RunAsync( args ).Wait();
 
             try
             {
@@ -65,9 +65,9 @@ namespace SyntacticalAnalyzerGenerator
                 );
 
                 var astTrees = await runner.GetTrees();
-                await AstTreeVisualizer.VisualizeAsync( astTrees[ 7 ], $"{PathToLangFiles}/astTree.dot" );
-                var msilConstructions = aSTConverter.GenerateMSILConstructions( astTrees );
-                msilGenerator.Generate( msilConstructions );
+                await AstTreeVisualizer.VisualizeAsync( astTrees[ 9 ], $"{PathToLangFiles}/astTree.dot" );
+                // var msilConstructions = aSTConverter.GenerateMSILConstructions( astTrees );
+                // msilGenerator.Generate( msilConstructions );
                 Console.WriteLine( "Success" );
             }
 
