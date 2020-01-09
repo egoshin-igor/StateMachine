@@ -7,7 +7,12 @@ void main
 	int w`
 	int e`
 	@@@
-	Read(q)`
+	q = 0`
+	while (q != 10)
+	{
+		q = q + 1`
+	}
+	Print(q)`
 	a = false`
 	if ( ! a  )
 	{

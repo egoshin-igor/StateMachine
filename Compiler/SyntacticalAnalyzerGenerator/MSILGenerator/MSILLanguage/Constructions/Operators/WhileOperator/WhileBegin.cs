@@ -1,13 +1,13 @@
 ﻿using SyntacticalAnalyzerGenerator.MSILGenerator.Resources;
 using SyntacticalAnalyzerGenerator.MSILGenerator.Utils;
 
-namespace SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.Operators.IfOperator
+namespace SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.Operators.WhileOperator
 {
-    public class BeginIf : IMSILConstruction
+    public class WhileBegin : IMSILConstruction
     {
         public string Metka { get; private set; }
 
-        public BeginIf( string metka )
+        public WhileBegin( string metka )
         {
             Metka = metka;
         }

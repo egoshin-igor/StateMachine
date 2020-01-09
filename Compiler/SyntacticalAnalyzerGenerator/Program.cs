@@ -66,8 +66,8 @@ namespace SyntacticalAnalyzerGenerator
 
                 var astTrees = await runner.GetTrees();
                 await AstTreeVisualizer.VisualizeAsync( astTrees[ 6 ], $"{PathToLangFiles}/astTree.dot" );
-                // var msilConstructions = aSTConverter.GenerateMSILConstructions( astTrees );
-                // msilGenerator.Generate( msilConstructions );
+                var msilConstructions = aSTConverter.GenerateMSILConstructions( astTrees );
+                msilGenerator.Generate( msilConstructions );
                 Console.WriteLine( "Success" );
             }
 

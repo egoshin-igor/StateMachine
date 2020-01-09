@@ -5,6 +5,7 @@ using SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions;
 using SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.Functions;
 using SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.Operators;
 using SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.Operators.IfOperator;
+using SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.Operators.WhileOperator;
 using SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.Utils;
 using SyntacticalAnalyzerGenerator.MSILGenerator.Utils;
 using System;
@@ -18,9 +19,15 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
         private List<IMSILConstruction> _mSILConstructions;
         private List<IMSILConstruction> _body;
         private List<IASTNode> _nodes;
+
+        private List<string> _metkaList;
+        private List<string> _startWhileMetkaList;
+        private List<string> _finishWhileMetkaList;
+
         private int _nodeCounter;
         private int _metkaCounter;
-        private List<string> _metkaList;
+        private int _startWhileMetkaCounter;
+        private int _finishWhileMetkaCounter;
         private string _beginElseMetka;
 
         public ASTConverter()
@@ -28,6 +35,8 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
             _mSILConstructions = new List<IMSILConstruction>();
             _body = new List<IMSILConstruction>();
             _metkaList = new List<string>();
+            _startWhileMetkaList = new List<string>();
+            _finishWhileMetkaList = new List<string>();
             _metkaCounter = 0;
         }
 
@@ -45,6 +54,11 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
 
         private void ProccessASTNode( IASTNode node )
         {
+            if (isNeedToCreateDeclaration(node))
+            {
+                _body.Add( CreateDeclaration( node ) );
+            }
+
             if ( node.Nodes.Count >= 1 && node.Nodes [ 0 ].NodeType != NodeType.Leaf )
             {
                 ProccessASTNode( node.Nodes [ 0 ] );
@@ -174,9 +188,37 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
                     return CreateElseBegin( node );
                 case NodeType.IfElseEnd:
                     return CreateEndElse( node );
+                case NodeType.WhileTerm:
+                    return CreateWhileBegin( node );
+                case NodeType.WhileEnd:
+                    return CreateEndWhile( node );
                 default:
                     return null;
             }
+        }
+
+        private IMSILConstruction CreateWhileBegin( IASTNode node )
+        {
+            string metka = $"{Constants.FINISH_WHILE_METKA}_{_finishWhileMetkaCounter++}";
+            _finishWhileMetkaList.Add( metka );
+            return new WhileBegin( metka );
+        }
+
+        private IMSILConstruction CreateWhileDeclaration( IASTNode node )
+        {
+            string metka = $"{Constants.START_WHILE_METKA}_{_startWhileMetkaCounter++}";
+            _startWhileMetkaList.Add( metka );
+            return new WhileDeclaration( metka );
+        }
+
+        private IMSILConstruction CreateEndWhile( IASTNode node)
+        {
+            string startMetka = _startWhileMetkaList.Last();
+            string finishMetka = _finishWhileMetkaList.Last();
+
+            _startWhileMetkaList.RemoveAt( _startWhileMetkaList.Count - 1 );
+            _finishWhileMetkaList.RemoveAt( _finishWhileMetkaList.Count - 1 );
+            return new WhileEnd( startMetka, finishMetka );
         }
 
         private IMSILConstruction CreateIfBegin( IASTNode node )
@@ -390,6 +432,16 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
         private bool isElseBegin( IASTNode node )
         {
             return node.NodeType == NodeType.IfElseBegin;
+        }
+
+        private bool isNeedToCreateDeclaration( IASTNode node)
+        {
+            return node.NodeType == NodeType.WhileTerm;
+        }
+
+        private IMSILConstruction CreateDeclaration( IASTNode node)
+        {
+            return CreateWhileDeclaration( node );
         }
     }
 }
