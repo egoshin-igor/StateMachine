@@ -294,6 +294,21 @@ namespace SyntacticalAnalyzerGenerator.InsertActionsInSyntax
             );
         }
 
+        public void AddReadNode()
+        {
+            var nodes = new List<IASTNode>();
+            while ( _nodesStack.Any() )
+            {
+                nodes.Add( _nodesStack.Pop() );
+            }
+
+            _nodesStack.Push( new TreeNode(
+                NodeType.Read,
+                TermType.Read,
+                new List<IASTNode> { nodes[ 1 ], nodes[ 0 ] } )
+            );
+        }
+
         public void AddEqualityNode()
         {
             var nodes = new List<IASTNode>();

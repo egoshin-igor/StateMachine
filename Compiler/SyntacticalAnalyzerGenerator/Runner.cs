@@ -168,6 +168,9 @@ namespace SyntacticalAnalyzerGenerator
                 case ActionSourceType.WhileOperation:
                     DoWhileAction( actionNameData[ 1 ] );
                     break;
+                case ActionSourceType.ReadOperation:
+                    DoReadAction( actionNameData[ 1 ] );
+                    break;
                 default:
                     throw new NotImplementedException();
             }
@@ -266,6 +269,32 @@ namespace SyntacticalAnalyzerGenerator
                     break;
                 case SourceActionName.PrintGenerateNode:
                     _aSTGenerator.AddPrintNode();
+                    break;
+                default:
+                    throw new NotImplementedException( $"action: {actionName} not found" );
+            }
+        }
+
+        private void DoReadAction( string actionName )
+        {
+            switch ( actionName )
+            {
+                case SourceActionName.ReadSave:
+                    if ( _currentTerm.Type == TermType.Identifier )
+                    {
+                        Variable variable = _variablesTableController.GetVariable( _currentTerm.Id );
+                        if ( variable.Type.Type != TermType.Int && variable.Type.Type != TermType.Bool )
+                            throw new Exception( $"Invalid type to read: {variable.Type.Type.ToString()}" );
+                        _aSTGenerator.AddLeafNode( variable.Type );
+                        _aSTGenerator.AddLeafNode( variable.Identifier );
+                    }
+                    else
+                    {
+                        _aSTGenerator.AddLeafNode( _currentTerm );
+                    }
+                    break;
+                case SourceActionName.ReadGenerateNode:
+                    _aSTGenerator.AddReadNode();
                     break;
                 default:
                     throw new NotImplementedException( $"action: {actionName} not found" );

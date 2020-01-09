@@ -30,6 +30,9 @@
         public const string PrintGenerateNode = "GenerateNode";
         public const string PrintSave = "Save";
 
+        public const string ReadGenerateNode = "GenerateNode";
+        public const string ReadSave = "Save";
+
         public const string BoActionAfterBoolValue = "ActionAfterBoolValue";
         public const string BoActionAfterCompOperation = "ActionAfterCompOperation";
         public const string BoActionAfterCompSign = "ActionAfterCompSign";

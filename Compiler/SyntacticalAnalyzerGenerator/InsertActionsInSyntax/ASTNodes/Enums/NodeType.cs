@@ -27,6 +27,7 @@
         IfElseBegin,
         IfElseEnd,
         WhileTerm,
-        WhileEnd
+        WhileEnd,
+        Read
     }
 }

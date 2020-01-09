@@ -7,13 +7,9 @@ void main
 	int w`
 	int e`
 	@@@
-	q = 0`
-	while( q != 10 )
-	{
-		q = q + 1`
-	}
+	Read(q)`
 	a = false`
-	if ( ! a )
+	if ( ! a  )
 	{
 		q = 10`
 		b = true`
