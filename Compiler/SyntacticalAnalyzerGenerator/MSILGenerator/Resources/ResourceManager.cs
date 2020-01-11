@@ -130,6 +130,16 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.Resources
             return ReadResourceFromFile( ResourceFileRouter.DECLARE_METKA_ROUTE );
         }
 
+        public static string GetReadLineResource()
+        {
+            return ReadResourceFromFile( ResourceFileRouter.READ_LINE_ROUTE );
+        }
+
+        public static string GetParseStringResource()
+        {
+            return ReadResourceFromFile( ResourceFileRouter.PARSE_STRING_ROUTE );
+        }
+
         private static string ReadResourceFromFile( string path )
         {
             if ( !File.Exists( path ) )

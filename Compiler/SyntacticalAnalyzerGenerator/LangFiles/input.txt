@@ -6,12 +6,16 @@ void main
 	int q`
 	int w`
 	int e`
+	float l`
 	@@@
+	Read(l)`
+	Print(l)`
 	q = 0`
 	while (q != 10)
 	{
 		q = q + 1`
 	}
+	Read(q)`
 	Print(q)`
 	a = false`
 	if ( ! a  )

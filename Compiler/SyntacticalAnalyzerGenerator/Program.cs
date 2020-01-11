@@ -20,11 +20,11 @@ namespace SyntacticalAnalyzerGenerator
 
         static void Main( string[] args )
         {
-            // RunAsync( args ).Wait();
+             RunAsync( args ).Wait();
 
             try
             {
-                RunAsync( args ).Wait();
+          //      RunAsync( args ).Wait();
             }
             catch ( Exception ex )
             {
@@ -65,7 +65,7 @@ namespace SyntacticalAnalyzerGenerator
                 );
 
                 var astTrees = await runner.GetTrees();
-                await AstTreeVisualizer.VisualizeAsync( astTrees[ 6 ], $"{PathToLangFiles}/astTree.dot" );
+                //await AstTreeVisualizer.VisualizeAsync( astTrees[ 10 ], $"{PathToLangFiles}/astTree.dot" );
                 var msilConstructions = aSTConverter.GenerateMSILConstructions( astTrees );
                 msilGenerator.Generate( msilConstructions );
                 Console.WriteLine( "Success" );

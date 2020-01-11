@@ -29,5 +29,7 @@
         public static readonly string IF_OPERATION_ROUTE = $"{RESOURCE_DIRECTORY}\\BrFalseOperation.txt";
         public static readonly string GOTO_OPERATION = $"{RESOURCE_DIRECTORY}\\GotoOperation.txt";
         public static readonly string DECLARE_METKA_ROUTE = $"{RESOURCE_DIRECTORY}\\DeclareMetka.txt";
+        public static readonly string READ_LINE_ROUTE = $"{RESOURCE_DIRECTORY}\\ReadLineOperator.txt";
+        public static readonly string PARSE_STRING_ROUTE = $"{RESOURCE_DIRECTORY}\\ParseStringOperation.txt";
     }
 }

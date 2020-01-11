@@ -54,7 +54,13 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
 
         private void ProccessASTNode( IASTNode node )
         {
-            if (isNeedToCreateDeclaration(node))
+            if (IsSinglePassOperation(node))
+            {
+                _body.Add( CreateSinglePassOperation( node ) );
+                return;
+            }
+
+            if (IsNeedToCreateDeclaration(node))
             {
                 _body.Add( CreateDeclaration( node ) );
             }
@@ -229,7 +235,7 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
 
         private IMSILConstruction CreateEndIf( IASTNode node )
         {
-            bool isIfElseOperator = ( _nodeCounter < _nodes.Count - 1 ) && isElseBegin( _nodes [ _nodeCounter + 1 ] );
+            bool isIfElseOperator = ( _nodeCounter < _nodes.Count - 1 ) && IsElseBegin( _nodes [ _nodeCounter + 1 ] );
             if ( isIfElseOperator )
             {
                 _beginElseMetka = _metkaList.Last();
@@ -429,12 +435,12 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
             return $"{Constants.METKA}_{_metkaCounter++}";
         }
 
-        private bool isElseBegin( IASTNode node )
+        private bool IsElseBegin( IASTNode node )
         {
             return node.NodeType == NodeType.IfElseBegin;
         }
 
-        private bool isNeedToCreateDeclaration( IASTNode node)
+        private bool IsNeedToCreateDeclaration( IASTNode node)
         {
             return node.NodeType == NodeType.WhileTerm;
         }
@@ -442,6 +448,16 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
         private IMSILConstruction CreateDeclaration( IASTNode node)
         {
             return CreateWhileDeclaration( node );
+        }
+
+        private bool IsSinglePassOperation( IASTNode node)
+        {
+            return node.NodeType == NodeType.Read;
+        }
+
+        private IMSILConstruction CreateSinglePassOperation( IASTNode node)
+        {
+            return new ReadLineOperator( node.Nodes [ 0 ].Value, node.Nodes [ 1 ].Value );
         }
     }
 }

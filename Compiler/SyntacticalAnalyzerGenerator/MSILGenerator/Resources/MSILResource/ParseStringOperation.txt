@@ -1,0 +1,1 @@
+call {TYPE} [mscorlib]System.{U_TYPE}::Parse(string)

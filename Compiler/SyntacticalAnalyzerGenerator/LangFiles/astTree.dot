@@ -1,1 +1,1 @@
-digraph G{"=:Equality(Id:1)" [shape = box];"=:Equality(Id:1)"->"q:Leaf(Id:2)";"=:Equality(Id:1)"->"0:Leaf(Id:3)";}
+digraph G{":Read(Id:1)" [shape = box];":Read(Id:1)"->"int:Leaf(Id:2)";":Read(Id:1)"->"q:Leaf(Id:3)";}
