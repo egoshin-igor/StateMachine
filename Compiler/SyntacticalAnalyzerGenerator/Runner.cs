@@ -283,7 +283,7 @@ namespace SyntacticalAnalyzerGenerator
                     if ( _currentTerm.Type == TermType.Identifier )
                     {
                         Variable variable = _variablesTableController.GetVariable( _currentTerm.Id );
-                        if ( variable.Type.Type != TermType.Int && variable.Type.Type != TermType.Bool )
+                        if ( variable.Type.Type != TermType.Int && variable.Type.Type != TermType.Bool && variable.Type.Type != TermType.Float )
                             throw new Exception( $"Invalid type to read: {variable.Type.Type.ToString()}" );
                         _aSTGenerator.AddLeafNode( variable.Type );
                         _aSTGenerator.AddLeafNode( variable.Identifier );
