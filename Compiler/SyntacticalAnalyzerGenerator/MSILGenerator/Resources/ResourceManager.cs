@@ -45,6 +45,11 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.Resources
             return ReadResourceFromFile( ResourceFileRouter.ASSIGNMENT_OPERATOR_FOR_INTEGER_ROUTE );
         }
 
+        public static string GetAssignmentOperatorForFloatResource()
+        {
+            return ReadResourceFromFile( ResourceFileRouter.ASSIGNMENT_OPERATOR_FOR_FLOAT_ROUTE );
+        }
+
         public static string GetPushToStackIntegerResource()
         {
             return ReadResourceFromFile( ResourceFileRouter.PUSH_TO_STACK_INTEGER_ROUTE );

@@ -10,6 +10,7 @@ using SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.Util
 using SyntacticalAnalyzerGenerator.MSILGenerator.Utils;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace SyntacticalAnalyzerGenerator.MSILGenerator
@@ -54,13 +55,13 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
 
         private void ProccessASTNode( IASTNode node )
         {
-            if (IsSinglePassOperation(node))
+            if ( IsSinglePassOperation( node ) )
             {
                 _body.Add( CreateSinglePassOperation( node ) );
                 return;
             }
 
-            if (IsNeedToCreateDeclaration(node))
+            if ( IsNeedToCreateDeclaration( node ) )
             {
                 _body.Add( CreateDeclaration( node ) );
             }
@@ -107,6 +108,7 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
                     return CreatePushIntToStack( node );
                 case TermType.DecimalFixedPointNumber:
                 case TermType.Double:
+                case TermType.Float:
                     return CreatePushDoubleToStack( node );
                 case TermType.Bool:
                     return CreatePushBoolToStack( node );
@@ -217,7 +219,7 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
             return new WhileDeclaration( metka );
         }
 
-        private IMSILConstruction CreateEndWhile( IASTNode node)
+        private IMSILConstruction CreateEndWhile( IASTNode node )
         {
             string startMetka = _startWhileMetkaList.Last();
             string finishMetka = _finishWhileMetkaList.Last();
@@ -343,7 +345,8 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
                 {
                     return new AssignmentOperator( node.Nodes [ 0 ].Value, node.Nodes [ 1 ].Value );
                 }
-                return new AssignmentOperator( node.Nodes [ 0 ].Value, int.Parse( node.Nodes [ 1 ].Value ) );
+                return IsFloat( node.Nodes [ 1 ].TermType ) ? new AssignmentOperator( node.Nodes [ 0 ].Value, float.Parse( node.Nodes [ 1 ].Value, CultureInfo.InvariantCulture.NumberFormat ) )
+                    : new AssignmentOperator( node.Nodes [ 0 ].Value, int.Parse( node.Nodes [ 1 ].Value ) );
             }
             else
             {
@@ -357,6 +360,19 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
             return addingOperator;
         }
 
+        private bool IsFloat( TermType type )
+        {
+            switch ( type )
+            {
+                case TermType.DecimalFloatingPointNumber:
+                case TermType.Float:
+                case TermType.DecimalFixedPointNumber:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         private VariableType TermTypeToVariableType( TermType type )
         {
             switch ( type )
@@ -365,10 +381,11 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
                     return VariableType.Integer;
                 case TermType.Bool:
                     return VariableType.Bool;
-                case TermType.DecimalFixedPointNumber:
                 case TermType.DecimalWholeNumber:
                     return VariableType.Integer;
                 case TermType.DecimalFloatingPointNumber:
+                case TermType.DecimalFixedPointNumber:
+                case TermType.Float:
                     return VariableType.Float;
                 case TermType.String:
                     return VariableType.String;
@@ -440,24 +457,24 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator
             return node.NodeType == NodeType.IfElseBegin;
         }
 
-        private bool IsNeedToCreateDeclaration( IASTNode node)
+        private bool IsNeedToCreateDeclaration( IASTNode node )
         {
             return node.NodeType == NodeType.WhileTerm;
         }
 
-        private IMSILConstruction CreateDeclaration( IASTNode node)
+        private IMSILConstruction CreateDeclaration( IASTNode node )
         {
             return CreateWhileDeclaration( node );
         }
 
-        private bool IsSinglePassOperation( IASTNode node)
+        private bool IsSinglePassOperation( IASTNode node )
         {
             return node.NodeType == NodeType.Read;
         }
 
-        private IMSILConstruction CreateSinglePassOperation( IASTNode node)
+        private IMSILConstruction CreateSinglePassOperation( IASTNode node )
         {
-            return new ReadLineOperator( node.Nodes [ 0 ].Value, node.Nodes [ 1 ].Value );
+            return new ReadLineOperator( IsFloat(node.Nodes[0].TermType) ? "float" : node.Nodes [ 0 ].Value, node.Nodes [ 1 ].Value );
         }
     }
 }

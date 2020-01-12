@@ -12,6 +12,7 @@
         public static readonly string STACK_CAPACITY_ROUTE = $"{RESOURCE_DIRECTORY}\\StackCapacity.txt";
         public static readonly string VARIABLE_DECLARATION_OPERATOR_ROUTE = $"{RESOURCE_DIRECTORY}\\VariableDeclarationOperator.txt";
         public static readonly string ASSIGNMENT_OPERATOR_FOR_INTEGER_ROUTE = $"{RESOURCE_DIRECTORY}\\AssignmentOperatorForInteger.txt";
+        public static readonly string ASSIGNMENT_OPERATOR_FOR_FLOAT_ROUTE = $"{RESOURCE_DIRECTORY}\\AssignmentOperatorForFloat.txt";
         public static readonly string PUSH_TO_STACK_INTEGER_ROUTE = $"{RESOURCE_DIRECTORY}\\PushToStackInt.txt";
         public static readonly string PUSH_TO_STACK_VARIABLE_VALUE_ROUTE = $"{RESOURCE_DIRECTORY}\\PushToStackVariableValue.txt";
         public static readonly string ASSIGNMENT_OPERATOR_ROUTE = $"{RESOURCE_DIRECTORY}\\AssignmentOperator.txt";

@@ -11,6 +11,7 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.
         private Variable _resultVariable;
         private string _variableName;
         private int? _intValue = null;
+        private float? _floatValue = null;
         private int? _boolValue = null;
         private bool _isAssignmentFromStack = false;
 
@@ -25,6 +26,12 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.
         {
             _variableName = variableName;
             _intValue = value;
+        }
+
+        public AssignmentOperator( string variableName, float value )
+        {
+            _variableName = variableName;
+            _floatValue = value;
         }
 
         public AssignmentOperator( string variblaName, string boolValue )
@@ -52,7 +59,7 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.
             }
             else
             {
-                commandCode = ResourceManager.GetAssignmentOperatorForIntegerResource();
+                commandCode = GetAssigmentResource();
                 commandCode = commandCode.Replace( Constants.RESOURCE_VALUE_PARAMETER, GetValue() );
             }
             return commandCode.Replace( Constants.RESOURCE_RESULT, string.IsNullOrEmpty( _variableName ) ? _resultVariable.Name : _variableName );
@@ -65,12 +72,26 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.
                 return _intValue.ToString();
             }
 
+            if (_floatValue.HasValue)
+            {
+                return _floatValue.ToString();
+            }
+
             if (_boolValue.HasValue)
             {
                 return _boolValue.ToString();
             }
 
             throw new Exception( "Шеф, все пропало, нечего присваивать" );
+        }
+
+        private string GetAssigmentResource()
+        {
+            if ( _floatValue.HasValue )
+            {
+                return ResourceManager.GetAssignmentOperatorForFloatResource();
+            }
+            return ResourceManager.GetAssignmentOperatorForIntegerResource();
         }
     }
 }

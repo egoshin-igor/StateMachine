@@ -1,0 +1,2 @@
+ldc.r8 {VALUE}
+stloc {RESULT}

@@ -14,6 +14,9 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.Utils
                     return "string";
                 case VariableType.Integer:
                     return "int32";
+                case VariableType.Float:
+                case VariableType.Double:
+                    return "float32";
                 default:
                     return "";
             }

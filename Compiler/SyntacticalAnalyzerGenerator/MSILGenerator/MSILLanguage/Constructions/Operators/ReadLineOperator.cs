@@ -36,6 +36,8 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.
                     return "string";
                 case "bool":
                     return "int32";
+                case "float":
+                    return "float32";
                 default:
                     return "";
             }
@@ -43,12 +45,20 @@ namespace SyntacticalAnalyzerGenerator.MSILGenerator.MSILLanguage.Constructions.
 
         private string GetSystemType( string type )
         {
-            return "Int32";
+            switch ( type )
+            {
+                case "int32":
+                    return "Int32";
+                case "float32":
+                    return "Single";
+                default:
+                    return "";
+            }
         }
 
         private bool IsNeedToParseStringCommand()
         {
-            return _type == "int32";
+            return _type == "int32" || _type == "float32";
         }
     }
 }
